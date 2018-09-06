@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: ${server.context-path}/health
+        health-check-interval: 15s
+        instance-id: pcus-gateway
+  application:
+    name: pcus-gateway
+
+server:
+  port: 9090
+  context-path: /pcus
+zuul:
+  routes:
+    pcus-module-core:
+      path: /pcus/core/**
+      service-id: pcus-module-core
+    pcus-movie:
+      path: /movie/**
+      service-id: pcus-movie
+logging:
+  level:
+    com.netflix: DEBUG

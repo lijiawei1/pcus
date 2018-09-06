@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: ${server.context-path}/health
+        health-check-interval: 15s
+        instance-id: pcus-module-core
+  application:
+    name: pcus-module-core
+server:
+  port: 9091
+  context-path: /pcus/core
