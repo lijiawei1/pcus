@@ -9,7 +9,6 @@ spring:
         instance-id: pcus-gateway
   application:
     name: pcus-gateway
-
 server:
   port: 9090
   context-path: /pcus
@@ -24,6 +23,23 @@ zuul:
     pcus-movie:
       path: /movie/**
       service-id: pcus-movie
+    pcus-auth:
+      path: /auth/**
+      service-id: pcus-auth
 logging:
   level:
     com.netflix: DEBUG
+management:
+  security:
+    enabled: false
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
+      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
+      client-id: webapp
+    resource:
+      user-info-uri: http://localhost:9090/pcus/auth/user
+      prefer-token-info: false
+  basic:
+    enabled: false
