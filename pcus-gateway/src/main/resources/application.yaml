@@ -14,9 +14,12 @@ server:
   port: 9090
   context-path: /pcus
 zuul:
+  debug:
+    request: true
+  strip-prefix: false
   routes:
     pcus-module-core:
-      path: /pcus/core/**
+      path: /core/**
       service-id: pcus-module-core
     pcus-movie:
       path: /movie/**

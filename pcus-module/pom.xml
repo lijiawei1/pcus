@@ -14,7 +14,6 @@
     <modules>
         <module>pcus-module-core</module>
         <module>pcus-module-app</module>
-        <module>pcus-module-app</module>
     </modules>
 
 
