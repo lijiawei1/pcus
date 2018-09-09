@@ -9,6 +9,14 @@ spring:
         instance-id: pcus-gateway
   application:
     name: pcus-gateway
+  thymeleaf:
+    cache: false
+    ## 检查模板是否存在，然后再呈现
+    check-template-location: true
+    #Content-Type值
+    content-type: text/html
+    #启用MVC Thymeleaf视图分辨率
+    enabled: true
 server:
   port: 9090
   context-path: /pcus

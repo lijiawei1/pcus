@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <meta name="viewport" , content="width=device-width, initial-scale=1"/>
+    <link th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <title>登录页面</title>
 </head>
 <body>
@@ -10,15 +13,15 @@
     <table>
         <tr>
             <td>用户名：</td>
-            <td><input type="text" name="username"></td>
+            <td><input type="text" name="username" /></td>
         </tr>
         <tr>
             <td>密码：</td>
-            <td><input type="password" name="password"></td>
+            <td><input type="password" name="password" /></td>
         </tr>
         <tr>
             <td colspan="2">
-                <button type="submit">登录</button>
+                <button type="submit" >登录</button>
             </td>
         </tr>
     </table>

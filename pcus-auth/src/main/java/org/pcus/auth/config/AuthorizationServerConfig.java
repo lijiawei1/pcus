@@ -31,7 +31,7 @@ import javax.sql.DataSource;
 import java.security.KeyPair;
 
 /**
- * Created by wangyunfei on 2017/6/9.
+ * 开启授权服务器
  */
 @Configuration
 @EnableAuthorizationServer

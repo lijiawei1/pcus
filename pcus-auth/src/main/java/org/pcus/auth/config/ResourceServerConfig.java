@@ -14,7 +14,7 @@ import org.springframework.web.filter.CorsFilter;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by wangyunfei on 2017/6/9.
+ * 开启资源服务器
  */
 @Configuration
 @EnableResourceServer
