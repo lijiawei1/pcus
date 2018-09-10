@@ -1,0 +1,187 @@
+body, html, #allmap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: "Microsoft YaHei";
+}
+
+#allmap{
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+    height: 99%;
+}
+
+.hide #allmap{
+    border: none;
+}
+
+#layout {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+#layout .l-layout-center {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+#layout .l-layout-content {
+    height:100%;
+    background: transparent;
+}
+.l-centerbottom{
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    cursor:n-resize;
+}
+#layout .content-wrapper{
+    margin-left: 10px;
+    margin-right: 5px;
+    position: relative;
+    height: calc(100% - 50px);
+}
+
+#layout .l-layout-right {
+    border-top: 0;
+}
+
+#layout-right {
+    height: 100%;
+}
+
+.l-toolbar{
+    background-color: #d6dae6;
+}
+
+.l-grid-row-cell-inner {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.tabPanelWrapper {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.tabPanelWrapper .l-tab-links{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tabPanelWrapper .l-tab-links li{
+    height: 26px;
+    line-height: 26px;
+    top: 2px;
+}
+
+.tabPanelWrapper .l-tab-links li:hover span{
+    color: #aaa;
+}
+
+.tabPanelWrapper .l-tab-links li:hover.tab-oper{
+    background: transparent;
+}
+
+.tabPanelWrapper .l-tab-links li.l-selected,
+.tabPanelWrapper .l-tab-links li.l-selected:hover {
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #d6d6d6;
+}
+
+.tabPanelWrapper .l-tab-links li.l-selected{
+    background: #e1e1e1;
+}
+
+.tabPanelWrapper .l-tab-links li:hover{
+    background: #f4f4f4;
+}
+
+.tabPanelWrapper .l-tab-links ul {
+    width: 100%;
+}
+
+#mainTreeWrapper {
+    overflow: auto;
+    height: 100%;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: block;
+    border-bottom: 1px #eee solid;
+}
+
+.gridWrapper {
+    height: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.gridWrapper>.l-panel{
+    width: auto !important;
+    margin: 0 1px;
+}
+
+/*异常*/
+.car-running, .tab-running {
+    color: #006600;
+}
+
+/*停车*/
+.car-parking, .tab-parking {
+    color: #483D8B;
+}
+
+/*报警*/
+.car-warning, .tab-warning {
+    color: #970304;
+}
+.car-abnormal, .tab-abnormal {
+    color: #9E9E9E;
+}
+
+.tab-oper {
+    float: right;
+}
+
+.tab-all,.tab-running,.tab-parking, .tab-warning,.tab-abnormal {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    background: url("/images/tvs/msg-count.png") no-repeat center;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.map-content {
+    height: 162px;
+    overflow: auto;
+    margin-bottom: 32px;
+}
+
+.map-content table td {
+    font-size: 12px;
+    padding: 2px;
+    vertical-align: top;
+}
+
+.map-content table td h2 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5a667d;
+    width: 80px;
+}

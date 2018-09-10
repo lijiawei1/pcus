@@ -1,0 +1,67 @@
+.list-icon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 3px;
+    background-size: 100% 100%;
+    /*font-size: 12px;*/
+    /*line-height: 16px;*/
+    /*position: relative;*/
+    /*color: #fff;*/
+    /*text-align: center;*/
+}
+/*.list-icon:before{*/
+    /*position: relative;*/
+    /*z-index: 2;*/
+/*}*/
+/*.list-icon:after{*/
+    /*position: absolute;*/
+    /*content: '';*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*z-index: 1;*/
+    /*border-radius: 5px;*/
+    /*border-width: 9px;*/
+    /*border-style: solid;*/
+/*}*/
+.list-text{
+    display: inline-block;
+    vertical-align: middle;
+}
+.arrived{
+    background-image: url("/images/tms/arrived-small.png");
+}
+/*.arrived:before{*/
+    /*content: '抵';*/
+/*}*/
+/*.arrived:after{*/
+    /*border-top-color: rgb(60, 110, 190);*/
+    /*border-left-color: rgb(60, 110, 190);*/
+    /*border-bottom-color: rgb(40, 95, 170);*/
+    /*border-right-color: rgb(40, 95, 170);*/
+/*}*/
+.load{
+    background-image: url("/images/tms/load-small.png");
+}
+/*.load:before{*/
+    /*content: '装';*/
+/*}*/
+/*.load:after{*/
+    /*border-top-color: rgb(250, 190, 30);*/
+    /*border-left-color: rgb(250, 190, 30);*/
+    /*border-bottom-color: rgb(240, 170, 25);*/
+    /*border-right-color: rgb(240, 170, 25);*/
+/*}*/
+.unload{
+    background-image: url("/images/tms/unload-small.png");
+}
+/*.unload:before{*/
+    /*content: '卸';*/
+/*}*/
+/*.unload:after{*/
+    /*border-top-color: rgb(230, 65, 145);*/
+    /*border-left-color: rgb(230, 65, 145);*/
+    /*border-bottom-color: rgb(220, 50, 120);*/
+    /*border-right-color: rgb(220, 50, 120);*/
+/*}*/

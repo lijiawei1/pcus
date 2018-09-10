@@ -1,0 +1,8 @@
+/*隐藏图标*/
+.l-tree .l-tree-icon{
+    display: none;
+}
+/*更改图片*/
+.l-tree .l-box{
+    background-image: url("../images/tree/tree.png");
+}

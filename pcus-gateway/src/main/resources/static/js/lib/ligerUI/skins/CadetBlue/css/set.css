@@ -1,0 +1,41 @@
+/* -----------------------
+   * set *
+* ----------------------- */
+.l-set-box{
+    width: 100%;
+    position: relative;
+}
+.l-set-box .l-text-field{
+    width: calc(100% - 20px);
+}
+
+.l-set-select{
+    padding: 5px;
+}
+.l-set-select div{
+    display: inline-block;
+}
+.l-set-select .l-set-ebox{
+    width: calc((100% - 20px) / 2);
+}
+
+.l-set-select .l-set-ebox .l-set-enter{
+    margin-left: 5px;
+    width: calc(100% - 20px);
+    vertical-align: middle;
+}
+.l-set-select .l-set-ebox .l-set-radio{
+    vertical-align: middle;
+}
+.l-set-select .l-set-symbol{
+    margin: 0 5px;
+}
+.l-set-select .l-set-buttonbox {
+    margin: 15px auto 0;
+    width: 100%;
+    text-align: center;
+}
+
+.l-set-box .show-select{
+    display: block;
+}

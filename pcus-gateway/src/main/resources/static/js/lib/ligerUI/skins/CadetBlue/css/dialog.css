@@ -1,0 +1,219 @@
+﻿.l-window-mask{
+    filter: alpha(opacity=15);
+    opacity: .15;
+}
+/* --------------
+  *   dialog  *
+* ------------ */
+.l-dialog-loading { background-image: url('../images/ui/loading.gif'); }
+
+.l-dialog {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    border: 1px solid #d6dae6;
+    border-radius: 10px;
+    background-color: #fafeff;
+    box-shadow: none;
+}
+
+.l-dialog td, .l-dialog tr, .l-dialog td div { font-size: 12px; }
+
+.l-dialog-cc {
+    background: transparent;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.l-dialog-tl, .l-dialog-tr, .l-dialog-bl, .l-dialog-br, .l-dialog-cl, .l-dialog-cr { width: 0; }
+
+.l-dialog-tl, .l-dialog-tc, .l-dialog-tr { height: 24px; }
+
+.l-dialog-bl, .l-dialog-bc, .l-dialog-br { height: 0px; line-height: 0px; }
+
+.l-dialog-tl { background: none; border-bottom: 1px solid #f5f5f5; }
+
+.l-dialog-tc {
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #d6dae6;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.l-dialog-tr { background: none; border-bottom: 1px solid #f5f5f5; }
+
+.l-dialog-bl { background: none; }
+
+.l-dialog-bc { background: none; }
+
+.l-dialog-br { background: none; }
+
+.l-dialog-cl { background: none; }
+
+.l-dialog-cr { background: none; }
+
+.l-dialog-cl { background: none; }
+
+.l-dialog-cl, .l-dialog-cc, .l-dialog-cr { border-top: 1px solid #d3d3d3; }
+
+.l-dialog-icon {
+    display: none;
+}
+
+.l-dialog-winbtns { position: absolute; right: 0px; top: 4px; height: 16px; }
+
+.l-dialog-winbtn { background: url('../images/win/dialog-winbtns.gif') no-repeat; cursor: pointer; overflow: hidden; width: 17px; height: 16px; float: right; margin-right: 4px; }
+.l-dialog td .l-dialog-close{
+    font-size: 16px;
+}
+.l-dialog-close {
+    background-image: none;
+    line-height: 16px;
+    margin-right: 10px;
+    color: #39485b;
+}
+.l-dialog-close:before{
+    content: '\d7';
+}
+
+.l-dialog-close-over { background-position: -85px -16px; }
+
+.l-dialog-close-disabled { background-position: -85px -32px; cursor: default; }
+
+.l-dialog-min { background-position: 0px 0px; }
+
+.l-dialog-min-over { background-position: 0px -16px; }
+
+.l-dialog-min-disabled { background-position: 0px -32px; cursor: default; }
+
+.l-dialog-max { background-position: -17px 0px; }
+
+.l-dialog-max-over { background-position: -17px -16px; }
+
+.l-dialog-max-disabled { background-position: -17px -32px; cursor: default; }
+
+.l-dialog-recover { background-position: -34px 0px; }
+
+.l-dialog-recover-over { background-position: -34px -16px; }
+
+.l-dialog-recover-disabled { background-position: -34px -32px; cursor: default; }
+
+.l-dialog-collapse { background-position: -51px 0px; }
+
+.l-dialog-collapse-over { background-position: -51px -16px; }
+
+.l-dialog-collapse-disabled { background-position: -51px -32px; cursor: default; }
+
+.l-dialog-extend { background-position: -68px 0px; }
+
+.l-dialog-extend-over { background-position: -68px -16px; }
+
+.l-dialog-extend-disabled { background-position: -68px -32px; cursor: default; }
+
+.l-dialog-tc-inner { position: relative; height: 24px; line-height: 24px; width: 100%; }
+
+.l-dialog-title { color: #364860; font-weight: normal; text-shadow: none; padding-left: 3px; padding-right: 20px; text-align: left; padding-top: 0px; }
+
+.l-dialog-buttons { height: 30px; line-height: 30px; background: #F8F8F8; border-top: 1px solid #C6C6C6; overflow: hidden; margin-bottom: 0px; }
+
+.l-dialog-buttons-inner { }
+
+.l-dialog-inputtext { width: 280px; border: 1px solid #0099CC; line-height: 23px; height: 25px; }
+
+.l-dialog-textarea { width: 280px; border: 1px solid #0099CC; height: 80px; }
+
+.l-selectorwin .l-dialog-content {
+    overflow: hidden; padding: 0px;
+}
+
+.l-selectorwin .l-dialog-content .l-form {
+    margin: 0; padding: 2px; background: #F8F8F8; border-bottom: 1px solid #C6C6C6;
+}
+
+.l-selectorwin .l-dialog-buttons {
+    margin-top: 0;
+}
+
+.l-selectorwin .l-panel {
+    border: 0;
+}
+/*无图对话框*/
+.l-dialog-content-noimage{
+    padding: 10px;
+}
+/*图标对话框*/
+.l-dialog-image{
+    display: none !important;
+}
+.l-dialog-image + .l-dialog-content{
+    padding: 14px 0 12px 18px !important;
+}
+/*选择对话框*/
+.l-selectorwin .l-dialog-content{
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.l-selectorwin .l-dialog-content .l-form{
+    background: #fff;
+    border: none;
+    padding: 8px 0;
+}
+.l-selectorwin .l-panel{
+    border: 1px solid #dfdfdf;
+}
+.l-selectorwin .l-panel .l-grid-hd-row .l-grid-hd-cell-last ,
+.l-selectorwin .l-panel .l-grid-row .l-grid-row-cell-last {
+    border-right: none;
+}
+/*弹窗按钮*/
+.l-dialog-buttons{
+    background: transparent;;
+    border-top: none;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: center;
+}
+.l-dialog-buttons-inner{
+    display: inline-block;
+}
+.l-dialog-buttons-inner .l-dialog-btn{
+    background: none;
+}
+.l-dialog-buttons-inner .l-dialog-btn .l-dialog-btn-inner{
+    border: 1px solid #4b6281;
+    border-radius: 10px;
+    line-height: 23px;
+}
+.l-dialog-buttons-inner .l-dialog-btn:nth-last-of-type(2) .l-dialog-btn-inner{
+    background-color: #4b6281;
+}
+.l-dialog-buttons-inner .l-dialog-btn:nth-last-of-type(3) .l-dialog-btn-inner{
+    color:#4b6281;
+    background-color: #fff;
+}
+.l-dialog-btn{
+    width: 62px;
+    height: 25px;
+    color:#fff;
+    border:none;
+    border-radius: 0;
+    margin: 0 20px;
+    font-family: "Microsoft YaHei";
+    box-shadow: none;
+}
+.l-dialog-btn:hover{
+    color: #fff;
+    opacity: .85;
+}
+.l-dialog-btn:active{
+    -ms-transform: scale(.95,.95);
+    -webkit-transform: scale(.95,.95);
+    -o-transform: scale(.95,.95);
+    -moz-transform: scale(.95,.95);
+    transform: scale(.95,.95);
+}

@@ -1,0 +1,643 @@
+/*树列表
+=================================*/
+/*隐藏图标*/
+.l-tree .l-tree-icon{
+    display: none;
+}
+/*更改图片*/
+.l-tree .l-box{
+    background-image: url("/js/lib/ligerUI/skins/CadetBlue/images/tree/tree.png");
+}
+/*表格样式
+===========================*/
+/*加上边框*/
+.l-panel {
+    outline: 1px solid #D6D6D6;
+}
+.l-grid-header-inner,
+.l-grid-body-inner{
+    margin-left: -2px;
+}
+/*表头*/
+.l-grid-header{
+    background: none;
+}
+.l-grid-hd-cell-text{
+    font-weight: normal;
+}
+/*空的表格一律隐藏*/
+.l-grid-body-inner:empty {
+    display: none;
+}
+/*行颜色*/
+.l-grid-row-alt .l-grid-row-cell{/*相间行*/
+    background: #eef7ff;
+}
+.l-grid-row-over .l-grid-row-cell{/*鼠标悬浮行*/
+    background: #fcf8e3;
+}
+.l-selected .l-grid-row-cell, .l-selected {/*选择行*/
+    background: #aed8f3;
+}
+/*多选框*/
+.l-grid-row-cell-checkbox span, .l-grid-hd-cell-checkbox .l-grid-hd-cell-inner div{
+    width: 14px;
+    height: 14px;
+    border:1px solid #aeaeae;
+    margin: 7px 0 0 5.5px;
+    background: #fff;
+    position: relative;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.l-grid-hd-cell-checkbox .l-grid-hd-cell-inner div{
+    margin-top: 6px;
+    border-color: #384661;
+}
+.l-selected .l-grid-row-cell-checkbox span:before, .l-selected .l-grid-hd-cell-checkbox .l-grid-hd-cell-inner div:before,
+.l-checked .l-grid-row-cell-checkbox span:before, .l-checked .l-grid-hd-cell-checkbox .l-grid-hd-cell-inner div:before{
+    content: "\02713";
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 16px;
+}
+/*单元格*/
+.l-grid-row-cell-inner {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /*强行修改高度*/
+    line-height: 30px;
+    height: 30px !important;
+    min-height: 30px !important;
+    /*强行居中*/
+    text-align: center !important;
+}
+/*底部工具条*/
+.l-panel-bbar-inner{
+    margin-top: 0;
+    height: 100%;
+}
+.l-bar-group{
+    height: 100%;
+}
+.l-bar-group.l-bar-selectpagesize{
+    margin-top: 0;
+}
+.l-bar-button{
+    height: 100%;
+    margin-top: 0;
+}
+.l-bar-button span{
+    margin-left: 3px;
+    margin-top: 7px;
+}
+/*ligerui的图片没有统一标准，在此修正*/
+.l-bar-btnprev span,
+.l-bar-btnnext span{
+    margin-top: 6px;
+}
+/*表单
+============================*/
+/*文本输入框*/
+.l-text,
+.l-textarea,
+.l-textarea:hover,
+.l-textarea:focus{
+    border-color: #b5cff2;
+}
+.l-textarea[readonly],
+.l-textarea[disabled]{
+    background: #f0f0f0;
+}
+/*弹窗
+============================*/
+.l-window-mask{
+    filter: alpha(opacity=15);
+    opacity: .15;
+}
+/*圆角*/
+.l-dialog{
+    border-radius: 0px;
+}
+.l-dialog-tc{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.l-dialog-cc{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.l-dialog-tc{
+    background: #ececec;
+    border-bottom: 1px solid #e5e5e5;
+}
+.l-dialog-title{
+    font-weight: normal;
+}
+/*无图对话框*/
+.l-dialog-content-noimage{
+    padding: 10px;
+}
+/*图标对话框*/
+.l-dialog-image{
+    display: none !important;
+}
+.l-dialog-image + .l-dialog-content{
+    padding: 14px 0 12px 18px !important;
+}
+/*选择对话框*/
+.l-selectorwin .l-dialog-content{
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.l-selectorwin .l-dialog-content .l-form{
+    background: #fff;
+    border: none;
+    padding: 8px 0;
+}
+.l-selectorwin .l-panel{
+    border: 1px solid #dfdfdf;
+}
+.l-selectorwin .l-panel .l-grid-hd-row .l-grid-hd-cell-last ,
+.l-selectorwin .l-panel .l-grid-row .l-grid-row-cell-last {
+    border-right: none;
+}
+/*弹窗按钮*/
+.l-dialog-buttons{
+    background: #fff;
+    border-top: none;
+    padding: 8px;
+    border-radius: 0;
+    text-align: center;
+}
+.l-dialog-buttons-inner{
+    display: inline-block;
+}
+.l-dialog-buttons-inner .l-dialog-btn{
+    background: none;
+}
+.l-dialog-buttons-inner .l-dialog-btn .l-dialog-btn-inner{
+    border: 1px solid #3569bd;
+    border-radius: 10px;
+    line-height: 23px;
+}
+.l-dialog-buttons-inner .l-dialog-btn:nth-last-of-type(2) .l-dialog-btn-inner{
+    background-color: #3569bd;
+}
+.l-dialog-buttons-inner .l-dialog-btn:nth-last-of-type(3) .l-dialog-btn-inner{
+    color:#3569bd;
+    background-color: #fff;
+}
+.l-dialog-btn{
+    width: 62px;
+    height: 25px;
+    color:#fff;
+    border:none;
+    border-radius: 0;
+    margin: 0 20px;
+    font-family: "Microsoft YaHei";
+    box-shadow: none;
+}
+.l-dialog-btn:hover{
+    color: #fff;
+    opacity: .85;
+}
+.l-dialog-btn:active{
+    -ms-transform: scale(.95,.95);
+    -webkit-transform: scale(.95,.95);
+    -o-transform: scale(.95,.95);
+    -moz-transform: scale(.95,.95);
+    transform: scale(.95,.95);
+}
+/*按钮
+==============================*/
+.l-panel-btn-over, .l-panel-btn-selected{
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding-top: 1px;
+}
+.l-button{
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid #3569bd;
+    background-image: none;
+}
+.l-button + .l-button{
+    margin-left: 9px;
+}
+.l-button:active{
+    -ms-transform: scale(.95,.95);
+    -webkit-transform: scale(.95,.95);
+    -o-transform: scale(.95,.95);
+    -moz-transform: scale(.95,.95);
+    transform: scale(.95,.95);
+}
+.l-button:nth-of-type(odd){
+    color:#fff;
+    background: #3569bd;
+}
+.l-button:nth-of-type(even){
+    color:#3569bd;
+    background: #fff;
+}
+.l-button-over,.l-button:hover{
+    background-image: none;
+    border-color: #3569bd;
+    opacity: .85;
+}
+/*日历
+=============================*/
+.l-box-dateeditor-header {
+    background: #3569bd;
+}
+.l-box-dateeditor-header-btn span{
+    display: none;
+}
+.l-box-dateeditor-header-btn{
+    color: #fff;
+    background: none;
+    font-size: 23px;
+    line-height: 18px;
+    height: 23px;
+    top: 0;
+}
+.l-box-dateeditor-header-prevyear:before{
+    content: "\000AB";
+}
+.l-box-dateeditor-header-prevmonth:before{
+    content: "\02039";
+}
+.l-box-dateeditor-header-nextmonth:before{
+    content: "\0203A";
+}
+.l-box-dateeditor-header-nextyear:before{
+    content: "\000BB";
+}
+.l-box-dateeditor-body thead td{
+    background: #e1edfc;
+}
+.l-box-dateeditor-toolbar{
+    background: #fff;
+    text-align: center;
+    padding-left: 0;
+}
+.l-box-dateeditor-toolbar>.l-button{
+    float: none;
+    display: inline-block;
+    margin: 4px 5px 0;
+}
+.l-box-dateeditor-time{
+    width: 35px;
+    margin-left: 5px;
+}
+/*图标修改
+ ===========================*/
+.l-toolbar-item .l-icon{
+    top:3px;
+}
+.l-icon:active,
+.l-panel-btn-over:active .l-icon{
+    -ms-transform: scale(.875,.875);
+    -webkit-transform: scale(.875,.875);
+    -o-transform: scale(.875,.875);
+    -moz-transform: scale(.875,.875);
+    transform: scale(.875,.875);
+}
+/*所有图标*/
+.l-icon{
+    background: url("/images/icon.png") no-repeat;
+}
+/*刷新*/
+.l-icon-refresh{
+    background-position: -16px -96px;
+}
+.l-icon-refresh:hover,
+.l-panel-btn-over .l-icon-refresh{
+    background-position: -16px -112px;
+}
+.l-icon-refresh:active,
+.l-panel-btn-over:active .l-icon-refresh{
+    background-position: -16px -96px;
+}
+/*增加*/
+.l-icon-add{
+    background-position: -64px -96px;
+}
+.l-icon-add:hover,
+.l-panel-btn-over .l-icon-add{
+    background-position: -64px -112px;
+}
+.l-icon-add:active,
+.l-panel-btn-over:active .l-icon-add{
+    background-position: -64px -96px;
+}
+/*编辑*/
+.l-icon-edit{
+    background-position: -16px 0;
+}
+.l-icon-edit:hover,
+.l-panel-btn-over .l-icon-edit{
+    background-position: -16px -16px;
+}
+.l-icon-edit:active,
+.l-panel-btn-over:active .l-icon-edit{
+    background-position: -16px 0;
+}
+/*删除*/
+.l-icon-delete{
+    background-position: -32px -96px;
+}
+.l-icon-delete:hover,
+.l-panel-btn-over .l-icon-delete{
+    background-position: -32px -112px;
+}
+.l-icon-delete:active,
+.l-panel-btn-over:active .l-icon-delete{
+    background-position: -32px -96px;
+}
+/*配置*/
+.l-icon-config{
+    background-position: -48px -64px;
+}
+.l-icon-config:hover,
+.l-panel-btn-over .l-icon-config{
+    background-position: -48px -80px;
+}
+.l-icon-config:active,
+.l-panel-btn-over:active .l-icon-config{
+    background-position: -48px -64px;
+}
+/*导出*/
+.l-icon-export{
+    background-position: -16px -32px;
+}
+.l-icon-export:hover,
+.l-panel-btn-over .l-icon-export{
+    background-position: -16px -48px;
+}
+.l-icon-export:active,
+.l-panel-btn-over:active .l-icon-export{
+    background-position: -16px -32px;
+}
+/*查看*/
+.l-icon-see{
+    background-position: -32px -144px;
+}
+.l-icon-see:hover,
+.l-panel-btn-over .l-icon-see{
+    background-position: -48px -144px;
+}
+.l-icon-see:active,
+.l-panel-btn-over:active .l-icon-see{
+    background-position: -32px -144px;
+}
+/*审核*/
+.l-icon-audit{
+    background-position: -128px -64px;
+}
+.l-icon-audit:hover,
+.l-panel-btn-over .l-icon-audit{
+    background-position: -128px -80px;
+}
+.l-icon-audit:active,
+.l-panel-btn-over:active .l-icon-audit{
+    background-position: -128px -64px;
+}
+/*反审核*/
+.l-icon-unaudit{
+    background-position: -112px -64px;
+}
+.l-icon-unaudit:hover,
+.l-panel-btn-over .l-icon-unaudit{
+    background-position: -112px -80px;
+}
+.l-icon-unaudit:active,
+.l-panel-btn-over:active .l-icon-unaudit{
+    background-position: -112px -64px;
+}
+/*提交*/
+.l-icon-submit{
+    background-position: -32px -64px;
+}
+.l-icon-submit:hover,
+.l-panel-btn-over .l-icon-submit{
+    background-position: -32px -80px;
+}
+.l-icon-submit:active,
+.l-panel-btn-over:active .l-icon-submit{
+    background-position: -32px -64px;
+}
+/*取消提交*/
+.l-icon-unsubmit{
+    background-position: -64px -0px;
+}
+.l-icon-unsubmit:hover,
+.l-panel-btn-over .l-icon-unsubmit{
+    background-position: -64px -16px;
+}
+.l-icon-unsubmit:active,
+.l-panel-btn-over:active .l-icon-unsubmit{
+    background-position: -64px -0px;
+}
+/*回车登记*/
+.l-icon-back{
+    background-position: -128px -0px;
+}
+.l-icon-back:hover,
+.l-panel-btn-over .l-icon-back{
+    background-position: -128px -16px;
+}
+.l-icon-back:active,
+.l-panel-btn-over:active .l-icon-back{
+    background-position: -128px -0px;
+}
+/*取消回车登记*/
+.l-icon-unback{
+    background-position: -128px -32px;
+}
+.l-icon-unback:hover,
+.l-panel-btn-over .l-icon-unback{
+    background-position: -128px -48px;
+}
+.l-icon-unback:active,
+.l-panel-btn-over:active .l-icon-unback{
+    background-position: -128px -32px;
+}
+/*重置密码*/
+.l-icon-lock{
+    background-position: -112px -128px;
+}
+.l-icon-lock:hover,
+.l-panel-btn-over .l-icon-lock{
+    background-position: -128px -128px;
+}
+.l-icon-lock:active,
+.l-panel-btn-over:active .l-icon-lock{
+    background-position: -112px -128px;
+}
+/*分配角色*/
+.l-icon-role{
+    background-position: -112px -112px;
+}
+.l-icon-role:hover,
+.l-panel-btn-over .l-icon-role{
+    background-position: -128px -112px;
+}
+.l-icon-role:active,
+.l-panel-btn-over:active .l-icon-role{
+    background-position: -112px -112px;
+}
+/*分配*/
+.l-icon-grant{
+    background-position: -80px -128px;
+}
+.l-icon-grant:hover,
+.l-panel-btn-over .l-icon-grant{
+    background-position: -96px -128px;
+}
+.l-icon-grant:active,
+.l-panel-btn-over:active .l-icon-grant{
+    background-position: -80px -128px;
+}
+/*加载*/
+.l-icon-load{
+    background-position: -80px -144px;
+}
+.l-icon-load:hover,
+.l-panel-btn-over .l-icon-load{
+    background-position: -96px -144px;
+}
+.l-icon-load:active,
+.l-panel-btn-over:active .l-icon-load{
+    background-position: -80px -144px;
+}
+/*管理*/
+.l-icon-manage{
+    background-position: -112px -144px;
+}
+.l-icon-manage:hover,
+.l-panel-btn-over .l-icon-manage{
+    background-position: -128px -144px;
+}
+.l-icon-manage:active,
+.l-panel-btn-over:active .l-icon-manage{
+    background-position: -112px -144px;
+}
+/*权限*/
+.l-icon-auth{
+    background-position: -0px -160px;
+}
+.l-icon-auth:hover,
+.l-panel-btn-over .l-icon-auth{
+    background-position: -16px -160px;
+}
+.l-icon-auth:active,
+.l-panel-btn-over:active .l-icon-auth{
+    background-position: -0px -160px;
+}
+/*组织*/
+.l-icon-org{
+    background-position: -32px -160px;
+}
+.l-icon-org:hover,
+.l-panel-btn-over .l-icon-org{
+    background-position: -48px -160px;
+}
+.l-icon-org:active,
+.l-panel-btn-over:active .l-icon-org{
+    background-position: -32px -160px;
+}
+/*任务*/
+.l-icon-task{
+    background-position: -64px -160px;
+}
+.l-icon-task:hover,
+.l-panel-btn-over .l-icon-task{
+    background-position: -80px -160px;
+}
+.l-icon-task:active,
+.l-panel-btn-over:active .l-icon-task{
+    background-position: -64px -160px;
+}
+/*邮箱*/
+.l-icon-mail{
+    background-position: -96px -160px;
+}
+.l-icon-mail:hover,
+.l-panel-btn-over .l-icon-mail{
+    background-position: -112px -160px;
+}
+.l-icon-mail:active,
+.l-panel-btn-over:active .l-icon-mail{
+    background-position: -96px -160px;
+}
+/*消息*/
+.l-icon-msg{
+    background-position: -112px -96px;
+}
+.l-icon-msg:hover,
+.l-panel-btn-over .l-icon-msg{
+    background-position: -128px -96px;
+}
+.l-icon-msg:active,
+.l-panel-btn-over:active .l-icon-msg{
+    background-position: -112px -96px;
+}
+/*自定义*/
+.l-icon-custom{
+    background-position: -0px -176px;
+}
+.l-icon-custom:hover,
+.l-panel-btn-over .l-icon-custom{
+    background-position: -16px -176px;
+}
+.l-icon-custom:active,
+.l-panel-btn-over:active .l-icon-custom{
+    background-position: -0px -176px;
+}
+/*锁定*/
+.l-icon-lockBtn{
+    background-position: -32px -176px;
+}
+.l-icon-lockBtn:hover,
+.l-panel-btn-over .l-icon-lockBtn{
+    background-position: -48px -176px;
+}
+.l-icon-lockBtn:active,
+.l-panel-btn-over:active .l-icon-lockBtn{
+    background-position: -32px -176px;
+}
+/*解锁*/
+.l-icon-unlockBtn{
+    background-position: -64px -176px;
+}
+.l-icon-unlockBtn:hover,
+.l-panel-btn-over .l-icon-unlockBtn{
+    background-position: -80px -176px;
+}
+.l-icon-unlockBtn:active,
+.l-panel-btn-over:active .l-icon-unlockBtn{
+    background-position: -64px -176px;
+}
+/*完成*/
+.l-icon-finish{
+    background-position: -64px -64px;
+}
+.l-icon-finish:hover,
+.l-panel-btn-over .l-icon-finish{
+    background-position: -64px -80px;
+}
+.l-icon-finish:active,
+.l-panel-btn-over:active .l-icon-finish{
+    background-position: -64px -64px;
+}

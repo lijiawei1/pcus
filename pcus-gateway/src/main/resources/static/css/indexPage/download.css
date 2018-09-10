@@ -1,0 +1,145 @@
+body{
+    background-color: #ecf5fa;
+}
+.header{
+    position: relative;
+}
+.copy-right{
+    position: relative;
+}
+.main-wrap{
+    width: 100%;
+    height: 100%;
+    margin-top: -139px;
+    padding-top: 139px;
+}
+@media all and (max-width: 1440px){
+    .main-wrap{
+        margin-top: -119px;
+        padding-top: 119px;
+    }
+}
+.main{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url("/images/indexPage/download/bg.jpg") no-repeat center;
+    background-size: cover;
+}
+.main-inner{
+    width: 1100px;
+    height: 60%;
+    max-height: 530px;/*手机图片的高度*/
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left: -600px;
+}
+@media screen and (max-height: 600px){
+    .main-inner{
+        height: 70%;
+        top: 15%;
+    }
+}
+/*左侧
+============================*/
+.main-inner .left{
+    width: 554px;
+    height: 100%;
+    background: url("/images/indexPage/download/phone.png") no-repeat center;
+    background-size: contain;
+}
+/*右侧
+===========================*/
+.main-inner .right{
+    width: 510px;
+    height: 100%;
+    position: relative;
+}
+/*文字*/
+.main-inner .title{
+    font-size: 36px;
+    margin-bottom: 36px;
+}
+.main-inner .title .big{
+    font-size: 60px;
+    margin-right: 20px;
+}
+.main-inner .desc{
+    font-size: 18px;
+    margin-bottom: 36px;
+}
+@media screen and (max-height: 700px){
+    .main-inner .title{
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+    .main-inner .title .big{
+        font-size: 40px;
+        margin-right: 15px;
+    }
+    .main-inner .desc{
+        margin-bottom: 20px;
+    }
+}
+/*@media screen and (max-height: 600px){*/
+    /*.main-inner .title{*/
+        /*font-size: 20px;*/
+        /*margin-bottom: 10px;*/
+    /*}*/
+    /*.main-inner .title .big{*/
+        /*font-size: 36px;*/
+        /*margin-right: 15px;*/
+    /*}*/
+    /*.main-inner .desc{*/
+        /*font-size: 16px;*/
+        /*margin-bottom: 10px;*/
+    /*}*/
+/*}*/
+/*下载区域*/
+.main-inner .r-bottom{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.main-inner .btn-download{
+    display: block;
+    width: 250px;
+    height: 57px;
+    line-height: 57px;
+    padding-left: 35px;
+    border-radius: 10px;
+    position: relative;
+}
+.main-inner .btn-download+.btn-download{
+    margin-top: 46px;
+}
+.main-inner .btn-download:before{
+    content: "";
+    width: 25px;
+    height: 100%;
+    background: no-repeat center;
+    position: absolute;
+    left: 20px;
+}
+.main-inner .android.btn-download:before{
+    background-image: url("/images/indexPage/download/android.png");
+}
+.main-inner .ios.btn-download:before{
+    background-image: url("/images/indexPage/download/ios.png");
+}
+.main-inner .qrcode{
+    width: 165px;
+    height: 165px;
+    background: url("/upload/resource/qrcode.png") no-repeat center;
+    background-size: contain;
+    position: relative;
+}
+.main-inner .qrcode .desc{
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 15px;
+    position: absolute;
+    top: 100%;
+}
