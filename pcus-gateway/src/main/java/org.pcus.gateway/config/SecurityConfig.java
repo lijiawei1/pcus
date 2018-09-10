@@ -1,13 +1,17 @@
 package org.pcus.gateway.config;
 
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 //@EnableOAuth2Sso
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //@Autowired
@@ -19,19 +23,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()                    //  定义当需要用户登录时候，转到的登录页面。
-                .and()
-                .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护
-                .anyRequest()               // 任何请求,登录后可以访问
-                .authenticated();
+        //http
+        //        .requestMatchers().anyRequest()
+        //        .and()
+        //        .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护
+        //        .antMatchers("/health").permitAll()
+        //        .antMatchers("/oauth/*").permitAll()
+        //        .anyRequest().authenticated(); // 任何请求,登录后可以访问
 
-        //http.csrf().disable();
+        http
+                .requestMatchers().anyRequest()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/health").permitAll()
+                .antMatchers("/oauth/*").permitAll();
+
+        //http
+        //        .requestMatchers().anyRequest()
+        //        .and()
+        //        .authorizeRequests()
+        //        .antMatchers("/oauth/*").permitAll();
+
+        http.csrf().disable();
     }
 
+    @Bean
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
-                .and().withUser("adminr").password("password").roles("ADMIN", "USER");
+    protected UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("user_1").password("123456").authorities("USER").build());
+        manager.createUser(User.withUsername("user_2").password("123456").authorities("USER").build());
+        return manager;
     }
 
 }
