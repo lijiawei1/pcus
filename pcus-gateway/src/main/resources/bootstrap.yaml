@@ -46,7 +46,7 @@ zuul:
 logging:
   level:
     com.netflix: debug
-    org.springframework.security: debug
+#    org.springframework.security: debug
 management:
   security:
     enabled: false
