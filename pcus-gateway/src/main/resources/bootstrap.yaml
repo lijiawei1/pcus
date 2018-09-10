@@ -1,4 +1,7 @@
 spring:
+  devtools:
+    livereload:
+      enabled: true
   cloud:
     consul:
       host: localhost
@@ -17,9 +20,13 @@ spring:
     content-type: text/html
     #启用MVC Thymeleaf视图分辨率
     enabled: true
+  resources:
+    static-locations:
 server:
   port: 9090
   context-path: /pcus
+  tomcat:
+    basedir: pcusdata
 zuul:
   debug:
     request: true
@@ -36,18 +43,19 @@ zuul:
       service-id: pcus-auth
 logging:
   level:
-    com.netflix: DEBUG
+    com.netflix: debug
+    org.springframework.security: debug
 management:
   security:
     enabled: false
 security:
-  oauth2:
-    client:
-      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
-      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
-      client-id: webapp
-    resource:
-      user-info-uri: http://localhost:9090/pcus/auth/user
-      prefer-token-info: false
+#  oauth2:
+#    client:
+#      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
+#      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
+#      client-id: webapp
+#    resource:
+#      user-info-uri: http://localhost:9090/pcus/auth/user
+#      prefer-token-info: false
   basic:
     enabled: false
