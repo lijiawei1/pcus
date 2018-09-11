@@ -44,7 +44,7 @@ public class OAuth2ServerConfig {
                     .and()
                     .authorizeRequests()
 //                    .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasRole('ROLE_USER')")
-                    .antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
+                    .antMatchers("/pcus/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
             // @formatter:on
         }
     }

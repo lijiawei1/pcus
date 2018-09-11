@@ -1,0 +1,26 @@
+spring:
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        health-check-path: /health
+#        health-check-interval: 15s
+#        instance-id: pcus-module-core
+  application:
+    name: pcus-module-oauth2
+  redis:
+    host: 192.168.0.221
+server:
+  port: 9090
+logging:
+  level:
+    com.netflix: debug
+    org.springframework.security: debug
+security:
+  user:
+    password: 123456 #默认密码
+  oauth2:
+    resource:
+      #FilterChain的优先级
+      filter-order: 3
