@@ -11,5 +11,11 @@
 
     <artifactId>pcus-movie</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
