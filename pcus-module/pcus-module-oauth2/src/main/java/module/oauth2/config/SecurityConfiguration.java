@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requestMatchers().anyRequest()
                 .and()
                 .authorizeRequests()
+                //.antMatchers("/product/*").permitAll()
                 .antMatchers("/oauth/*").permitAll()
         .and().csrf().disable();
         // @formatter:on

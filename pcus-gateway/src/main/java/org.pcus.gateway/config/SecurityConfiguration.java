@@ -1,10 +1,13 @@
 package org.pcus.gateway.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
@@ -17,23 +20,24 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.session.ConcurrentSessionFilter;
+import org.zap.framework.security.entry.EnhanceAuthenticationEntryPoint;
 import org.zap.framework.security.filter.*;
-import org.zap.framework.security.handler.DefaultLoginHandler;
 import org.zap.framework.security.handler.DefaultLogoutHandler;
 import org.zap.framework.security.handler.EnhanceLoginFailureHandler;
+import org.zap.framework.security.handler.EnhanceLoginHandler;
+import org.zap.framework.security.handler.EnhanceSecurityContextLogoutHandler;
 import org.zap.framework.security.manager.DefaultAccessDecisionManager;
 
 import java.util.Arrays;
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -51,17 +55,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/css/**", "/js/**", "/font/**", "/images/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
+                //此过滤连的入口URL匹配，拦截所有
                 .requestMatchers().anyRequest()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/captcha*").permitAll()
-                .antMatchers("/error").permitAll()
-                .antMatchers("/oauth/*").permitAll()
+                .antMatchers("/login**", "/error", "/captcha", "/oauth/**").permitAll()
                 .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+
                 .headers().frameOptions().disable()
                 .and()
 
@@ -73,15 +85,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //设置登录过滤器
                 .addFilterAt(defaultLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 //
-                .addFilterBefore(defaultFilterSecurityInterceptor(), FilterSecurityInterceptor.class)
+                //.addFilterBefore(defaultFilterSecurityInterceptor(), FilterSecurityInterceptor.class)
 
+                .exceptionHandling().authenticationEntryPoint(new EnhanceAuthenticationEntryPoint("/login"))
+                .and()
                 //Session同步控制，需要限制声明
                 .sessionManagement().sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
+                //.and()
+                //.formLogin()
+                //.loginPage("/login")
+                //.permitAll()
                 .and()
                 .csrf().disable()
+                .logout().permitAll()
 
         ;
         // @formatter:on
+
+
+        // @formatter:off
+        //http
+        //        //设置security过滤链的匹配URL，默认的所有匹配
+        //        .requestMatchers().anyRequest()
+        //        .and()
+        //        .authorizeRequests()
+        //        .antMatchers("/oauth/**").permitAll()
+        //        .antMatchers("/login").permitAll()
+        //        .anyRequest().authenticated()
+        //        .and().csrf().disable();
     }
 
     @Bean
@@ -94,7 +125,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public DefaultLogoutFilter defaultLogoutFilter() {
         DefaultLogoutFilter filter = new DefaultLogoutFilter(new DefaultLogoutHandler(), new LogoutHandler[]{
-                new SecurityContextLogoutHandler()
+                new EnhanceSecurityContextLogoutHandler()
         });
         return filter;
     }
@@ -104,7 +135,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         DefaultLoginFilter filter = new DefaultLoginFilter();
         filter.setAuthenticationManager(authenticationManager);
         filter.setSessionAuthenticationStrategy(compositeSessionAuthenticationStrategy());
-        DefaultLoginHandler defaultLoginHandler = new DefaultLoginHandler();
+        EnhanceLoginHandler defaultLoginHandler = new EnhanceLoginHandler();
         defaultLoginHandler.setAlwaysUseDefaultTargetUrl(true);
         defaultLoginHandler.setDefaultTargetUrl("/admin/index");
         filter.setAuthenticationSuccessHandler(defaultLoginHandler);
@@ -117,15 +148,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public DefaultFilterSecurityInterceptor defaultFilterSecurityInterceptor() {
-        DefaultFilterSecurityInterceptor interceptor = new DefaultFilterSecurityInterceptor();
-
-        interceptor.setAuthenticationManager(authenticationManager);
-        interceptor.setAccessDecisionManager(defaultAccessDecisionManager());
-        interceptor.setSecurityMetadataSource(securityMetadataSource());
-        return interceptor;
-    }
+    //@Bean
+    //public DefaultFilterSecurityInterceptor defaultFilterSecurityInterceptor() {
+    //    DefaultFilterSecurityInterceptor interceptor = new DefaultFilterSecurityInterceptor();
+    //
+    //    interceptor.setAuthenticationManager(authenticationManager);
+    //    interceptor.setAccessDecisionManager(defaultAccessDecisionManager());
+    //    interceptor.setSecurityMetadataSource(securityMetadataSource());
+    //    return interceptor;
+    //}
 
     @Bean
     public DefaultAccessDecisionManager defaultAccessDecisionManager() {

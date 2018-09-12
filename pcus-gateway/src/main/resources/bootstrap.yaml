@@ -23,7 +23,7 @@ spring:
   resources:
     static-locations:
   redis:
-    host: 192.168.0.221
+    host: 127.0.0.1
 server:
   port: 9090
   context-path: /pcus

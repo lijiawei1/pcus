@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.zap.framework.security.entity.PageResult;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -109,43 +111,44 @@ public class SecurityUtils {
      * 得到当前用户
      * @return
      */
-    //public static User getCurrentUser() {
-    //
-    //    SecurityContext context = SecurityContextHolder.getContext();
-    //    if (context == null) {
-    //        logger.debug("SecurityContext is null");
-    //        return null;
-    //    }
-    //
-    //    Authentication authentication = context.getAuthentication();
-    //    if (authentication == null) {
-    //        logger.debug("Authentication is null");
-    //        return null;
-    //    }
-    //
-    //    return convertPrincipalToUser(authentication.getPrincipal());
-    //
-    //
-    //}
+    public static User getCurrentUser() {
 
-    //public static User convertPrincipalToUser(Object principal) {
-    //    if (principal == null || "anonymousUser".equals(principal)) {
-    //        return null;
-    //    } else {
-    //
-    //        if (principal instanceof org.springframework.security.core.userdetails.User) {
-    //            User user = new User();
-    //
-    //            org.springframework.security.core.userdetails.User suser = (org.springframework.security.core.userdetails.User) principal;
-    //            user.setUsername(suser.getUsername());
-    //            user.setAuthorities(suser.getAuthorities());
-    //
-    //            return user;
-    //        }
-    //
-    //        return (User) principal;
-    //    }
-    //}
+        SecurityContext context = SecurityContextHolder.getContext();
+        if (context == null) {
+            logger.debug("SecurityContext is null");
+            return null;
+        }
+
+        Authentication authentication = context.getAuthentication();
+        if (authentication == null) {
+            logger.debug("Authentication is null");
+            return null;
+        }
+
+        return convertPrincipalToUser(authentication.getPrincipal());
+
+        //return (User)authentication.getPrincipal();
+
+    }
+
+    public static User convertPrincipalToUser(Object principal) {
+        if (principal == null || "anonymousUser".equals(principal)) {
+            return new User("游客", "", Arrays.asList());
+        } else {
+
+            //if (principal instanceof org.springframework.security.core.userdetails.User) {
+            //    User user = new User();
+            //
+            //    org.springframework.security.core.userdetails.User suser = (org.springframework.security.core.userdetails.User) principal;
+            //    user.setUsername(suser.getUsername());
+            //    user.setAuthorities(suser.getAuthorities());
+            //
+            //    return user;
+            //}
+
+            return (User) principal;
+        }
+    }
 
 
     public static boolean isAjax(HttpServletRequest request) {
