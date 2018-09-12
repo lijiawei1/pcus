@@ -22,5 +22,5 @@
 
 <!-- 扩展 -->
 <script src="${path}/js/lib/LG.js?t=${applicationScope.sys_version}" type="text/javascript"></script>
-<script src="${path}/js/common/header.js?t=${applicationScope.sys_version}"></script>
+<script src="${path}/js/common/header.jsheader.js?t=${applicationScope.sys_version}"></script>
 <script src="${path}/js/lib/utils/throttle.js?t=${applicationScope.sys_version}" type="text/javascript"></script>

@@ -1,10 +1,7 @@
 package org.zap.framework.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.mapper.Mapper;
 import org.apache.commons.lang.CharEncoding;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;

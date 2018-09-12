@@ -173,7 +173,7 @@ $(function() {
 function logout() {
 	$.ligerDialog.confirm('确定注销吗?', function (confirm) {
 		if (confirm) {
-			location.href = "/logout";
+			location.href = rootPath + "/logout";
 		}
 	});
 }

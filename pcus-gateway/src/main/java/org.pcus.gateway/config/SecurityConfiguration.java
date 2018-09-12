@@ -97,7 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.permitAll()
                 .and()
                 .csrf().disable()
-                .logout().permitAll()
+                .logout().logoutUrl("/logout").permitAll()
 
         ;
         // @formatter:on
@@ -117,7 +117,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public EnhanceConcurrentSessionFilter enhanceConcurrentSessionFilter() {
-        EnhanceConcurrentSessionFilter filter = new EnhanceConcurrentSessionFilter(new SessionRegistryImpl(), "/login");
+        EnhanceConcurrentSessionFilter filter = new EnhanceConcurrentSessionFilter(sessionRegistry(), "/login");
         return filter;
 
     }
