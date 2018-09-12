@@ -1,25 +1,31 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: wujian
+  Date: 2016/11/8
+  Time: 19:48
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="./tms/indexPage/base.jsp"/>
 <!DOCTYPE html>
-<!--[if lte IE 8 ]>
-<html class="ie8" lang="zh-cn" /><![endif]-->
-<!--[if IE 9 ]>
-<html class="ie9" lang="zh-cn" /><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html class="" lang="zh-cn" /><!--<![endif]-->
+<!--[if lte IE 8 ]><html class="ie8" lang="zh-cn"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="zh-cn"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="" lang="zh-cn"><!--<![endif]-->
 <head>
     <title>eport-tms</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=1366,user-scalable=yes" />
-    <meta name="renderer" content="webkit" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1366,user-scalable=yes">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
     <!-- safari -->
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="${request.contextPath}/js/lib/jquery-fullPage/jquery.fullPage.css" rel="stylesheet" type="text/css">
-    <link href="${request.contextPath}/css/indexPage/indexPage.css" rel="stylesheet" type="text/css">
+    <%--<link href="/js/lib/jquery-fullPage/jquery.fullPage.css?t=${applicationScope.sys_version}" rel="stylesheet" type="text/css">--%>
+    <link href="${path}/css/indexPage/indexPage.css?t=${applicationScope.sys_version}" rel="stylesheet" type="text/css">
     <style id="page-bg-style"></style>
     <!--[if lt IE 9]>
-    <script src="${request.contextPath}/js/lib/respond.min.js"></script>
+    <script src="${path}/js/lib/respond.min.js?t=${applicationScope.sys_version}"></script>
     <![endif]-->
 </head>
 <body>
@@ -27,7 +33,7 @@
     <div class="container clearfix">
         <div class="logo fl" data-action="backtop"></div>
         <div class="right fr">
-            <a class="btn btn-default" href="/tms/indexPage/indexPage/download">下载APP</a>
+            <a class="btn btn-default" href="${path}/tms/indexPage/indexPage/download">下载APP</a>
             <span class="btn btn-login" id="btn-login">登录</span>
         </div>
     </div>
@@ -52,13 +58,15 @@
                 </div>
                 <div class="input-group">
                     <div class="input-group-addon i-password"></div>
-                    <input id="userpass" type="password" placeholder="密码" onkeypress="keyPress();" />
+                    <input id="userpass" type="password" placeholder="密码" onkeypress="keyPress();">
                 </div>
-                <!--<div class="input-group check">-->
-                    <!--<div class="input-group-addon i-check"></div>-->
-                    <!--<input id="userCheck" type="text" placeholder="验证码">-->
-                    <!--<img id="captcha-img" onclick="this.src='/captcha?t=' + Math.random()" src="/captcha.do"/>-->
-                <!--</div>-->
+                <%--
+                <div class="input-group check">
+                    <div class="input-group-addon i-check"></div>
+                    <input id="userCheck" type="text" placeholder="验证码">
+                    <img id="captcha-img" onclick="this.src='/captcha?t=' + Math.random()" src="/captcha.do"/>
+                </div>
+                --%>
                 <a class="btn login-btn limit-select" id="login-btn">登<i class="space"></i>录</a>
             </div>
             <!-- 登录框底部 -->
@@ -81,7 +89,7 @@
                 <div class="item item1"></div>
                 <div class="item item2"></div>
                 <div class="item item3"></div>
-                <a class="btn btn-default" href="/tms/indexPage/indexPage/apply">申请免费试用</a>
+                <a class="btn btn-default" href="${path}/tms/indexPage/indexPage/apply">申请免费试用</a>
             </div>
         </div>
         <div class="banner-bottom">
@@ -104,7 +112,7 @@
                         <li class="item normal-text i3">过程管控</li>
                         <li class="item normal-text i4">全程追踪</li>
                     </ul>
-                    <a class="btn btn-default" href="/tms/indexPage/indexPage/apply">申请免费试用</a>
+                    <a class="btn btn-default" href="${path}/tms/indexPage/indexPage/apply">申请免费试用</a>
                 </div>
                 <div class="right fr"></div>
             </div>
@@ -190,7 +198,7 @@
                         <li class="item i3 normal-text">数据保密</li>
                         <li class="item i4 normal-text">客户放心</li>
                     </ul>
-                    <a class="btn btn-default" href="/tms/indexPage/indexPage/apply">申请免费试用</a>
+                    <a class="btn btn-default" href="${path}/tms/indexPage/indexPage/apply">申请免费试用</a>
                 </div>
 
             </div>
@@ -211,7 +219,7 @@
                     <div class="normal-text">司机专属应用，实时连接司机</div>
                     <div class="title2">微信公众服务号</div>
                     <div class="normal-text">实现随时、随地跟踪收发货业务</div>
-                    <a class="btn btn-default" href="/tms/indexPage/indexPage/apply">申请免费试用</a>
+                    <a class="btn btn-default" href="${path}/tms/indexPage/indexPage/apply">申请免费试用</a>
                 </div>
                 <div class="right fr"></div>
             </div>
@@ -241,7 +249,7 @@
             <div class="content">
                 <div class="normal-text">因为专业/所以信赖</div>
                 <div class="title1">更多惊喜，邀<span class="c-orange">您</span>体验....</div>
-                <a class="btn btn-default" href="/tms/indexPage/indexPage/apply">申请免费试用</a>
+                <a class="btn btn-default" href="${path}/tms/indexPage/indexPage/apply">申请免费试用</a>
             </div>
         </div>
         <!-- 版权信息 -->
@@ -255,11 +263,11 @@
 
 <div class="backtop" title="返回顶部" data-action="backtop"></div>
 
-<script src="${request.contextPath}/js/lib/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script src="${request.contextPath}/js/lib/jquery-fullPage/jquery.fullPage.min.js"></script>
+<script src="${path}/js/lib/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="${path}/js/lib/jquery-fullPage/jquery.fullPage.min.js"></script>
 <script>
     if (!Array.prototype.forEach) {
-        Array.prototype.forEach = function (callback, thisArg) {
+        Array.prototype.forEach = function(callback, thisArg) {
             var T, k;
             if (this == null) {
                 throw new TypeError(" this is null or not defined");
@@ -284,42 +292,44 @@
         };
     }
 </script>
-<script src="${request.contextPath}/js/lib/utils/throttle.js" type="text/javascript"></script>
+<script src="${path}/js/lib/utils/throttle.js?t=${applicationScope.sys_version}" type="text/javascript"></script>
 <script>
-    $(function () {
 
-        if (!("animation" in document.body.style)) {
+    var rootPath = '${path}';
+    $(function(){
+
+        if(!("animation" in document.body.style)){
             $("body").addClass("no-ani");
         }
 
         $('#fullpage').fullpage({
-            scrollingSpeed: 500,
-            afterLoad: function (anchorLink, index) {
-                if (index === 1) {
+            scrollingSpeed : 500,
+            afterLoad:function(anchorLink, index){
+                if(index===1){
                     $(".backtop").hide();
                 }
-                else {
+                else{
                     $(".backtop").show();
                 }
             }
         });
 
         //登录框
-        $("#btn-login").on("click", function () {
+        $("#btn-login").on("click",function () {
             $("#login-con").toggleClass("active");
         });
 
         //返回顶部
-        $("body").on("click", "[data-action='backtop']", function () {
-            $.fn.fullpage.setScrollingSpeed(500 * $("#fullpage").children(".section.active:eq(0)").index());
+        $("body").on("click","[data-action='backtop']",function () {
+            $.fn.fullpage.setScrollingSpeed(500*$("#fullpage").children(".section.active:eq(0)").index());
             $.fn.fullpage.moveTo(1);
             $.fn.fullpage.setScrollingSpeed(500);
         });
 
         //背景图高度
-        var $pageContent = $(".page-content:eq(0)");
-        var resize = debounce(function () {
-            $("#page-bg-style").html('.page-bg{padding-bottom:' + $pageContent.outerHeight() + 'px;}');
+        var $pageContent=$(".page-content:eq(0)");
+        var resize=debounce(function () {
+            $("#page-bg-style").html('.page-bg{padding-bottom:'+ $pageContent.outerHeight() +'px;}');
         }, 200, true);
         resize();
 
@@ -328,6 +338,6 @@
         });
     });
 </script>
-<script src="${request.contextPath}/js/common/login.js" type="text/javascript"></script>
+<script src="${path}/js/common/login.js" type="text/javascript"></script>
 </body>
 </html>

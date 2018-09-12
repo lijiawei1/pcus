@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+	<title>无标题文档</title>
+	<style>
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			margin: 0;
+			background: url("/images/error500.png") no-repeat 50% 40%  transparent;
+			overflow: hidden;
+			text-align: center;
+		}
+		.btn{
+			display: inline-block;
+			width: 100px;
+			height: 24px;
+			line-height: 24px;
+			font-size: 12px;
+			color: #fff;
+			text-decoration: none;
+			background-color: #4b6281;
+			border: 1px solid #4b6281;
+			border-radius: 10px;
+			position: relative;
+			top: 40%;
+			margin-top: 200px;
+			z-index: 5;
+		}
+	</style>
+</head>
+<body>
+<a id="back-index" class="btn" href="javascript:;">返回首页</a>
+</body>
+<script>
+	document.getElementById("back-index").onclick=function(){
+		var tab=top.tab;
+		if(tab){//如果是框架里面
+			var id=tab.getSelectedTabItemID();
+			if(id!=="home"){
+				tab.selectTabItem("home");
+				tab.removeTabItem(id);
+			}
+			else {
+				tab.reload("home");
+			}
+		}
+		else{
+			location.href="/admin/index";
+		}
+	}
+</script>
+</html>
