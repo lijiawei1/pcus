@@ -6,7 +6,7 @@
 }
 /*更改图片*/
 .l-tree .l-box{
-    background-image: url("/js/lib/ligerUI/skins/CadetBlue/images/tree/tree.png");
+    background-image: url("../../js/lib/ligerUI/skins/CadetBlue/images/tree/tree.png");
 }
 /*表格样式
 ===========================*/
@@ -315,7 +315,7 @@
 }
 /*所有图标*/
 .l-icon{
-    background: url("/images/icon.png") no-repeat;
+    background: url("../../images/icon.png") no-repeat;
 }
 /*刷新*/
 .l-icon-refresh{

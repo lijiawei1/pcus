@@ -4,7 +4,7 @@ $(function () {
     var manager = {
         car: {},
         driver: {}
-    }
+    };
 
     var SELECTED = 'selected';
 
@@ -18,21 +18,22 @@ $(function () {
         $mainGrid = $("#mainGrid"), //显示表格
         localStorageName = "grid" + user.id + param.no;  // 本地存储名字
 
-    // 过滤一些属性
-    (function () {
-        if (!localStorage[localStorageName]) {
-            return false
+    try {
+        1 + nullx
+    }
+    catch (e) {
+        if (localStorage[localStorageName]) {
+            var data = JSON.parse(localStorage[localStorageName]);
+            var newData = data.map(function (item) {
+                return {
+                    index: item.index,
+                    name: item.name,
+                    hide: item.hide
+                };
+            });
+            localStorage.setItem(localStorageName, JSON.stringify(newData));
         }
-        var data = JSON.parse(localStorage[localStorageName])
-        var newData = data.map(function (item) {
-            return {
-                index: item.index,
-                name: item.name,
-                hide: item.hide
-            };
-        });
-        localStorage.setItem(localStorageName, JSON.stringify(newData));
-    })()
+    }
 
     var $copyForm = $("#copyForm");
 
@@ -58,7 +59,7 @@ $(function () {
 
     var toDay = new Date(),
         oldDay = new Date();
-    oldDay.setMonth(toDay.getMonth() - 1);
+    oldDay.setMonth(toDay.getMonth() - 3);
 
     var where = {
         "op": "and",
@@ -235,20 +236,18 @@ $(function () {
                             keySupport: true,
                             highLight: true,
                             isTextBoxMode: true,
-                            selectBoxWidth: 400,
+                            selectBoxWidth: 350,
                             selectBoxHeight: 250,
-                            onBeforeOpen: function () {
-                            },
                             renderItem: function (data, value, text, key) {
                                 var g = this;
                                 var item = data.data;
                                 var key_text = '<span class="combobox-list-item car_no-item">' + item.key_text + '</span>';
-                                key_text += '<span class="combobox-list-item car_no-item">' + (item.driver_name || '') + '</span>';
-                                key_text += '<span class="combobox-list-item car_no-item item1">' + item.carrier_name + '</span>';
+                                key_text += '<span class="combobox-list-item car_no-item">' + item.driver_name + '</span>';
+                                key_text += '<span class="combobox-list-item car_no-item">' + item.carrier_name + '</span>';
                                 // key_text += '<span class="combobox-list-item car_no-item">' + '产值:' + ('' + (item.output || 0).toFixed(2)) + '</span>';
-                                key_text += '<span class="combobox-list-item car_no-item ">' + ('' + parseFloat((item.driverTC || 0).toFixed(2))) + '</span>';
+                                // key_text += '<span class="combobox-list-item car_no-item">' + '提成:' + ('' + (item.percentage || 0).toFixed(2)) + '</span>';
                                 key_text += '<span class="combobox-list-item car_no-item">' + item.type_name + '</span>';
-                                // key_text += '<span class="combobox-list-item car_no-item">' + (item.outer == 'Y' ? '外协' : '自有') + '</span>';
+                                // key_text += '<span class="combobox-list-item car_no-item">' + (item.outsourcing == 'Y' ? '外协' : '自有') + '</span>';
 
                                 return g._highLight(key_text, $.trim(data.key));
                             },
@@ -281,19 +280,18 @@ $(function () {
                             keySupport: true,
                             highLight: true,
                             isTextBoxMode: true,
-                            selectBoxWidth: 400,
+                            selectBoxWidth: 350,
                             selectBoxHeight: 250,
                             renderItem: function (data) {
                                 var g = this,
-                                item = data.data,
+                                    item = data.data,
 
-                                key_text_arr = item.key_text.split(/\s+/),
-                                key_text = "";
+                                    key_text_arr = item.key_text.split(/\s+/),
+                                    key_text = "";
                                 key_text += '<span class="combobox-list-item driver_name-item item1">' + key_text_arr[0] + '</span>';
                                 key_text += '<span class="combobox-list-item driver_name-item item2">' + key_text_arr[1] + '</span>';
                                 key_text += '<span class="combobox-list-item driver_name-item item3">' + key_text_arr[2] + '</span>';
-                                key_text += '<span class="combobox-list-item driver_name-item item4">' + ('' + parseFloat((item.driverTC || 0).toFixed(2))) + '</span>';
-                                key_text += '<span class="combobox-list-item driver_name-item item4">' + (item.outer ? '外协' : '自有') + '</span>';
+                                key_text += '<span class="combobox-list-item driver_name-item item4">' + (item.outsourcing ? '外协' : '自有') + '</span>';
                                 return key_text;
                             },
                             onSelected: function (newValue, newText, rowData) {
@@ -315,11 +313,11 @@ $(function () {
             {display: '手机号', name: 'driver_mobile', align: 'left', minWidth: 100, width: '5%', editor: {type: 'text'}},
             {
                 display: '外协',
-                name: 'outer',
+                name: 'outsourcing',
                 align: 'left',
                 minWidth: 30,
                 width: '2%',
-                render: LG.render.boolean('outer'),
+                render: LG.render.boolean('outsourcing'),
                 editor: {
                     type: 'checkbox'
                 }
@@ -355,7 +353,7 @@ $(function () {
                 //         return item.text === val;
                 //     });
                 //     if (datas.length > 0) {
-                //         var data = $.extend(data, {outer: datas[0].outer === 'Y'});
+                //         var data = $.extend(data, {outsourcing: datas[0].outsourcing === 'Y'});
                 //         this.updateRow(rowIndex, data);
                 //     }
                 //     return val;
@@ -492,7 +490,7 @@ $(function () {
             };
             postData[e.column.columnname] = e.value;
             try {
-                postData.columnvalue = manager.lastRecord[columnname];
+                postData['columnvalue'] = manager.lastRecord[e.column.columnname];
             } catch (e) {
                 console.error(e);
             }
@@ -505,7 +503,7 @@ $(function () {
                 CARRIER_ID: 'carrier_id', //承运方主键
                 CARRIER_NAME: 'carrier_name', //承运方名字
                 BOOKING_CAR_TYPE: 'booking_car_type',
-                OUTER: 'outer' //是否外协
+                outsourcing: 'outsourcing' //是否外协
             };
             //司机带出揽货人信息、司机电话、是否外协
             var DRIVER_FIELDS = {
@@ -530,11 +528,6 @@ $(function () {
                         LG.tip("值未改变");
                         return;
                     }
-
-                    if (!e.value && !manager.lastRecord[columnname]) {
-                        LG.tip("值未改变");
-                        return;
-                    }
                 }
 
                 //待更新的字段
@@ -545,13 +538,13 @@ $(function () {
 
             } else if (columnname == 'car_no') {
                 if (data_car && data_car.length > 0) {
-
                     var cars = $.grep(data_car, function (n, i) {
                         //车牌号查找
                         return data_car[i].text == manager.car.text;
                     });
 
                     if (cars && cars.length > 0) {
+
                         //冗余车型字段
                         UPDATE_DATA[CAR_FIELDS.BOOKING_CAR_TYPE] = cars[0].type;
                         //带出承运商、默认司机
@@ -560,19 +553,7 @@ $(function () {
                         UPDATE_DATA[DRIVER_FIELDS.DRIVER_ID] = cars[0].driver_id;
                         UPDATE_DATA["driver_name"] = cars[0].driver_name;
                         UPDATE_DATA[DRIVER_FIELDS.DRIVER_MOBILE] = cars[0].driver_mobile;
-                        // if(e.record.driver_id == null || e.record.driver_id == "") {
-                            UPDATE_DATA[CAR_FIELDS.OUTER] = (cars[0].outer == 'Y');
-                        // }else {
-                        //     var drivers = $.grep(data_driver, function (n, i) {
-                        //         return data_driver[i].id == e.record.driver_id;
-                        //     });
-                        //     //车牌号或者司机为外协，则记录为外协
-                        //     if(cars[0].outer == "Y" || drivers[0].outer) {
-                        //         UPDATE_DATA[CAR_FIELDS.OUTER] = true;
-                        //     }else {
-                        //         UPDATE_DATA[CAR_FIELDS.OUTER] = false;
-                        //     }
-                        // }
+                        UPDATE_DATA[CAR_FIELDS.outsourcing] = (cars[0].outsourcing == 'Y');
                     }
                 }
                 //判断值是否改变
@@ -606,21 +587,7 @@ $(function () {
                         // UPDATE_DATA[DRIVER_FIELDS.CARRIER_NAME] = drivers[0].carrier_name;
                         UPDATE_DATA[DRIVER_FIELDS.DRIVER_ID] = drivers[0].id;
                         UPDATE_DATA[DRIVER_FIELDS.DRIVER_MOBILE] = drivers[0].mobile;
-                        if(e.record.car_no == null || e.record.car_no == "") {
-                            UPDATE_DATA[CAR_FIELDS.OUTER] = drivers[0].outer;
-                        }else {
-                            var cars = $.grep(data_car, function (n, i) {
-                                //车牌号查找
-                                return data_car[i].text == e.record.car_no;
-                            });
-                            //车牌号或者司机为外协，则记录为外协
-                            if(cars[0].outer == "Y" || drivers[0].outer) {
-                                UPDATE_DATA[CAR_FIELDS.OUTER] = true;
-                            }else {
-                                UPDATE_DATA[CAR_FIELDS.OUTER] = false;
-                            }
-                        }
-
+                        // UPDATE_DATA[DRIVER_FIELDS.outsourcing] = drivers[0].outsourcing;
                     }
                 }
 
@@ -744,58 +711,6 @@ $(function () {
                 return false;
             }
 
-            //修改提成
-            if (column.columnname === 'car_no' || column.columnname === 'driver_name') {
-                var cntr_work_time = record.cntr_work_time;
-                if (cntr_work_time) {
-                    if (cntr_work_time instanceof Date) {
-                        cntr_work_time = DateUtil.dateToStr(null, cntr_work_time);
-                    }
-                    var month = cntr_work_time.substr(0, 7);
-
-                    //当前的数据源缓存
-                    if (manager.currentMonth == month) {
-
-                    } else {
-                        //更换数据源
-                        manager.currentMonth = month;
-                        var driverTCMapping = manager.driverTC[month];
-                        if (driverTCMapping) {
-                            for (var i = 0; i < data_car.length; i++) {
-                                if (data_car[i]) {
-                                    var driver_id = data_car[i].driver_id;
-                                    if (driverTCMapping[driver_id]) {
-                                        data_car[i].driverTC = driverTCMapping[driver_id].tc;
-                                    }
-                                }
-                            }
-
-                            for (var i = 0; i < data_driver.length; i++) {
-                                if (data_driver[i]) {
-                                    var driver_id = data_driver[i].id;
-                                    if (driverTCMapping[driver_id]) {
-                                        data_driver[i].driverTC = driverTCMapping[driver_id].tc;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else if (!cntr_work_time) {
-                    //清空司机
-                    for (var i = 0; i < data_car.length; i++) {
-                        if (data_car[i]) {
-                            data_car[i].driverTC = 0;
-                        }
-                    }
-
-                    //清空司机
-                    for (var i = 0; i < data_driver.length; i++) {
-                        if (data_driver[i]) {
-                            data_driver[i].driverTC = 0;
-                        }
-                    }
-                }
-            }
 
             //记录修改前的值
             manager.lastRecord = $.extend({}, record);
@@ -921,20 +836,10 @@ $(function () {
             {display: '司机拉单', name: 'bill_driver', align: 'left', minWidth: 100, width: '8%', render: LG.render.boolean("bill_driver")},
             {display: '轻公里数', name: 'e_km', align: 'left', minWidth: 80, width: '5%'},
             {display: '重公里数', name: 'f_km', align: 'left', minWidth: 80, width: '5%'},
-            {
-                display: '公里数确认',
-                name: 'mileage_confirm',
-                align: 'left',
-                minWidth: 80,
-                width: '5%',
-                render: LG.render.boolean("mile_confirm")
-            },
+            {display: '公里数确认', name: 'mileage_confirm', align: 'left', minWidth: 80, width: '5%', render: LG.render.boolean("mile_confirm")},
             {display: '签收重量', name: 'total_weight', align: 'left', minWidth: 80, width: '5%'}
         );
     }
-
-    //初始化表格
-    mainGrid = $mainGrid.ligerGrid(gridOption);
 
     var filterFormFieldWidth = {
         w1: 155,
@@ -944,6 +849,7 @@ $(function () {
 
     var fontSize = 12 / detectZoom(top);
     var filterFormOption = {
+
         //搜索框绑定信息
         searchBind: {
             //搜索按钮ID
@@ -980,9 +886,7 @@ $(function () {
             },
             defaultFields: {
                 "bill_no": true,
-                "cntr_no": true,
-                'create_time_s': true,
-                'create_time_e': true
+                "cntr_no": true
             },
             exFields: {
                 "cntr_drop_trailer": {
@@ -1137,7 +1041,7 @@ $(function () {
             {display: '手机号', name: 'driver_mobile', newline: false, type: "text", cssClass: "field"},
             {display: '承运方', name: 'carrier_name', newline: false, type: "text", cssClass: "field"},
             {
-                display: '外协', name: 'outer', newline: false, type: "select", cssClass: "field",
+                display: '外协', name: 'outsourcing', newline: false, type: "select", cssClass: "field",
                 editor: {
                     cancelable: true,
                     data: [
@@ -1212,20 +1116,6 @@ $(function () {
             },
             {display: '孖拖柜号', name: 'cntr_twin_no', newline: false, type: "text", cssClass: "field"},
             {display: '客户委托号', name: 'client_bill_no', newline: false, type: "text", cssClass: "field"},
-            {
-                display: '带货', name: 'take_goods', newline: false,
-                type: "select", cssClass: "field",
-                editor: {
-                    cancelable: true,
-                    data: [
-                        {text: '是', id: 'Y'},
-                        {text: '否', id: 'N'},
-                    ]
-                },
-                attr: {
-                    op: "equal"
-                }
-            },
             /********************************************
              * 船信息
              ********************************************/
@@ -1405,14 +1295,9 @@ $(function () {
                 newline: true,
                 type: "date",
                 cssClass: "field",
-                editor: {
-                    showTime: true,
-                    format: "yyyy-MM-dd",
-                    onRendered: function () {
-                        this._setValue(oldDay)
-                    }
-                },
+                editor: {showTime: true, format: "yyyy-MM-dd"},
                 attr: {
+                    value: oldDay.format(),
                     op: "greaterorequal", //操作符
                     "data-name": "create_time" //查询字段名称
                 }
@@ -1430,9 +1315,6 @@ $(function () {
                     format: "yyyy-MM-dd",
                     onChangeDate: function (value) {
                         this.usedDate.setHours(23, 59, 59);
-                    },
-                    onRendered: function () {
-                        this._setValue(toDay)
                     }
                 },
                 attr: {
@@ -1698,7 +1580,7 @@ $(function () {
                         return;
                     }
 
-                    if (selected[i].bill_driver == "Y") {
+                    if (selected[i].bill_driver) {
                         msg = '存在【司机】创建的单据，确定提交吗?';
                     }
                 }
@@ -1711,10 +1593,10 @@ $(function () {
                         url: basePath + 'submit',
                         data: JSON.stringify(selected, DateUtil.datetimeReplacer),
                         contentType: "application/json",
-                        success: function (data, message) {
+                        success: function (data, msg) {
                             moified(selected);
                             refresh(selected, data);
-                            message === "" ? LG.tip("提交成功") : LG.showSuccess(message);
+                            LG.tip('提交成功');
                         },
                         error: function (message) {
                             LG.showError(message);
@@ -1995,8 +1877,8 @@ $(function () {
             LG.showError("请选择行");
             return;
         }
-        if (selected.length > 10) {
-            LG.showError("模板一次最多10张");
+        if (selected.length > 5) {
+            LG.showError("模板一次最多五张");
             return;
         }
 
@@ -2010,23 +1892,6 @@ $(function () {
 
     }
 
-    function getDriverTC() {
-        LG.ajax({
-            url: basePath + 'getDriverTC',
-            data: '',
-            contentType: "application/json",
-            success: function (data, msg) {
-                manager.driverTC = data;
-            },
-            error: function (msg) {
-                LG.showError(msg);
-            }
-        });
-
-    }
-
-    getDriverTC();
-
     function openMapWin() {
 
         var selected = mainGrid.getCheckedRows();
@@ -2034,12 +1899,12 @@ $(function () {
             LG.showError('请选择行');
             return;
         }
-        var computewidth = window.innerWidth * 0.8
+
         $.ligerDialog.open({
             title: '选择车辆',
             url: '/tms/busi/trans/loadMapChooser/' + selected[0].pk_id,
             height: 480,
-            width: computewidth < 980 ? 980 : computewidth,
+            width: 640,
             buttons: [{
                 text: '确定', onclick: function (item, dialog) {
                     LG.ajax({
@@ -2064,6 +1929,8 @@ $(function () {
                 }
             }]
         });
+
+
     }
 
     function mapChoose() {
@@ -2071,16 +1938,19 @@ $(function () {
     }
 
     //初始化查询框
-    filterForm = $filterForm.ligerSearchForm(filterFormOption)
+    filterForm = $filterForm.ligerSearchForm(filterFormOption);
 
     //初始化主表
-    mainForm = $mainForm.ligerForm(mainFormOption)
+    mainForm = $mainForm.ligerForm(mainFormOption);
 
     //初始化复制对话框
-    copyForm = $copyForm.ligerForm(copyFormOption)
+    copyForm = $copyForm.ligerForm(copyFormOption);
 
     //初始化工具栏
-    toptoolbar = LG.powerToolBar($("#toptoolbar"), defaultActionOption)
+    toptoolbar = LG.powerToolBar($("#toptoolbar"), defaultActionOption);
+
+    //初始化表格
+    mainGrid = $mainGrid.ligerGrid(gridOption);
 
     //打开对话框
     function openDialog(data) {
@@ -2232,42 +2102,42 @@ $(function () {
         refresh();
     });
 
-    //绑定快捷查询
-    $quickSearch.on('click', '.qs-item', function (e) {
-        var g = $(this);
-
-        $(".qs-item.visited").removeClass("visited");
-        g.addClass("visited");
-
-        //状态常量
-        var state = g.data('state');
-
-        if (state == 'MODIFIED') {
-            moifiedTab()
-            return;
-        }
-        //添加条件
-        if (typeof defaultSearchFilter === "undefined") {
-            defaultSearchFilter = {
-                and: [],
-                or: []
-            };
-        } else {
-            defaultSearchFilter.and.length = 0;
-            defaultSearchFilter.or.length = 0;
-        }
-
-        if (state && state != 'ALL') {
-            defaultSearchFilter.and.push({field: 'state', value: state, op: 'in', type: 'string'});
-        }
-
-        //刷新表单
-        mainGrid.set('parms', [{name: 'where', value: filterForm.getSearchFormData(true, defaultSearchFilter)}]);
-        mainGrid.changePage('first');
-        mainGrid.loadData();
-    });
 
     var refreshQuick = (function () {
+        //绑定快捷查询
+        $quickSearch.on('click', '.qs-item', function (e) {
+            var g = $(this);
+
+            $(".qs-item.visited").removeClass("visited");
+            g.addClass("visited");
+
+            //状态常量
+            var state = g.data('state');
+
+            if (state == 'MODIFIED') {
+                moifiedTab()
+                return;
+            }
+            //添加条件
+            if (typeof defaultSearchFilter === "undefined") {
+                defaultSearchFilter = {
+                    and: [],
+                    or: []
+                };
+            } else {
+                defaultSearchFilter.and.length = 0;
+                defaultSearchFilter.or.length = 0;
+            }
+
+            if (state && state != 'ALL') {
+                defaultSearchFilter.and.push({field: 'state', value: state, op: 'in', type: 'string'});
+            }
+
+            //刷新表单
+            mainGrid.set('parms', [{name: 'where', value: filterForm.getSearchFormData(true, defaultSearchFilter)}]);
+            mainGrid.changePage('first');
+            mainGrid.loadData();
+        });
 
         function refreshQuickSearchBar(start, end) {
             var time = getEqTime();

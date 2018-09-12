@@ -30,7 +30,7 @@
     vertical-align: middle;
 }
 .arrived{
-    background-image: url("/images/tms/arrived-small.png");
+    background-image: url("../../images/tms/arrived-small.png");
 }
 /*.arrived:before{*/
     /*content: '抵';*/
@@ -42,7 +42,7 @@
     /*border-right-color: rgb(40, 95, 170);*/
 /*}*/
 .load{
-    background-image: url("/images/tms/load-small.png");
+    background-image: url("../../images/tms/load-small.png");
 }
 /*.load:before{*/
     /*content: '装';*/
@@ -54,7 +54,7 @@
     /*border-right-color: rgb(240, 170, 25);*/
 /*}*/
 .unload{
-    background-image: url("/images/tms/unload-small.png");
+    background-image: url("../../images/tms/unload-small.png");
 }
 /*.unload:before{*/
     /*content: '卸';*/

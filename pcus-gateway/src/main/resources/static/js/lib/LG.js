@@ -212,7 +212,7 @@ if (!this.LG) {
                 }
                 else {
                     if (p.error)
-                        p.error(result.message, result.data, result.code);
+                        p.error(result.message);
                 }
             },
             error: function (result, b) {

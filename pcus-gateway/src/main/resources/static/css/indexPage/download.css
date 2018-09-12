@@ -23,7 +23,7 @@ body{
     width: 100%;
     height: 100%;
     position: relative;
-    background: url("/images/indexPage/download/bg.jpg") no-repeat center;
+    background: url("../../images/indexPage/download/bg.jpg") no-repeat center;
     background-size: cover;
 }
 .main-inner{
@@ -46,7 +46,7 @@ body{
 .main-inner .left{
     width: 554px;
     height: 100%;
-    background: url("/images/indexPage/download/phone.png") no-repeat center;
+    background: url("../../images/indexPage/download/phone.png") no-repeat center;
     background-size: contain;
 }
 /*右侧
@@ -123,10 +123,10 @@ body{
     left: 20px;
 }
 .main-inner .android.btn-download:before{
-    background-image: url("/images/indexPage/download/android.png");
+    background-image: url("../../images/indexPage/download/android.png");
 }
 .main-inner .ios.btn-download:before{
-    background-image: url("/images/indexPage/download/ios.png");
+    background-image: url("../../images/indexPage/download/ios.png");
 }
 .main-inner .qrcode{
     width: 165px;

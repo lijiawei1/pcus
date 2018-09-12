@@ -69,14 +69,14 @@
         isResize: false, // 是否调整大小
         allowClose: true, //允许关闭
         opener: null,
-        timeParmName: null,  // 是否给URL后面加上值为new Date().getTime()的参数，如果需要指定一个参数名即可
-        closeWhenEnter: null, // 回车时是否关闭dialog
-        isHidden: true,        // 关闭对话框时是否只是隐藏，还是销毁对话框
-        show: true,          // 初始化时是否马上显示
-        title: '提示',        // 头部
-        showMax: false,                             // 是否显示最大化按钮
-        showToggle: false,                          // 是否显示收缩窗口按钮
-        showMin: false,                             // 是否显示最小化按钮
+        timeParmName: null,  //是否给URL后面加上值为new Date().getTime()的参数，如果需要指定一个参数名即可
+        closeWhenEnter: null, //回车时是否关闭dialog
+        isHidden: true,        //关闭对话框时是否只是隐藏，还是销毁对话框
+        show: true,          //初始化时是否马上显示
+        title: '提示',        //头部 
+        showMax: false,                             //是否显示最大化按钮 
+        showToggle: false,                          //是否显示收缩窗口按钮
+        showMin: false,                             //是否显示最小化按钮
         slide: $.browser.msie ? false : true,        //是否以动画的形式显示 
         fixedType: null,            //在固定的位置显示, 可以设置的值有n, e, s, w, ne, se, sw, nw
         showType: null,             //显示类型,可以设置为slide(固定显示时有效) 

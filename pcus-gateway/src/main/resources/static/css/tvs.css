@@ -160,7 +160,7 @@ body, html, #allmap {
     line-height: 20px;
     text-align: center;
     color: #fff;
-    background: url("/images/tvs/msg-count.png") no-repeat center;
+    background: url("../images/tvs/msg-count.png") no-repeat center;
     background-size: contain;
     position: absolute;
     top: 0;

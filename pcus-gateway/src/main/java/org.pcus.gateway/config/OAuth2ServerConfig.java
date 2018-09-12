@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
-@Configuration
+//@Configuration
 public class OAuth2ServerConfig {
 
     private static final String DEMO_RESOURCE_ID = "order";

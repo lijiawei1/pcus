@@ -168,7 +168,7 @@
 
     //初始化人员树
     mainTree = $("#mainTree").ligerTree({
-        url: '/pages/tvs/data/monitTree.json',
+        url: rootPath + '/pages/tvs/data/monitTree.json',
         //data: corpdata,
         nodeWidth: 200,
         idFieldName: 'ID',

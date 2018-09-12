@@ -109,9 +109,9 @@ $(function () {
                 quickSort: false,
                 render: function (item) {
                     switch (item.bill_main) {
-                        case "0":
+                        case "MAIN":
                             return "主";
-                        case "1":
+                        case "SUB":
                             return "副";
                         default:
                             return "";
@@ -340,17 +340,17 @@ $(function () {
             }
             else {
                 className = " showColspace";
-                if (item.bill_main == 0) {
+                if (item.bill_main === "MAIN") {
                     className += " main";
                 }
-                else if (item.bill_main == 1) {
+                else if (item.bill_main === "SUB") {
                     className += " sub";
-                    if (nextItem && (nextItem.bill_main != 1)) {
+                    if (nextItem && (nextItem.bill_main !== "SUB")) {
                         className += " lastShow";
                     }
                 }
             }
-            if (nextItem && (nextItem.bill_main == 0)) {
+            if (nextItem && (nextItem.bill_main === "MAIN")) {
                 className += " nextShow";
             }
             return className;
@@ -673,8 +673,8 @@ $(function () {
                 editor: {
                     cancelable: false,
                     data: [
-                        {text: '主', id: 0},
-                        {text: '副', id: 1}
+                        {text: '主', id: 'MAIN'},
+                        {text: '副', id: 'SUB'}
                     ]
                 },
                 attr: {
@@ -1069,7 +1069,7 @@ $(function () {
                         selected.push($.extend({}, mergeListBox.data[i]));
                         //设置选中的单据作为主单
                         if (selected[i].id === items[0].id) {
-                            selected[i].bill_main = 0;
+                            selected[i].bill_main = "MAIN";
                         }
                     }
 
@@ -1454,7 +1454,7 @@ $(function () {
 
         //过滤副单
         selected = $.grep(selected, function (n, i) {
-            return selected[i].bill_main != 1;
+            return selected[i].bill_main != 'SUB';
         });
 
         $.ligerDialog.confirm('确定复制吗?', function (confirm) {
@@ -1496,7 +1496,7 @@ $(function () {
 
         //过滤副单
         var postData = $.grep(selected, function (n, i) {
-            return selected[i].bill_main != 1;
+            return selected[i].bill_main != 'SUB';
         });
 
         $.ligerDialog.confirm('确定审核吗?', function (confirm) {
@@ -1571,7 +1571,7 @@ $(function () {
         }
 
         var postData = $.grep(selected, function (n, i) {
-            return selected[i].bill_main != 1;
+            return selected[i].bill_main != 'SUB';
         });
 
         $.ligerDialog.confirm('确定撤销吗?', function (confirm) {
@@ -1929,7 +1929,7 @@ $(function () {
             refresh();
             return;
         }
-        var eq = thisPkid.bill_main == 1 ? true : false,
+        var eq = thisPkid.bill_main === "SUB" ? true : false,
             url = eq ? 'refreshShowDetail' : 'refreshShow',
             data = eq ? {"order_id": thisPkid.pk_id} : JSON2.stringify([thisPkid.pk_id]),
             type = eq ? 'application/x-www-form-urlencoded' : 'application/json';

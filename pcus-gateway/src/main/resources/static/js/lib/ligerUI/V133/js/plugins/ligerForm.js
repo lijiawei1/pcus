@@ -904,7 +904,7 @@
                     var control = this.control; 
                     if (name && control && control.getValue)
                     {
-                        g.data[name] = control.getValue() || '';
+                        g.data[name] = control.getValue();
                     }
                 });
             }
@@ -932,14 +932,14 @@
                         var value = editor.editor.getValue.call(g, editor.control, {
                             field: field
                         });
-                        g._setValueByName(g.data, name, value || '');
+                        g._setValueByName(g.data, name, value);
                     }
                     if (textField && editor.editor.getText)
                     {
                         var value = editor.editor.getText.call(g, editor.control, {
                             field: field
                         });
-                        g._setValueByName(g.data, textField, value || '');
+                        g._setValueByName(g.data, textField, value);
                     }
                 });
             }
@@ -952,19 +952,6 @@
         setData: function (data)
         {
             var g = this, p = this.options;
-
-            if (typeof data !== 'object') {
-                try {
-                    console.error('数据错误')
-                } catch (e) {
-                    return false
-                }
-                return false
-            }
-
-            for (var i in data) {
-                data[i] = data[i] || ''
-            }
             if (g.autoEditors && g.autoEditors.length) {
                 g.autoEditors.forEach(function (item, index) {
                     var name = item.name;

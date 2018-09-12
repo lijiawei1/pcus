@@ -785,162 +785,109 @@
                 $('body').css('cursor', 'row-resize');
             }
         },
-        _stop: function (e){
-            var g = this
-            var p = this.options
-
-            // 修改值
-            var diff
-
-            if (g.xresize && !!g.xresize.diff) {
-                diff = g.xresize.diff
-                resizeX.call(g)
-                g._updateCenterBottom()
-            } else if (g.yresize && !!g.yresize.diff) {
-                diff = g.yresize.diff
-                resizeY.call(g)
-            }
-
-            // 更新组件状态
-            g.xresize = g.yresize = g.dragtype = false
-            // 删除组件Dom
-            g.draggingxline.hide()
-            g.draggingyline.hide()
-            g.mask.hide()
-            g.layout.lock.hide()
-            $('body').css('cursor', '')
-
-
-            // 触发事件
-            g.trigger('endResize', [{
-                direction: g.dragtype ? g.dragtype.replace(/resize/, '') : '',
-                diff: diff
-            }, e])
-
-            g._setDropHandlePosition();
-            // 取消事件绑定
-            if ($.browser.msie || $.browser.safari) {
-                $('body').unbind('selectstart')
-            }
-            $(document).unbind('mousemove', g._drag)
-            $(document).unbind('mouseup', g._stop)
-
-            function resizeX() {
-                var p = this.options
-                var leftWidth
-                var rightWidth
-                var centerWidth
-                switch (this.dragtype) {
-                    case 'leftresize':
-                        var result = g.left.width() + this.xresize.diff
-                        if (p.minLeftWidth && result < p.minLeftWidt) {
-                            result = p.minLeftWidth
-                        }
-
-                        leftWidth = result
-
-                        if (g.center) {
-                            centerWidth = g.center.width() - g.xresize.diff
-                            if (centerWidth < p.minCenterWidth) {
-                                leftWidth -= (p.minCenterWidth - centerWidth)
-                                centerWidth = p.minCenterWidth
-                            }
-                            g.center.width(centerWidth).css({
-                                left: parseInt(leftWidth) + 5
-                            })
-                        } else if (g.right) {
-                            rightWidth = g.right.width() - g.xresize.diff
-                            if (rightWidth < p.minRightWidth) {
-                                leftWidth -= (p.minRightWidth - rightWidth)
-                                rightWidth = p.minRightWidth
-                            }
-                            g.right.width(rightWidth).css({
-                                left: parseInt(leftWidth) + 5
-                            })
-                        }
-                        this.left.width(leftWidth)
-                        break
-                    case 'rightresize':
-                        var result = g.right.width() - this.xresize.diff
-                        if (p.minRightWidth && result < p.minRightWidth) {
-                            result = p.minRightWidth
-                        }
-
-                        rightWidth = result
-
-                        if (g.center) {
-                            centerWidth = g.center.width() + g.xresize.diff
-                            if (centerWidth < p.minCenterWidth) {
-                                rightWidth -= (p.minCenterWidth - centerWidth)
-                                centerWidth = p.minCenterWidth
-                            }
-                            g.center.width(centerWidth)
-                        } else if (g.left) {
-                            leftWidth = g.left.width() + g.xresize.diff
-                            if (leftWidth < p.minLeftWidth) {
-                                rightWidth -= (p.minLeftWidth - leftWidth)
-                                leftWidth = p.minRightWidth
-                            }
-                            g.left.width(leftWidth)
-                        }
-                        g.right.width(rightWidth).css({
-                            left: parseInt(g.right.css('left')) + g.xresize.diff
-                        })
-                        break
+        _stop: function (e)
+        {
+            var g = this, p = this.options;
+            var diff;
+            if (g.xresize && g.xresize.diff != undefined)
+            {
+                diff = g.xresize.diff;
+                if (g.dragtype == 'leftresize')
+                {
+                    if (p.minLeftWidth)
+                    {
+                        if (g.leftWidth + g.xresize.diff < p.minLeftWidth)
+                            return;
+                    }
+                    g.leftWidth += g.xresize.diff;
+                    g.left.width(g.leftWidth);
+                    if (g.center)
+                        g.center.width(g.center.width() - g.xresize.diff).css({ left: parseInt(g.center.css('left')) + g.xresize.diff });
+                    else if (g.right)
+                        g.right.width(g.left.width() - g.xresize.diff).css({ left: parseInt(g.right.css('left')) + g.xresize.diff }); 
                 }
+                else if (g.dragtype == 'rightresize')
+                {
+                    if (p.minRightWidth)
+                    {
+                        if (g.rightWidth - g.xresize.diff < p.minRightWidth)
+                            return;
+                    }
+                    g.rightWidth -= g.xresize.diff;
+                    g.right.width(g.rightWidth).css({ left: parseInt(g.right.css('left')) + g.xresize.diff });
+                    if (g.center)
+                        g.center.width(g.center.width() + g.xresize.diff);
+                    else if (g.left)
+                        g.left.width(g.left.width() + g.xresize.diff);
+                }
+                g._updateCenterBottom();
             }
-
-            function resizeY() {
-                if (g.dragtype == 'topresize') {
+            else if (g.yresize && g.yresize.diff != undefined)
+            {
+                diff = g.yresize.diff;
+                if (g.dragtype == 'topresize')
+                {
                     g.top.height(g.top.height() + g.yresize.diff);
                     g.middleTop += g.yresize.diff;
                     g.middleHeight -= g.yresize.diff;
-                    if (g.left) {
-                        g.left.css({
-                            top: g.middleTop
-                        }).height(g.middleHeight);
-                        g.leftCollapse.css({
-                            top: g.middleTop
-                        }).height(g.middleHeight);
+                    if (g.left)
+                    {
+                        g.left.css({ top: g.middleTop }).height(g.middleHeight);
+                        g.leftCollapse.css({ top: g.middleTop }).height(g.middleHeight);
                     }
-                    if (g.center) g.center.css({
-                        top: g.middleTop
-                    }).height(g.middleHeight);
-                    if (g.right) {
-                        g.right.css({
-                            top: g.middleTop
-                        }).height(g.middleHeight);
-                        g.rightCollapse.css({
-                            top: g.middleTop
-                        }).height(g.middleHeight);
+                    if (g.center) g.center.css({ top: g.middleTop }).height(g.middleHeight);
+                    if (g.right)
+                    {
+                        g.right.css({ top: g.middleTop }).height(g.middleHeight);
+                        g.rightCollapse.css({ top: g.middleTop }).height(g.middleHeight);
                     }
                     g._updateCenterBottom(true);
-                } else if (g.dragtype == 'bottomresize') {
+                }
+                else if (g.dragtype == 'bottomresize')
+                {
                     g.bottom.height(g.bottom.height() - g.yresize.diff);
                     g.middleHeight += g.yresize.diff;
                     g.bottomTop += g.yresize.diff;
-                    g.bottom.css({
-                        top: g.bottomTop
-                    });
-                    if (g.left) {
+                    g.bottom.css({ top: g.bottomTop });
+                    if (g.left)
+                    {
                         g.left.height(g.middleHeight);
                         g.leftCollapse.height(g.middleHeight);
                     }
                     if (g.center) g.center.height(g.middleHeight);
-                    if (g.right) {
+                    if (g.right)
+                    {
                         g.right.height(g.middleHeight);
                         g.rightCollapse.height(g.middleHeight);
                     }
                     g._updateCenterBottom(true);
-                } else if (g.dragtype == 'centerbottomresize') {
+                }
+                else if (g.dragtype == 'centerbottomresize')
+                {
                     g.centerBottomHeight = g.centerBottomHeight || p.centerBottomHeight;
-                    g.centerBottomHeight -= g.yresize.diff;
+                    g.centerBottomHeight -= g.yresize.diff; 
                     var centerBottomTop = parseInt(g.centerBottom.css("top"));
-                    g.centerBottom.css("top", centerBottomTop + g.yresize.diff);
-                    g.centerBottom.height(g.centerBottom.height() - g.yresize.diff);
-                    g.center.height(g.center.height() + g.yresize.diff);
+                    g.centerBottom.css("top" , centerBottomTop + g.yresize.diff);
+                    g.centerBottom.height(g.centerBottom.height() - g.yresize.diff);    
+                    g.center.height(g.center.height() + g.yresize.diff); 
                 }
             }
+            g.trigger('endResize', [{
+                direction: g.dragtype ? g.dragtype.replace(/resize/, '') : '',
+                diff: diff
+            }, e]);
+            g._setDropHandlePosition();
+            g.draggingxline.hide();
+            g.draggingyline.hide();
+            g.mask.hide();
+            g.xresize = g.yresize = g.dragtype = false;
+            g.layout.lock.hide();
+            if ($.browser.msie || $.browser.safari)
+                $('body').unbind('selectstart');
+            $(document).unbind('mousemove', g._drag);
+            $(document).unbind('mouseup', g._stop);
+            $('body').css('cursor', '');
+
         }
     });
 

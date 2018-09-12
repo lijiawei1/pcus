@@ -344,7 +344,7 @@ html,body{
 .header .logo{
     width: 152px;
     height: 100%;
-    background: url("/images/logo.png") no-repeat center;
+    background: url("../../images/logo.png") no-repeat center;
     background-size: contain;
     cursor: pointer;
 }
@@ -382,7 +382,7 @@ html,body{
         margin-top: 10px;
         height: 62px;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/logo.png',
+                src='../../images/indexPage/logo.png',
                 sizingMethod='scale');
         background: 0 10px;
     }
@@ -595,7 +595,7 @@ html,body{
     height: 16px;
     margin-top: 8px;
     display: inline-block;
-    background: url("/images/login/icon-login.png") no-repeat;
+    background: url("../../images/login/icon-login.png") no-repeat;
 }
 .login-form .i-user.input-group-addon:before{
     background-position: 0 0;
@@ -730,7 +730,7 @@ input:focus + .placeholder{
     height: 100%;
     padding-top: 100px;
     padding-bottom: 150px;
-    background: url("/images/indexPage/banner.jpg") no-repeat center;
+    background: url("../../images/indexPage/banner.jpg") no-repeat center;
     background-size: cover;
     background-origin: content-box;
     position: relative;
@@ -739,7 +739,7 @@ input:focus + .placeholder{
 .banner-wrap .banner{
     width: 730px;
     height: 402px;
-    background: url("/images/indexPage/banner-content.png") no-repeat center;
+    background: url("../../images/indexPage/banner-content.png") no-repeat center;
     background-size: contain;
     position: absolute;
     top: 50%;
@@ -758,15 +758,15 @@ input:focus + .placeholder{
 }
 .banner .item1{
     left: 80px;
-    background-image: url("/images/indexPage/banner-item1.png");
+    background-image: url("../../images/indexPage/banner-item1.png");
 }
 .banner .item2{
     left: 308px;
-    background-image: url("/images/indexPage/banner-item2.png");
+    background-image: url("../../images/indexPage/banner-item2.png");
 }
 .banner .item3{
     left: 538px;
-    background-image: url("/images/indexPage/banner-item3.png");
+    background-image: url("../../images/indexPage/banner-item3.png");
 }
 .ie9 .banner .item,
 .no-ani .banner .item,
@@ -802,7 +802,7 @@ input:focus + .placeholder{
 .banner-bottom{
     width: 100%;
     height: 150px;
-    background: url("/images/indexPage/banner-bottom-bg.jpg") no-repeat center;
+    background: url("../../images/indexPage/banner-bottom-bg.jpg") no-repeat center;
     position: absolute;
     bottom: 0;
     z-index: 15;
@@ -811,7 +811,7 @@ input:focus + .placeholder{
     width: 149px;
     height: 100%;
     margin: 0 auto;
-    background: url("/images/indexPage/banner-bottom-txt.png") no-repeat center;
+    background: url("../../images/indexPage/banner-bottom-txt.png") no-repeat center;
 }
 @media screen and (max-width: 1440px){
     .banner-wrap{
@@ -827,7 +827,7 @@ input:focus + .placeholder{
     .ie8 .banner-wrap .banner{
         background: none;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/banner-content.png',
+                src='../../images/indexPage/banner-content.png',
                 sizingMethod='scale');
     }
     .banner .btn-default{
@@ -852,7 +852,7 @@ input:focus + .placeholder{
     }
     .ie8 .banner .item1{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/banner-item1.png',
+                src='../../images/indexPage/banner-item1.png',
                 sizingMethod='scale');
     }
     .banner .item2{
@@ -860,7 +860,7 @@ input:focus + .placeholder{
     }
     .ie8 .banner .item2{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/banner-item2.png',
+                src='../../images/indexPage/banner-item2.png',
                 sizingMethod='scale');
     }
     .banner .item3{
@@ -868,7 +868,7 @@ input:focus + .placeholder{
     }
     .ie8 .banner .item3{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/banner-item3.png',
+                src='../../images/indexPage/banner-item3.png',
                 sizingMethod='scale');
     }
     .banner-bottom{
@@ -919,11 +919,11 @@ input:focus + .placeholder{
 /*第一页
 ========================*/
 .page-bg .page-bg1{
-    background-image: url("/images/indexPage/page-bg1.jpg");
+    background-image: url("../../images/indexPage/page-bg1.jpg");
 }
 @media screen and (max-width: 1440px){
     .page-bg .page-bg2{
-        background-image: url("/images/indexPage/page-bg1-300.jpg");
+        background-image: url("../../images/indexPage/page-bg1-300.jpg");
     }
 }
 .page-content1 .left{
@@ -939,16 +939,16 @@ input:focus + .placeholder{
     margin-left: 10px;
 }
 .page-content1 .item-list>.i1{
-    background-image: url("/images/indexPage/page-content1-i1.png");
+    background-image: url("../../images/indexPage/page-content1-i1.png");
 }
 .page-content1 .item-list>.i2{
-    background-image: url("/images/indexPage/page-content1-i2.png");
+    background-image: url("../../images/indexPage/page-content1-i2.png");
 }
 .page-content1 .item-list>.i3{
-    background-image: url("/images/indexPage/page-content1-i3.png");
+    background-image: url("../../images/indexPage/page-content1-i3.png");
 }
 .page-content1 .item-list>.i4{
-    background-image: url("/images/indexPage/page-content1-i4.png");
+    background-image: url("../../images/indexPage/page-content1-i4.png");
 }
 .no-ani .page-content1 .item-list>.item,
 .ie9 .page-content1 .item-list>.item,
@@ -978,7 +978,7 @@ input:focus + .placeholder{
 .page-content1 .right{
     width: 826px;
     height: 729px;
-    background: url("/images/indexPage/page-content1.png") no-repeat center;
+    background: url("../../images/indexPage/page-content1.png") no-repeat center;
     background-size: 100% 100%;
     position: absolute;
     bottom: 0;
@@ -1003,22 +1003,22 @@ input:focus + .placeholder{
     }
     .ie8 .page-content1 .item-list>.i1{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content1-i1.png',
+                src='../../images/indexPage/page-content1-i1.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content1 .item-list>.i2{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content1-i2.png',
+                src='../../images/indexPage/page-content1-i2.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content1 .item-list>.i3{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content1-i3.png',
+                src='../../images/indexPage/page-content1-i3.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content1 .item-list>.i4{
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content1-i4.png',
+                src='../../images/indexPage/page-content1-i4.png',
                 sizingMethod='scale');
     }
     .page-content1 .right{
@@ -1028,7 +1028,7 @@ input:focus + .placeholder{
     .ie8 .page-content1 .right{
         background: none;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content1.png',
+                src='../../images/indexPage/page-content1.png',
                 sizingMethod='scale');
     }
 }
@@ -1041,17 +1041,17 @@ input:focus + .placeholder{
 /*第二页
 ========================*/
 .page-bg .page-bg2{
-    background-image: url("/images/indexPage/page-bg2.jpg");
+    background-image: url("../../images/indexPage/page-bg2.jpg");
 }
 @media screen and (max-width: 1440px){
     .page-bg .page-bg2{
-        background-image: url("/images/indexPage/page-bg2-300.jpg");
+        background-image: url("../../images/indexPage/page-bg2-300.jpg");
     }
 }
 .page-content2 .left{
     width: 600px;
     height: 670px;
-    background: url("/images/indexPage/page-content2.png") no-repeat 10px 0;
+    background: url("../../images/indexPage/page-content2.png") no-repeat 10px 0;
     position: absolute;
     top: -200px;
     left: 0;
@@ -1219,7 +1219,7 @@ input:focus + .placeholder{
         height: 300px;
         background: none;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content2.png',
+                src='../../images/indexPage/page-content2.png',
                 sizingMethod='scale');
     }
     .page-content2 .left-item1 {
@@ -1286,25 +1286,25 @@ input:focus + .placeholder{
     border-left: 1px solid #a7a7a7;
 }
 .page-content2 .i1{
-    background-image: url("/images/indexPage/page-content2-i1.png");
+    background-image: url("../../images/indexPage/page-content2-i1.png");
 }
 .page-content2 .i2{
-    background-image: url("/images/indexPage/page-content2-i2.png");
+    background-image: url("../../images/indexPage/page-content2-i2.png");
 }
 .page-content2 .i3{
-    background-image: url("/images/indexPage/page-content2-i3.png");
+    background-image: url("../../images/indexPage/page-content2-i3.png");
 }
 .page-content2 .i4{
-    background-image: url("/images/indexPage/page-content2-i4.png");
+    background-image: url("../../images/indexPage/page-content2-i4.png");
 }
 /*第三页
 ========================*/
 .page-bg .page-bg3{
-    background-image: url("/images/indexPage/page-bg3.jpg");
+    background-image: url("../../images/indexPage/page-bg3.jpg");
 }
 @media screen and (max-width: 1440px){
     .page-bg .page-bg3{
-        background-image: url("/images/indexPage/page-bg3-300.jpg");
+        background-image: url("../../images/indexPage/page-bg3-300.jpg");
     }
 }
 .page-content3 .left{
@@ -1320,7 +1320,7 @@ input:focus + .placeholder{
 .page-content3 .right{
     width: 680px;
     height: 474px;
-    background: url("/images/indexPage/page-content3.png") no-repeat center;
+    background: url("../../images/indexPage/page-content3.png") no-repeat center;
     position: absolute;
     top: 75px;
     right: 0;
@@ -1339,7 +1339,7 @@ input:focus + .placeholder{
     .ie8 .page-content3 .right{
         background: none;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content3.png',
+                src='../../images/indexPage/page-content3.png',
                 sizingMethod='scale');
     }
 }
@@ -1367,11 +1367,11 @@ input:focus + .placeholder{
 /*第四页
 ========================*/
 .page-bg .page-bg4{
-    background-image: url("/images/indexPage/page-bg4.jpg");
+    background-image: url("../../images/indexPage/page-bg4.jpg");
 }
 @media screen and (max-width: 1440px){
     .page-bg .page-bg4{
-        background-image: url("/images/indexPage/page-bg4-300.jpg");
+        background-image: url("../../images/indexPage/page-bg4-300.jpg");
     }
 }
 .page-content4 .step-content{
@@ -1409,24 +1409,24 @@ input:focus + .placeholder{
     opacity: 0;
 }
 .page-content4 .step1{
-    background-image: url("/images/indexPage/page-content4-i1.png");
+    background-image: url("../../images/indexPage/page-content4-i1.png");
     background-position: center 90%;
     background-size: 90%;
  }
 .page-content4 .step2{
-    background-image: url("/images/indexPage/page-content4-i2.png");
+    background-image: url("../../images/indexPage/page-content4-i2.png");
     background-position: center 10%;
 }
 .page-content4 .step3{
-    background-image: url("/images/indexPage/page-content4-i3.png");
+    background-image: url("../../images/indexPage/page-content4-i3.png");
     background-position: center 90%;
 }
 .page-content4 .step4{
-    background-image: url("/images/indexPage/page-content4-i4.png");
+    background-image: url("../../images/indexPage/page-content4-i4.png");
     background-position: center 10%;
 }
 .page-content4 .step5{
-    background-image: url("/images/indexPage/page-content4-i5.png");
+    background-image: url("../../images/indexPage/page-content4-i5.png");
     background-position: center 90%;
 }
 @media screen and (max-width: 1440px){
@@ -1442,7 +1442,7 @@ input:focus + .placeholder{
         height: 194px;
         top: 150px;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content4-i1.png',
+                src='../../images/indexPage/page-content4-i1.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content4 .step2{
@@ -1450,7 +1450,7 @@ input:focus + .placeholder{
         height: 201px;
         top: 25px;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content4-i2.png',
+                src='../../images/indexPage/page-content4-i2.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content4 .step3{
@@ -1458,7 +1458,7 @@ input:focus + .placeholder{
         height: 205px;
         top: 115px;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content4-i3.png',
+                src='../../images/indexPage/page-content4-i3.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content4 .step4{
@@ -1466,7 +1466,7 @@ input:focus + .placeholder{
         height: 194px;
         top: 20px;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content4-i4.png',
+                src='../../images/indexPage/page-content4-i4.png',
                 sizingMethod='scale');
     }
     .ie8 .page-content4 .step5{
@@ -1474,7 +1474,7 @@ input:focus + .placeholder{
         height: 194px;
         top: 105px;
         filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-                src='/images/indexPage/page-content4-i5.png',
+                src='../../images/indexPage/page-content4-i5.png',
                 sizingMethod='scale');
     }
 }
@@ -1502,7 +1502,7 @@ input:focus + .placeholder{
 ========================*/
 .page-content.page-content5{
     height: 100%;
-    background: url("/images/indexPage/page-content5.jpg") no-repeat center;
+    background: url("../../images/indexPage/page-content5.jpg") no-repeat center;
     background-size: cover;
 }
 .page-content5 .content{
@@ -1554,7 +1554,7 @@ input:focus + .placeholder{
 .backtop{
     width: 40px;
     height: 40px;
-    background: url("/images/indexPage/backtop.png") no-repeat center #f5f5f5;
+    background: url("../../images/indexPage/backtop.png") no-repeat center #f5f5f5;
     border: 1px solid #ebebeb;
     position: fixed;
     bottom: 50px;

@@ -664,10 +664,10 @@ $(function () {
                 editor: {
                     cancelable: false,
                     //触发了onSelected事件
-                    value: 'USERNAME',
+                    value: 'ACCOUNT',
                     //initIsTriggerEvent: true,
                     data: [
-                        {text: '登录账号', id: 'USERNAME'},
+                        {text: '登录账号', id: 'ACCOUNT'},
                         {text: '用户名称', id: 'NAME'},
                     ],
                     onSelected: function (value, text) {

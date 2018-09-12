@@ -192,7 +192,8 @@ $(function() {
 	}
 	
 
-	//工具栏
+	//工具栏,
+    //TODO 增加权限过滤控制
     var topitems = {
 	      add: { id: 'add',text: '增加', click: btnClick, icon: 'add', status: ['OP_INIT'] },
 	      edit: { id: 'edit', text: '修改', click: btnClick, icon: 'edit', status: ['OP_INIT'] },

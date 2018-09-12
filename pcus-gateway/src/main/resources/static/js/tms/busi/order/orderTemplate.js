@@ -248,7 +248,7 @@ var fields = (function($,liger, remap_price_base, bs_type_code, data, form_group
             {display: '封条号', name: 'cntr_seal_no', newline: false, cssClass: "field", type: "text", validate: {}},
             {display: '柜重', name: 'cntr_weight', newline: false, cssClass: "field", type: "text", validate: {range: [0, 999999]}},
             {display: '甩挂', name: 'cntr_drop_trailer', newline: false, cssClass: "field", type: "checkbox"},
-            {display: '孖柜', name: 'cntr_twin', newline: false, cssClass: "field", type: "checkbox"},
+            {display: '孖柜', name: 'cntr_twin', newline: false, cssClass: "field", type: "checkbox", options: {readonly: true, disabled: true}},
             {display: '孖拖柜号', name: 'cntr_twin_no', newline: false, cssClass: "field", type: "text", options: {readonly: true}},
             /**************************************************************************
              * 提还柜信息
@@ -517,7 +517,6 @@ var fields = (function($,liger, remap_price_base, bs_type_code, data, form_group
                 MAIN_FORM_GROUP.group_cargo,
                 MAIN_FORM_GROUP.group_load_cargo,
                 MAIN_FORM_GROUP.group_unload_cargo,
-                MAIN_FORM_GROUP.group_ship,
                 MAIN_FORM_GROUP.group_custom
             ],
 

@@ -210,7 +210,7 @@ function showLoad(data) {
                     highLight: true,
                     isTextBoxMode: true,
                     keySupport: true,
-                    url: '/tms/bas/transport/getRegions',
+                    url: rootPath + '/tms/bas/transport/getRegions',
                     onBeforeOpen: function (){
                         this._setUrl(this.options.url);
                     }

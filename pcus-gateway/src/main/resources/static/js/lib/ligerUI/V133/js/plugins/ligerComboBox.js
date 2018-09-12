@@ -1,4 +1,4 @@
-﻿/**
+/**
  * jQuery ligerUI 1.3.3
  *
  * http://ligerui.com
@@ -499,13 +499,12 @@
         },
         _setReadonly: function (readonly)
         {
-            if (readonly) {
+            if (readonly)
+            {
                 this.wrapper.addClass("l-text-readonly");
-                this.inputText.attr('readonly', 'true')
-            }
-            else {
+            } else
+            {
                 this.wrapper.removeClass("l-text-readonly");
-                this.inputText.removeAttr('readonly')
             }
         },
         _setLable: function (label)
@@ -1316,7 +1315,6 @@
                 onGridSelect = function() {
                     var value = [],
                         text = [];
-                        debugger;
                     var data = g.grid.getSelectedRows();
                     data.forEach(function(row, index) {
                         value.push(row[p.valueField]);
@@ -1331,7 +1329,7 @@
                     });
                 },
                 removeSelected = function(rowdata) {
-                    debugger;
+                    // debugger;
                     for (var i = selecteds.length - 1; i >= 0; i--) {
                         if (selecteds[i][p.valueField] == rowdata[p.valueField]) {
                             selecteds.splice(i, 1);
@@ -1339,7 +1337,7 @@
                     }
                 },
                 addSelected = function(rowdata) {
-                    debugger;
+                    // debugger;
                     for (var i = selecteds.length - 1; i >= 0; i--) {
                         if (selecteds[i][p.valueField] == rowdata[p.valueField]) {
                             return;

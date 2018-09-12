@@ -1,16 +1,16 @@
 var BILL_CONST = {
-    BILL_MAIN: 0,
-    BILL_SUB: 1,
+    BILL_MAIN: "MAIN",
+    BILL_SUB: "SUB",
     ORG_LOAD: "LOAD",
     ORG_UNLOAD: "UNLOAD",
 
     DATA_BILL_MAIN: [
         {
-            id: 0,
+            id: "MAIN",
             text: "主单"
         },
         {
-            id: 1,
+            id: "SUB",
             text: "副单"
         }
     ],

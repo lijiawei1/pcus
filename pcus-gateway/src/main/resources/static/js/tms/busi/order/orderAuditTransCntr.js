@@ -124,7 +124,7 @@ var fields = (function (data_bill) {
         {display: '车型', name: 'booking_car_type', newline: false, cssClass: "field", type: "select",
             options: {data: data_dict[DICT_CODE.car_type], readonly: true, cancelable: true}},
         {display: '承运方', name: 'carrier_name', newline: false, cssClass: "field", type: "text", options: {readonly: true}},
-        {display: '是否外协', name: 'outer', newline: false, cssClass: "field", type: "checkbox", options: {readonly: true}},
+        {display: '是否外协', name: 'outsourcing', newline: false, cssClass: "field", type: "checkbox", options: {readonly: true}},
         /**************************************************************************
          * 装卸货地址信息
          **************************************************************************/
@@ -319,7 +319,7 @@ var fields = (function (data_bill) {
             follow_driver: '跟车司机',
             booking_car_type: '车型',
             carrier_name: '承运方',
-            outer: '是否外协'
+            outsourcing: '是否外协'
 
         },
         group_cargo: {

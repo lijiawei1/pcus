@@ -1,4 +1,4 @@
-﻿﻿/**
+﻿/**
  * jQuery ligerUI 1.3.3
  *
  * http://ligerui.com
@@ -32,17 +32,17 @@
         usePager: true,                         //是否分页
         hideLoadButton: false,                 //是否隐藏刷新按钮
         pagerRender: null,                     //分页栏自定义渲染函数
-        page: 1,                                //默认当前页
+        page: 1,                                //默认当前页 
         pageSize: 50,                           //每页默认的结果数
         pageSizeOptions: [20, 50, 100, 200, 500, 1000, 2000],  //可选择设定的每页结果数
-        parms: [],                         //提交到服务器的参数
+        parms: [],                         //提交到服务器的参数 
         columns: [],                          //数据源
         minColToggle: 1,                        //最小显示的列
         dataType: 'server',                     //数据源：本地(local)或(server),本地是将读取p.data。不需要配置，取决于设置了data或是url
-        dataAction: 'server',                    //提交数据的方式：本地(local)或(server),选择本地方式时将在客服端分页、排序。
-        showTableToggleBtn: false,              //是否显示'显示隐藏Grid'按钮
+        dataAction: 'server',                    //提交数据的方式：本地(local)或(server),选择本地方式时将在客服端分页、排序。 
+        showTableToggleBtn: false,              //是否显示'显示隐藏Grid'按钮 
         switchPageSizeApplyComboBox: false,     //切换每页记录数是否应用ligerComboBox
-        allowAdjustColWidth: true,              //是否允许调整列宽
+        allowAdjustColWidth: true,              //是否允许调整列宽     
         checkbox: false,                         //是否显示复选框
         isSingleCheck: false,                  //复选框选择的时候是否单选模式
         allowHideColumn: true,                 //是否显示'切换列层'按钮
@@ -62,8 +62,8 @@
         pageParmName: 'page',               //页索引参数名，(提交给服务器)
         pagesizeParmName: 'pagesize',        //页记录数参数名，(提交给服务器)
         sortnameParmName: 'sortname',        //页排序列名(提交给服务器)
-        sortorderParmName: 'sortorder',      //页排序方向(提交给服务器)
-        allowUnSelectRow: false,           //是否允许反选行
+        sortorderParmName: 'sortorder',      //页排序方向(提交给服务器) 
+        allowUnSelectRow: false,           //是否允许反选行 
         alternatingRow: true,           //奇偶行效果
         mouseoverRowCssClass: 'l-grid-row-over',
         enabledSort: true,                      //是否允许排序
@@ -75,7 +75,7 @@
         totalRender: null,                       //统计行(全部数据)
         delayLoad: false,                        //初始化时是否不加载
         where: null,                           //数据过滤查询函数,(参数一 data item，参数二 data item index)
-        selectRowButtonOnly: false,            //复选框模式时，是否只允许点击复选框才能选择行
+        selectRowButtonOnly: false,            //复选框模式时，是否只允许点击复选框才能选择行 
         selectable: true,
         whenRClickToSelect: false,                //右击行时是否选中
         contentType: null,                     //Ajax contentType参数
@@ -107,7 +107,7 @@
         headerRowHeight: 28,                    //表头行的高度
         toolbar: null,                           //工具条,参数同 ligerToolbar的,额外参数有title、icon
         toolbarShowInLeft: true,               //工具条显示在左边
-        headerImg: null,                        //表格头部图标
+        headerImg: null,                        //表格头部图标  
         editorTopDiff: 3,                      //编辑器top误差
         editorLeftDiff: 1,                //编辑器left误差
         editorHeightDiff: -1,               //编辑器高度误差
@@ -127,7 +127,7 @@
         onBeforeSelectRow: null,             //选择前事件
         onUnSelectRow: null,                   //取消选择行事件
         onBeforeCheckRow: null,                 //选择前事件，可以通过return false阻止操作(复选框)
-        onCheckRow: null,                    //选择事件(复选框)
+        onCheckRow: null,                    //选择事件(复选框)  
         onBeforeCheckAllRow: null,              //选择前事件，可以通过return false阻止操作(复选框 全选/全不选)
         onCheckAllRow: null,                    //选择事件(复选框 全选/全不选)onextend
         onBeforeShowData: null,                  //显示数据前事件，可以通过reutrn false阻止操作
@@ -277,7 +277,7 @@
         }
     }
 
-    //引用类型,数据形式表现为[id,text]
+    //引用类型,数据形式表现为[id,text] 
     $.ligerDefaults.Grid.formatters['ref'] = function (value) {
         if ($.isArray(value)) return value.length > 1 ? value[1] : value[0];
         return value;
@@ -440,13 +440,13 @@
             g.header = $(".l-panel-header:first", g.grid);
             //主体
             g.body = $(".l-panel-body:first", g.grid);
-            //底部工具条
+            //底部工具条         
             g.toolbar = $(".l-panel-bar:first", g.grid);
-            //显示/隐藏列
+            //显示/隐藏列      
             g.popup = $(".l-grid-popup:first", g.grid);
             //加载中
             g.gridloading = $(".l-grid-loading:first", g.grid);
-            //调整列宽层
+            //调整列宽层 
             g.draggingline = $(".l-grid-dragging-line", g.grid);
             //顶部工具栏
             g.topbar = $(".l-panel-topbarinner:first", g.grid);
@@ -455,9 +455,9 @@
             g.gridview.attr("id", g.id + "grid");
             g.gridview1 = $(".l-grid1:first", g.gridview);
             g.gridview2 = $(".l-grid2:first", g.gridview);
-            //表头
+            //表头     
             g.gridheader = $(".l-grid-header:first", g.gridview2);
-            //表主体
+            //表主体     
             g.gridbody = $(".l-grid-body:first", g.gridview2);
             //处理autoFilter
             if (p.autoFilter) {
@@ -480,9 +480,9 @@
             }
             //frozen
             g.f = {};
-            //表头
+            //表头     
             g.f.gridheader = $(".l-grid-header:first", g.gridview1);
-            //表主体
+            //表主体     
             g.f.gridbody = $(".l-grid-body:first", g.gridview1);
 
             g.currentData = null;
@@ -1271,7 +1271,7 @@
             g.records[o['__id']] = o;
             return o;
         },
-        //将原始的数据转换成适合 grid的行数据
+        //将原始的数据转换成适合 grid的行数据 
         _getRows: function (data) {
             var g = this, p = this.options;
             var targetData = [];
@@ -1675,7 +1675,7 @@
             }
             else {
                 g.currentData = g._getCurrentPageData(g.filteredData);
-                //增加以下一句调用: 在显示数据之前, 应该先调用转换tree的函数.
+                //增加以下一句调用: 在显示数据之前, 应该先调用转换tree的函数. 
                 //否则会导致树的数据重复显示
                 if (p.tree) {
                     var childrenName = p.tree.childrenName;
@@ -2443,7 +2443,7 @@
             if (p.toolbar) {
                 if ($.fn.ligerToolBar) {
                     g.toolbarManager = g.topbar.ligerToolBar(p.toolbar);
-                    //原语句不知道为什么, toolbar的父div高度为0. 导致样式有问题.
+                    //原语句不知道为什么, toolbar的父div高度为0. 导致样式有问题. 
                     if (g.topbar.height() == 0)
                         g.topbar.parent().height(25);
                     else
@@ -2463,7 +2463,7 @@
         },
         _initColumns: function () {
             var g = this, p = this.options;
-            g._columns = {};             //全部列的信息
+            g._columns = {};             //全部列的信息  
             g._columnCount = 0;
             g._columnLeafCount = 0;
             g._columnMaxLevel = 1;
@@ -2534,8 +2534,8 @@
             }
             for (var i = 0, l = p.columns.length; i < l; i++) {
                 var col = p.columns[i];
-                //增加以下一句. 因为在低版本IE中, 可能因为修改了prototype,
-                //导致这里取出undefined, 并进一步导致后续的函数调用出错.
+                //增加以下一句. 因为在低版本IE中, 可能因为修改了prototype, 
+                //导致这里取出undefined, 并进一步导致后续的函数调用出错. 
                 if (!col) continue;
                 setColumn(col, 1, -1, lastid);
                 lastid = col['__id'];
@@ -2550,7 +2550,7 @@
                     col['__rowSpan'] = g._columnMaxLevel - col['__level'] + 1;
                 }
             }
-            //叶级别列的信息
+            //叶级别列的信息  
             g.columns = g.getColumns();
             $(g.columns).each(function (i, column) {
                 column.columnname = column.name;
@@ -2897,7 +2897,7 @@
 
         _fillGridBody: function (data, frozen, sourceType) {
             var g = this, p = this.options;
-            //加载数据
+            //加载数据 
             var gridhtmlarr = sourceType == "scrollappend" ? [] : ['<div class="l-grid-body-inner"><table class="l-grid-body-table" cellpadding=0 cellspacing=0><tbody>'];
             if (g.enabledGroup()) //启用分组模式
             {
@@ -2971,7 +2971,7 @@
                 jreplace = jreplace.length ? jreplace : $('<div class="l-scrollreplacebottom"></div>').appendTo(jgridbodyinner);
                 jreplace.css("width", "80%").height((p.pageCount - p.newPage) * g._getOnePageHeight());
             }
-            //分组时不需要
+            //分组时不需要            
             if (!g.enabledGroup()) {
                 //创建汇总行
                 g._bulidTotalSummary(frozen);
@@ -3104,7 +3104,7 @@
                 if (!item) continue;
                 gridhtmlarr.push('<tr');
                 gridhtmlarr.push(' id="' + g._getRowDomId(item, frozen) + '"');
-                gridhtmlarr.push(' class="l-grid-row'); //class start
+                gridhtmlarr.push(' class="l-grid-row'); //class start 
                 if (!frozen && g.enabledCheckbox() && p.isChecked && p.isChecked(item)) {
                     g.select(item);
                     gridhtmlarr.push(' l-selected');
@@ -3681,9 +3681,9 @@
                 indetail: indetail,
                 frozen: fn(g.gridview1[0]) ? true : false,
                 header: fn("l-panel-header"), //标题
-                gridheader: fn("l-grid-header"), //表格头
+                gridheader: fn("l-grid-header"), //表格头 
                 gridbody: fn("l-grid-body"),
-                total: fn("l-panel-bar-total"), //总汇总
+                total: fn("l-panel-bar-total"), //总汇总 
                 popup: fn("l-grid-popup"),
                 toolbar: fn("l-panel-bar")
             };
@@ -3795,7 +3795,7 @@
                 delete g.ctrlKey;
             });
 
-            //表体 - 滚动联动事件
+            //表体 - 滚动联动事件 
             g.gridbody.bind('scroll.grid', function () {
                 /**
                  * 2016-12-19 小心翼翼地修复行内编辑不随表格滚动条滚动的问题。。。
@@ -4622,7 +4622,7 @@
             var childrenName = "children";
             if (p.tree) childrenName = p.tree.childrenName;
             if (!data || !data.length) return [];
-            var targetData = [];                    //存储数据的容器(返回)
+            var targetData = [];                    //存储数据的容器(返回) 
             var records = {};
             var itemLength = data.length;           //数据集合的个数
             for (var i = 0; i < itemLength; i++) {

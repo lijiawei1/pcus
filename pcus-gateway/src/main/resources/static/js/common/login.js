@@ -90,7 +90,7 @@ function f_Login(type) {
     }
     //提交
     $.ajax({
-        url : "/checklogin",
+        url : rootPath + "/checklogin",
         async: true,
         cache: false,
         contentType: "application/x-www-form-urlencoded;charset=UTF-8",
@@ -121,7 +121,7 @@ function f_Login(type) {
                     url = $(window.parent.document).find('iframe[name=' +SelectedTabID + ']').attr('src');
                 window.location.href = url;
             } else {
-                window.open("/admin/index","TMS","width="+ screen.availWidth +",height="+ screen.availHeight +",top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=yes") ;
+                window.open(rootPath + "/admin/index","TMS","width="+ screen.availWidth +",height="+ screen.availHeight +",top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=yes") ;
             }
         },
         error : function(message) {

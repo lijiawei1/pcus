@@ -30,7 +30,7 @@ body{
     border: 1px solid #e3e3e3;
     border-radius: 10px;
     box-shadow: 0 0 3px 0 #e3e3e3;
-    background: url("/images/indexPage/apply/apply-form.png") no-repeat center #fff;
+    background: url("../../images/indexPage/apply/apply-form.png") no-repeat center #fff;
     background-size: cover;
     position: absolute;
     top: 12%;

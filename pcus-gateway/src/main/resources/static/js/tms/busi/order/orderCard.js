@@ -1008,7 +1008,6 @@ var fields = (function(busi_type) {
             oper_unit: '操作单位',
             state_name: '单据状态',
             bill_no: '运输单号',
-            client_busi: '自定义业务',
             urgen_order_type: '急单类型',
             linkman: '客户联系人',
             linkman_mobile: '客户联系电话',

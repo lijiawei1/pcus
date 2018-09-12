@@ -139,8 +139,8 @@ $(function () {
                 editor: { type: 'text'}
             },
             {
-                display: '外协', name: 'outer', align: 'left', minWidth: 30, width: '2%',
-                render: LG.render.boolean('outer')
+                display: '外协', name: 'outsourcing', align: 'left', minWidth: 30, width: '2%',
+                render: LG.render.boolean('outsourcing')
             },
             {
                 display: '车型', name: 'booking_car_type', align: 'left', minWidth: 60, width: '5%',
@@ -346,7 +346,6 @@ $(function () {
                         // key_text += '<span class="combobox-list-item car_no-item">' + '产值:' + ('' + (item.output || 0).toFixed(2)) + '</span>';
                         // key_text += '<span class="combobox-list-item car_no-item">' + '提成:' + ('' + (item.percentage || 0).toFixed(2)) + '</span>';
                         key_text += '<span class="combobox-list-item car_no-item">' + item.type_name + '</span>';
-                        // key_text += '<span class="combobox-list-item car_no-item">' + (item.outer == 'Y' ? '外协' : '自有') + '</span>';
 
                         return g._highLight(key_text, $.trim(data.key));
                     },
@@ -386,7 +385,7 @@ $(function () {
                         key_text += '<span class="combobox-list-item driver_name-item item1">' + key_text_arr[0] + '</span>';
                         key_text += '<span class="combobox-list-item driver_name-item item2">' + key_text_arr[1] + '</span>';
                         key_text += '<span class="combobox-list-item driver_name-item item3">' + key_text_arr[2] + '</span>';
-                        key_text += '<span class="combobox-list-item driver_name-item item4">' + (item.outer ? '外协' : '自有') + '</span>';
+                        key_text += '<span class="combobox-list-item driver_name-item item4">' + (item.outsourcing ? '外协' : '自有') + '</span>';
                         return key_text;
                     },
                     onBlur: function (text) {
@@ -401,7 +400,7 @@ $(function () {
                                 setFieldsValue(mainForm, {
                                     "driver_id":driverData.id,
                                     "driver_mobile": driverData.mobile,
-                                    "outer_c": driverData.outer ? "Y" : "N",
+                                    "outsourcing_c": driverData.outsourcing ? "Y" : "N",
                                     "carrier_name_c": driverData.carrier_id
                                 });
                             }
@@ -411,7 +410,7 @@ $(function () {
                             setFieldsValue(mainForm, {
                                 "driver_id": "",
                                 "driver_mobile": "",
-                                "outer_c": "",
+                                "outsourcing_c": "",
                                 "carrier_name_c": ""
                             });
                         }
@@ -430,7 +429,7 @@ $(function () {
                                 "driver_c":driverData.text,
                                 "driver_id":driverData.id,
                                 "driver_mobile": driverData.mobile,
-                                "outer_c": driverData.outer ? "Y" : "N",
+                                "outsourcing_c": driverData.outsourcing ? "Y" : "N",
                                 "carrier_name_c": driverData.carrier_id
                             });
                         }
@@ -455,8 +454,8 @@ $(function () {
             },
             {
                 display: '是否外协',
-                name: 'outer',
-                comboboxName: "outer_c",
+                name: 'outsourcing',
+                comboboxName: "outsourcing_c",
                 newline: false,
                 cssClass: "field",
                 type: "select",
@@ -840,7 +839,7 @@ $(function () {
                     "driver_c":driverData.text,
                     "driver_id":driverData.id,
                     "driver_mobile": driverData.mobile,
-                    "outer_c": driverData.outer ? "Y" : "N",
+                    "outsourcing_c": driverData.outsourcing ? "Y" : "N",
                     "carrier_name_c": driverData.carrier_id
 
                 });
@@ -946,7 +945,7 @@ $(function () {
                                 driver_id: data.driver_id,
                                 driver_mobile: data.driver_mobile,
                                 driver_name: data.driver,
-                                outer: data.outer === "Y"
+                                outsourcing: data.outsourcing === "Y"
                             };
 
                        //console.log(submitData);

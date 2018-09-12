@@ -68,12 +68,9 @@ $(function() {
 			topBackTrack.removeTrack(tabid);
 		},
 		onBeforeRemoveTabItem : function(tabid) {
-            var contentWindowBody = $(".l-tab-content-item[tabid=" + tabid + "] iframe", tab.content)[0].contentWindow;
-            if (contentWindowBody.$) {
-                var r = contentWindowBody.$("body").triggerHandler("beforeRemoveTab");
-                if (r === false) {
-                    return false;
-                }
+			var r = $(".l-tab-content-item[tabid=" + tabid + "] iframe", tab.content)[0].contentWindow.$("body").triggerHandler("beforeRemoveTab");
+			if (r === false) {
+				return false;
 			}
 		},
 		onReload : function(tabdata) {
@@ -206,7 +203,7 @@ function changePwd() {
 //		$.metadata.setType("attr", "validate");
 		LG.validate(changePwdPanel, { debug: true });
         changePwdPanel.appendTo($('body'));
-        debugger;
+        // debugger;
 		window.changePwdWin = $.ligerDialog.open({
 			width: 330,
             height: 175, top: 200,
@@ -288,7 +285,7 @@ function menus_init(height) {
 				var subitem = $('<li><img/><span></span><div class="menuitem-l"></div><div class="menuitem-r"></div></li>');
 				var shrinkItem = $('<p><img/><span></span></p>');
 				var attr = {
-						url: submenu.url,
+						url: rootPath + submenu.url,
 						menuno: submenu.no,
 						fun: submenu.name,
 						module: item.name,

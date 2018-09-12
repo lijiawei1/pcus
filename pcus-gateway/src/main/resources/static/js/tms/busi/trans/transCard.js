@@ -275,7 +275,7 @@ var fields = (function(busi_type) {
                     // key_text += '<span class="combobox-list-item car_no-item">' + '产值:' + ('' + (item.output || 0).toFixed(2)) + '</span>';
                     // key_text += '<span class="combobox-list-item car_no-item">' + '提成:' + ('' + (item.percentage || 0).toFixed(2)) + '</span>';
                     key_text += '<span class="combobox-list-item car_no-item">' + item.type_name + '</span>';
-                    // key_text += '<span class="combobox-list-item car_no-item">' + (item.outer == 'Y' ? '外协' : '自有') + '</span>';
+                    // key_text += '<span class="combobox-list-item car_no-item">' + (item.outsourcing == 'Y' ? '外协' : '自有') + '</span>';
 
                     return g._highLight(key_text, $.trim(data.key));
                 },
@@ -316,7 +316,7 @@ var fields = (function(busi_type) {
                     key_text += '<span class="combobox-list-item driver_name-item item1">' + key_text_arr[0] + '</span>';
                     key_text += '<span class="combobox-list-item driver_name-item item2">' + key_text_arr[1] + '</span>';
                     key_text += '<span class="combobox-list-item driver_name-item item3">' + key_text_arr[2] + '</span>';
-                    key_text += '<span class="combobox-list-item driver_name-item item4">' + (item.outer == 'Y' ? '外协' : '自有') + '</span>';
+                    key_text += '<span class="combobox-list-item driver_name-item item4">' + (item.outsourcing == 'Y' ? '外协' : '自有') + '</span>';
                     return g._highLight(key_text, $.trim(data.key));
                 },
                 onSelected: function (newValue, newText,data) {
@@ -377,7 +377,7 @@ var fields = (function(busi_type) {
         },
         {
             display: '是否外协',
-            name: 'outer',
+            name: 'outsourcing',
             newline: false,
             cssClass: "field",
             type: "checkbox",
@@ -863,7 +863,7 @@ var fields = (function(busi_type) {
             follow_driver: '跟车司机',
             booking_car_type: '车型',
             carrier_name: '承运方',
-            outer: '是否外协',
+            outsourcing: '是否外协',
 
         },
 
@@ -1326,7 +1326,7 @@ function selectCar(condition) {
         "driver_mobile": driverData.mobile,
         "carrier_id": driverData.carrier_id,
         "carrier_name": driverData.carrier_name,
-        "outer": driverData.outer
+        "outsourcing": driverData.outsourcing
     });
 }
 

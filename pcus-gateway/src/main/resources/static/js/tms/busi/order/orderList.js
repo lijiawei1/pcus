@@ -60,7 +60,7 @@ $(function () {
 
     var toDay = new Date(),
         oldDay = new Date();
-    oldDay.setMonth(toDay.getMonth() - 1);
+    oldDay.setMonth(toDay.getMonth() - 3);
 
     var where = {
         "op": "and",
@@ -113,7 +113,7 @@ $(function () {
             },
             {
                 display: '是否外协',
-                name: 'outer',
+                name: 'outsourcing',
                 width: '20%'
             }
         ],
@@ -160,18 +160,16 @@ $(function () {
                 align: 'left',
                 minWidth: 60,
                 width: '3%',
+                frozen: true,
                 quickSort: false,
                 render: function (item) {
-                    if (item.bill_main == 0 && (item.children == null || item.children.length == 0)) {
-                        return "";
-                    }
-                    else {
-                        if (item.bill_main == 0) {
+                    switch (item.bill_main) {
+                        case 0:
                             return "主";
-                        }
-                        else if (item.bill_main == 1) {
+                        case 1:
                             return "副";
-                        }
+                        default:
+                            return "";
                     }
                 }
             },
@@ -191,7 +189,7 @@ $(function () {
                         } else {
                             var schedule = Math.ceil((item.trans_finish / item.trans_total) * 10) * 10;
                             html = '<div class="l-grid-row-cell-inner orange-50 schedule' + schedule + '">';
-                            value = '已完成(' + item.trans_finish + '/' + item.trans_total + ')';
+                            value = '已完成(' +  item.trans_finish  + '/' + item.trans_total + ')';
                         }
                     } else if (value == "已回单") {
                         if (item.trans_receipted == item.trans_total) {
@@ -203,8 +201,6 @@ $(function () {
                         }
                     } else if (value == "已核费用") {
                         html = '<div class="l-grid-row-cell-inner gray-100">';
-                    } else if (value == "已中止") {
-                        html = '<div class="l-grid-row-cell-inner yellow-100">';
                     }
                     else {
                         html = '<div class="l-grid-row-cell-inner ">';
@@ -239,8 +235,8 @@ $(function () {
                 display: '应付费用', name: 'pay', align: 'left', minWidth: 60, width: '2%', isSort: false, quickSort: false,
                 render: function (item) {
                     return item.total_pay !== item.audited_pay ?
-                        '<div class="in-pay">' + toFloat(item.total_pay, 2) + '(' + toFloat(item.audited_pay, 2) + ')</div>'
-                        : toFloat(item.total_pay, 2) + '(' + toFloat(item.audited_pay, 2) + ')';
+                    '<div class="in-pay">' + toFloat(item.total_pay, 2) + '(' + toFloat(item.audited_pay, 2) + ')</div>'
+                        : toFloat(item.total_pay, 2) + '(' + toFloat(item.audited_pay, 2) + ')' ;
                 },
                 totalSummary: {
                     align: 'center', type: 'sum',
@@ -266,8 +262,8 @@ $(function () {
                 display: '应收费用', name: 'charge', align: 'left', minWidth: 60, width: '2%', isSort: false, quickSort: false,
                 render: function (item) {
                     return item.total_charge !== item.audited_charge ?
-                        '<div class="in-charge">' + toFloat(item.total_charge, 2) + '(' + toFloat(item.audited_charge, 2) + ')</div>'
-                        : toFloat(item.total_charge, 2) + '(' + toFloat(item.audited_charge, 2) + ')';
+                    '<div class="in-charge">' + toFloat(item.total_charge, 2) + '(' + toFloat(item.audited_charge, 2) + ')</div>'
+                        : toFloat(item.total_charge, 2) + '(' + toFloat(item.audited_charge, 2) + ')' ;
                 },
                 totalSummary: {
                     align: 'center', type: 'sum',
@@ -426,7 +422,7 @@ $(function () {
                     if (!item.transInfoList || item.transInfoList.length <= 0) {
                         return;
                     }
-                    return '<span class="trans-info" data-index="' + index + '">' + item.transInfoList[0].outer + '</span>';
+                    return '<span class="trans-info" data-index="' + index + '">' + item.transInfoList[0].outsourcing + '</span>';
                 }
             },
             {
@@ -650,22 +646,22 @@ $(function () {
         rowClsRender: function (item, rowid, data, i) {
             var className = "",
                 nextItem = data[i + 1];
-            if (item.bill_main == 0 && (item.children == null || item.children.length == 0)) {
+            if (item.bill_main === 0 && ( item.children == null || item.children.length == 0)) {
                 className = " unShowColspace";
             }
             else {
                 className = " showColspace";
-                if (item.bill_main == 0) {
+                if (item.bill_main === 0) {
                     className += " main";
                 }
-                else if (item.bill_main == 1) {
+                else if (item.bill_main === 1) {
                     className += " sub";
-                    if (nextItem && (nextItem.bill_main != BILL_CONST.BILL_SUB)) {
+                    if (nextItem && (nextItem.bill_main !== "SUB")) {
                         className += " lastShow";
                     }
                 }
             }
-            if (nextItem && (nextItem.bill_main == BILL_CONST.BILL_MAIN)) {
+            if (nextItem && (nextItem.bill_main === 0)) {
                 className += " nextShow";
             }
             return className;
@@ -880,9 +876,7 @@ $(function () {
             },
             defaultFields: {
                 "bill_no": true,
-                "cntr_no": true,
-                'create_time_s': true,
-                'create_time_e': true
+                "cntr_no": true
             },
             exFields: {
                 "cntr_drop_trailer": {
@@ -912,7 +906,6 @@ $(function () {
                 "ship_corp": {options: {absolute: true}},
                 "ship_name": {options: {absolute: true}},
                 "voyage": {options: {absolute: true}},
-                "trans_cntr_no": {options: {absolute: true}},
                 "gate_out_dock": {options: {absolute: true}},
                 "gate_in_dock": {options: {absolute: true}},
                 "oper_unit": {options: {absolute: true}},
@@ -920,6 +913,7 @@ $(function () {
                 "urgen_order_type": {options: {absolute: true}},
                 "audit_psn": {options: {absolute: true}},
                 "create_psn": {options: {absolute: true}},
+
                 "create_time_s": {
                     newline: false,
                     width: filterFormFieldWidth.w1
@@ -1059,7 +1053,7 @@ $(function () {
                 type: "select", cssClass: "field", comboboxName: "state_c",
                 options: {
                     data: [{id: '新记录', text: '新记录'}, {id: '已审核', text: '已审核'},
-                        {id: '已完成', text: '已完成'}, {id: '已回单', text: '已回单'}, {id: '已核费用', text: '已核费用'}, {id: '已中止', text: '已中止'},],
+                        {id: '已完成', text: '已完成'}, {id: '已回单', text: '已回单'}, {id: '已核费用', text: '已核费用'},],
                     absolute: true,
                     cancelable: true,
                     split: ',',
@@ -1433,8 +1427,7 @@ $(function () {
                 type: "date",
                 cssClass: "field",
                 editor: {
-                    showTime: true, format: "yyyy-MM-dd",
-                    onChangeDate: function (value) {
+                    showTime: true, format: "yyyy-MM-dd", onChangeDate: function (value) {
                         this.usedDate.setHours(23, 59, 59);
                     }
                 },
@@ -1448,14 +1441,9 @@ $(function () {
                 width: filterFormFieldWidth.w2,
                 type: "date",
                 cssClass: "field",
-                editor: {
-                    showTime: true,
-                    format: "yyyy-MM-dd",
-                    onRendered: function () {
-                        this._setValue(oldDay)
-                    }
-                },
+                editor: {showTime: true, format: "yyyy-MM-dd"},
                 attr: {
+                    value: oldDay.format(),
                     "data-name": "create_time",
                     op: "greaterorequal" //操作符
                 }
@@ -1467,13 +1455,8 @@ $(function () {
                 type: "date",
                 cssClass: "field",
                 editor: {
-                    showTime: true,
-                    format: "yyyy-MM-dd",
-                    onChangeDate: function (value) {
+                    showTime: true, format: "yyyy-MM-dd", onChangeDate: function (value) {
                         this.usedDate.setHours(23, 59, 59);
-                    },
-                    onRendered: function () {
-                        this._setValue(toDay)
                     }
                 },
                 attr: {
@@ -1484,7 +1467,6 @@ $(function () {
             }
         ]
     };
-
 
     var mainFormOption = {
         fields: [
@@ -1657,9 +1639,7 @@ $(function () {
                         selected.push($.extend({}, mergeListBox.data[i]));
                         //设置选中的单据作为主单
                         if (selected[i].id === items[0].id) {
-                            selected[i].bill_main = BILL_CONST.BILL_MAIN;
-                        } else {
-                            selected[i].bill_main = BILL_CONST.BILL_SUB;
+                            selected[i].bill_main = 1;
                         }
                     }
 
@@ -1825,23 +1805,6 @@ $(function () {
         ]
     };
 
-    //回单失败对话框
-    var receiptFailDialogOption = {
-        target: $("#receiptFailListDialog"),
-        title: '回单结果',
-        width: 650,
-        height: 450,
-        modal: false,
-        buttons: [
-            {
-                text: '确认',
-                onclick: function (item, dialog) {
-                    dialog.hidden();
-                }
-            }
-        ]
-    };
-
     var SELECTED = 'selected';
 
     //默认增删改查刷新
@@ -1904,26 +1867,11 @@ $(function () {
                     ]
                 }
             },
-            {id: 'receiptInline', text: '回单', click: receiptInline, icon: 'submit', status: ['OP_INIT']},
             {id: 'importFeeBatch', text: '导入费用', click: importFeeBatch, icon: 'dataimport', status: ['OP_INIT']},
             {id: 'coverFeeBatch', text: '覆盖费用', click: coverFeeBatch, icon: 'withdraw', status: ['OP_INIT']},
             {id: 'auditFeeBatch', text: '审收审付', click: auditFeeBatch, icon: 'withdraw', status: ['OP_INIT']}
-            // {
-            //     text: '费用',
-            //     icon: 'withdraw',
-            //     menu: {
-            //         items: [
-            //             {id: 'importFeeBatch', text: '导入费用', click: importFeeBatch, status: ['OP_INIT']},
-            //             {id: 'coverFeeBatch', text: '覆盖费用', click: coverFeeBatch, status: ['OP_INIT']},
-            //             {id: 'auditFeeBatch', text: '审收审付', click: auditFeeBatch, status: ['OP_INIT']}
-            //         ]
-            //     }
-            // }
         ]
     };
-
-    //初始化表格
-    mainGrid = $mainGrid.ligerGrid(gridOption);
 
     //初始化查询框
     filterForm = $filterForm.ligerSearchForm(filterFormOption);
@@ -1937,7 +1885,10 @@ $(function () {
     //初始化工具栏
     toptoolbar = LG.powerToolBar($("#toptoolbar"), defaultActionOption);
 
+    detailGrid = $detailGrid.ligerGrid(detailGridOption);
 
+    //初始化表格
+    mainGrid = $mainGrid.ligerGrid(gridOption);
     /**
      * 解析返回信息
      * @param data
@@ -2070,7 +2021,7 @@ $(function () {
 
         //过滤副单
         selected = $.grep(selected, function (n, i) {
-            return selected[i].bill_main != BILL_CONST.BILL_SUB;
+            return selected[i].bill_main != 1;
         });
 
         $.ligerDialog.confirm('确定复制吗?', function (confirm) {
@@ -2112,7 +2063,7 @@ $(function () {
 
         //过滤副单
         var postData = $.grep(selected, function (n, i) {
-            return selected[i].bill_main != BILL_CONST.BILL_SUB;
+            return selected[i].bill_main != 1;
         });
 
         $.ligerDialog.confirm('确定审核吗?', function (confirm) {
@@ -2134,78 +2085,6 @@ $(function () {
                 },
                 error: function (message) {
                     LG.showError(message);
-                }
-            });
-        });
-    }
-
-    /**
-     * 回单
-     */
-    var receiptFailDialog;
-    function receiptInline() {
-        var selected = mainGrid.getCheckedRows();
-        if (!selected || selected.length == 0) {
-            LG.showError("请选择行");
-            return;
-        }
-
-        $.ligerDialog.confirm('请确认单据信息完备！单据没有核查之前，批量回单慎重使用！', function (confirm) {
-            if (!confirm) return;
-            LG.ajax({
-                url: basePath + 'receiptBatch',
-                data: JSON.stringify(selected, DateUtil.datetimeReplacer),
-                contentType: "application/json",
-                success: function (data, message, code) {
-                    refresh(selected, data);
-//                     mainGrid.reload();
-                    LG.tip('回单成功');
-                },
-                error: function (message, data, code) {
-
-                    var op = $.extend({}, receiptFailDialogOption, {content: message});
-
-                    //返回数据列表
-                    var dataList = data.dataList;
-                    if (dataList && dataList.length > 0) {
-                        //刷新界面
-                        refresh(selected, dataList);
-                    }
-
-                    //返回处理消息列表
-                    var msgList = data.msgList;
-
-                    //初始化错误信息页面
-                    $('#failList').ligerGrid({
-                        columns: [
-                            {
-                                display: '状态', name: 'code', align: 'left', minWidth: 60, width: '15%',
-                                render: function (item) {
-                                    return item.code == 0 ? '<div class="l-grid-row-cell-inner cyan-100">成功</div>' : '<div class="l-grid-row-cell-inner pink-100">失败</div>';
-                                }
-                            },
-                            {
-                                display: '详细信息', name: 'message', align: 'left', minWidth: 100, width: '75%'
-                            }
-                        ],
-                        data: {Rows: msgList},
-                        checkbox: false, //多选框
-                        pageSize: 50,
-                        width: '600',
-                        height: '350',
-                        dataAction: 'local',
-                        usePager: false,
-                        pageSizeOptions: [50, 100, 200, 500],
-                        enabledEdit: true,
-                        rowHeight: 30,
-                        headerRowHeight: 28,
-                        rowSelectable: true,
-                        selectable: true,
-                        rownumbers: true,
-                    });
-
-                    //打开对话框
-                    (receiptFailDialog || (receiptFailDialog = $.ligerDialog.open(op))).show(op);
                 }
             });
         });
@@ -2259,7 +2138,7 @@ $(function () {
         }
 
         var postData = $.grep(selected, function (n, i) {
-            return selected[i].bill_main != BILL_CONST.BILL_SUB;
+            return selected[i].bill_main != 1;
         });
 
         $.ligerDialog.confirm('确定撤销吗?', function (confirm) {
@@ -2453,13 +2332,13 @@ $(function () {
                 buttons: [
                     {
                         text: '导入', onclick: function () {
-                            upload();
-                        }
+                        upload();
+                    }
                     },
                     {
                         text: '取消', onclick: function () {
-                            uploadDlg.hide();
-                        }
+                        uploadDlg.hide();
+                    }
                     }
                 ]
             });
@@ -2664,10 +2543,6 @@ $(function () {
         var row = mainGrid.getRow(index);
         var data = row.transInfoList;
 
-        if (detailGrid == null) {
-            detailGrid = $detailGrid.ligerGrid(detailGridOption);
-        }
-
         detailGrid.loadData({
             Rows: data
         });
@@ -2720,7 +2595,7 @@ $(function () {
             refresh();
             return;
         }
-        var eq = thisPkid.bill_main == BILL_CONST.BILL_SUB ? true : false,
+        var eq = thisPkid.bill_main === 1 ? true : false,
             url = eq ? 'refreshShowDetail' : 'refreshShow',
             data = eq ? {"order_id": thisPkid.pk_id} : JSON2.stringify([thisPkid.pk_id]),
             type = eq ? 'application/x-www-form-urlencoded' : 'application/json';
@@ -2744,41 +2619,38 @@ $(function () {
 
     });
 
-
-    $quickSearch.on('click', '.qs-item', function (e) {
-        var g = $(this);
-        $(".qs-item.visited").removeClass("visited");
-        g.addClass("visited");
-        //状态常量
-        var state = g.data('state');
-        //添加条件
-        if (typeof defaultSearchFilter === "undefined") {
-            defaultSearchFilter = {
-                and: [],
-                or: []
-            };
-        } else {
-            defaultSearchFilter.and = [];
-            defaultSearchFilter.or = []
-        }
-        if (state && state != 'ALL') {
-            defaultSearchFilter.and.push({field: 'order_state', value: state, op: 'equal', type: 'string'});
-        }
-        // 刷新表单
-        mainGrid.set('parms', [{
-            name: 'where',
-            value: whereLoadUnload(liger.get('history-search-form').getSearchFormData(false, defaultSearchFilter))
-        }]);
-        mainGrid.changePage('first');
-        mainGrid.loadData();
-    });
-
     /**
      * 刷新快速搜索
      */
     var refreshQuick = (function () {
         //绑定快捷查询
-        console.log('初始化标签')
+        $quickSearch.on('click', '.qs-item', function (e) {
+            var g = $(this);
+            $(".qs-item.visited").removeClass("visited");
+            g.addClass("visited");
+            //状态常量
+            var state = g.data('state');
+            //添加条件
+            if (typeof defaultSearchFilter === "undefined") {
+                defaultSearchFilter = {
+                    and: [],
+                    or: []
+                };
+            } else {
+                defaultSearchFilter.and = [];
+                defaultSearchFilter.or = []
+            }
+            if (state && state != 'ALL') {
+                defaultSearchFilter.and.push({field: 'order_state', value: state, op: 'equal', type: 'string'});
+            }
+            // 刷新表单
+            mainGrid.set('parms', [{
+                name: 'where',
+                value: whereLoadUnload(liger.get('history-search-form').getSearchFormData(false, defaultSearchFilter))
+            }]);
+            mainGrid.changePage('first');
+            mainGrid.loadData();
+        });
 
         /**
          * 刷新下方数据统计
@@ -2927,20 +2799,15 @@ $(function () {
 
         $.each(selected, function (idx, obj) {
             //更新行数据的版本号
-            if (!!mapping[obj.pk_id]) {
-                var newData = $.extend({}, obj, mapping[obj.pk_id]);
+            var newData = $.extend({}, obj, mapping[obj.pk_id]);
+            mainGrid.updateRow(obj['__id'], newData);
+            mainGrid.isDataChanged = false;
 
-                mainGrid.updateRow(obj['__id'], newData);
-                mainGrid.isDataChanged = false;
-
-                var dom = $(mainGrid.getRowObj(obj['__id'], true));
-                dom.children('.l-grid-row-cell-rownumbers').addClass('operated');
-            }
+            var dom = $(mainGrid.getRowObj(obj['__id'], true));
+            dom.children('.l-grid-row-cell-rownumbers').addClass('operated');
             // $('.l-selected').each(function (index, e) {
             //     $(this).children('.l-grid-row-cell-rownumbers').addClass('operated');
             // })
         });
     }
-
-    // refreshQuick()();
 });

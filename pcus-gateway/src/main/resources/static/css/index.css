@@ -164,7 +164,7 @@ body{
     height: 100%;
     padding: 0;
     margin-left: -22px;
-    background: url("/images/logo.png") no-repeat center;
+    background: url("../images/logo.png") no-repeat center;
     background-size: 60%;
 }
 .l-layout-left .l-layout-header-toggle{
@@ -211,7 +211,7 @@ body{
 .l-accordion-header.active{
     background-color: transparent;
     border-left: 3px solid #17a0f5;
-    border-left-width: 5px\0\9;
+    border-left-width: 5px;
 }
 .l-accordion-toggle{
     width: 16px;
