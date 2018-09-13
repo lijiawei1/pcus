@@ -1,0 +1,20 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: ${server.context-path}/health
+        health-check-interval: 100s
+        instance-id: pcus-gateway
+  redis:
+    host: localhost
+management:
+  security:
+    enabled: false
+
+
+

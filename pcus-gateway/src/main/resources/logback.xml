@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+    <logger name="org.springframework.session" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
     <logger name="org.zap.framework" level="DEBUG" additivity="false">

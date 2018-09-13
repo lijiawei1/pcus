@@ -11,6 +11,7 @@
         <module>pcus-module</module>
         <module>pcus-movie</module>
         <module>pcus-auth</module>
+        <module>pcus-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -32,10 +33,10 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-cache</artifactId>-->

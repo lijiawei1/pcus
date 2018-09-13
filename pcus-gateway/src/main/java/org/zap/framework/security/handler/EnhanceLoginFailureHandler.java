@@ -19,8 +19,7 @@ import java.io.IOException;
  */
 public class EnhanceLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Autowired
-    ObjectMapper mapper;
+    ObjectMapper mapper = new ObjectMapper();
 
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response, AuthenticationException exception)

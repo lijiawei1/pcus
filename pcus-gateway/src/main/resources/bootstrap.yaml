@@ -1,65 +1,65 @@
-spring:
-  devtools:
-    livereload:
-      enabled: true
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        health-check-path: ${server.context-path}/health
-        health-check-interval: 100s
-        instance-id: pcus-gateway
-  application:
-    name: pcus-gateway
-  thymeleaf:
-    cache: false
-    ## 检查模板是否存在，然后再呈现
-    check-template-location: true
-    #Content-Type值
-    content-type: text/html
-    #启用MVC Thymeleaf视图分辨率
-    enabled: true
-  resources:
-    static-locations:
-  redis:
-    host: 127.0.0.1
-server:
-  port: 9090
-  context-path: /pcus
-  tomcat:
-    basedir: pcusdata
-zuul:
-  debug:
-    request: true
-  strip-prefix: false
-  routes:
-    pcus-module-core:
-      path: /core/**
-      service-id: pcus-module-core
-    pcus-movie:
-      path: /movie/**
-      service-id: pcus-movie
-    pcus-auth:
-      path: /auth/**
-      service-id: pcus-auth
-logging:
-  level:
-    com.netflix: debug
-    org.springframework.security: debug
-management:
-  security:
-    enabled: false
-security:
-#  oauth2:
-#    client:
-#      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
-#      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
-#      client-id: webapp
-#    resource:
-#      user-info-uri: http://localhost:9090/pcus/auth/user
-#      prefer-token-info: false
-  basic:
-    enabled: false
-
-
+#spring:
+#  devtools:
+#    livereload:
+#      enabled: true
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        health-check-path: ${server.context-path}/health
+#        health-check-interval: 100s
+#        instance-id: pcus-gateway
+#  application:
+#    name: pcus-gateway
+#  thymeleaf:
+#    cache: false
+#    ## 检查模板是否存在，然后再呈现
+#    check-template-location: true
+#    #Content-Type值
+#    content-type: text/html
+#    #启用MVC Thymeleaf视图分辨率
+#    enabled: true
+#  resources:
+#    static-locations:
+#  redis:
+#    host: 127.0.0.1
+#server:
+#  port: 9090
+#  context-path: /pcus
+#  tomcat:
+#    basedir: pcusdata
+#zuul:
+#  debug:
+#    request: true
+#  strip-prefix: false
+#  routes:
+#    pcus-module-core:
+#      path: /core/**
+#      service-id: pcus-module-core
+#    pcus-movie:
+#      path: /movie/**
+#      service-id: pcus-movie
+#    pcus-auth:
+#      path: /auth/**
+#      service-id: pcus-auth
+#logging:
+#  level:
+#    com.netflix: debug
+#    org.springframework.security: debug
+#management:
+#  security:
+#    enabled: false
+#security:
+##  oauth2:
+##    client:
+##      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
+##      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
+##      client-id: webapp
+##    resource:
+##      user-info-uri: http://localhost:9090/pcus/auth/user
+##      prefer-token-info: false
+#  basic:
+#    enabled: false
+#
+#

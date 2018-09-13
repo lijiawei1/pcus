@@ -4,6 +4,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+@Deprecated
 public class DefaultLogoutFilter extends LogoutFilter {
 
 	public DefaultLogoutFilter(LogoutSuccessHandler logoutSuccessHandler,

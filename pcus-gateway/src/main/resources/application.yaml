@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: pcus-gateway
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: ${server.context-path}/health
+        health-check-interval: 100s
+        instance-id: pcus-gateway
+  session:
+    store-type: redis
+server:
+  port: 9090
+  context-path: /pcus
+  tomcat:
+    basedir: pcusdata
+security:
+#  oauth2:
+#    client:
+#      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
+#      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
+#      client-id: webapp
+#    resource:
+#      user-info-uri: http://localhost:9090/pcus/auth/user
+#      prefer-token-info: false
+  basic:
+    enabled: false
+zuul:
+  debug:
+    request: true
+  strip-prefix: false
+  routes:
+    pcus-module-core:
+      path: /core/**
+      service-id: pcus-module-core
+    pcus-auth:
+      path: /auth/**
+      service-id: pcus-auth
+

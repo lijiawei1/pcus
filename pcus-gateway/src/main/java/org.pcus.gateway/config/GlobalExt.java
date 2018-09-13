@@ -9,6 +9,9 @@ import org.beetl.ext.web.WebRenderExt;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 模板公共配置
+ */
 public class GlobalExt implements WebRenderExt {
     static long version = System.currentTimeMillis();
     @Override

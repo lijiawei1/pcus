@@ -1,22 +1,24 @@
 package org.pcus.gateway.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -25,7 +27,11 @@ import org.springframework.security.web.authentication.session.ConcurrentSession
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
-import org.springframework.security.web.session.ConcurrentSessionFilter;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
+import org.springframework.session.data.redis.RedisOperationsSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 import org.zap.framework.security.entry.EnhanceAuthenticationEntryPoint;
 import org.zap.framework.security.filter.*;
 import org.zap.framework.security.handler.DefaultLogoutHandler;
@@ -77,11 +83,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
 
-                .addFilterBefore(new DefaultIpFilter(), SecurityContextHolderAwareRequestFilter.class)
+                //.addFilterBefore(new DefaultIpFilter(), SecurityContextHolderAwareRequestFilter.class)
                 //session并发控制
-                .addFilterAt(enhanceConcurrentSessionFilter(), ConcurrentSessionFilter.class)
+                //.addFilterAt(enhanceConcurrentSessionFilter(), ConcurrentSessionFilter.class)
                 //替换注销过滤器
-                .addFilterAt(defaultLogoutFilter(), LogoutFilter.class)
+                //.addFilterAt(defaultLogoutFilter(), LogoutFilter.class)
                 //设置登录过滤器
                 .addFilterAt(defaultLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 //
@@ -90,11 +96,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new EnhanceAuthenticationEntryPoint("/login"))
                 .and()
                 //Session同步控制，需要限制声明
-                .sessionManagement().sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
+                .sessionManagement()
+                .sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
+                //.maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/login?expired")
+                //.sessionRegistry(sessionRegistry()).and()
                 //.and()
                 //.formLogin()
                 //.loginPage("/login")
                 //.permitAll()
+                .and()
+                .rememberMe().rememberMeServices(rememberMeServices())
                 .and()
                 .csrf().disable()
                 .logout().logoutUrl("/logout").permitAll()
@@ -168,10 +179,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new DefaultInvocationSecurityMetadataSource();
     }
 
-    @Bean
-    public SessionRegistry sessionRegistry() {
-        return new SessionRegistryImpl();
-    }
+    //@Bean
+    //public SessionRegistry sessionRegistry() {
+    //    return new SessionRegistryImpl();
+    //}
 
     @Bean
     public CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy() {
@@ -186,5 +197,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 new RegisterSessionAuthenticationStrategy(sessionRegistry())
 
         ));
+    }
+
+    @Autowired
+    SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry((FindByIndexNameSessionRepository)redisOperationsSessionRepository);
+    }
+
+    @Autowired
+    JedisConnectionFactory jedisConnectionFactory;
+
+    //@Bean
+    @Autowired
+    RedisOperationsSessionRepository redisOperationsSessionRepository;
+    //public FindByIndexNameSessionRepository getSessionRepository() {
+    //    return new RedisOperationsSessionRepository(jedisConnectionFactory);
+    //}
+
+    @Bean
+    RememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
     }
 }
