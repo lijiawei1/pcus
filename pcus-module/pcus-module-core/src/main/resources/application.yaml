@@ -11,3 +11,6 @@ spring:
     name: pcus-module-core
 server:
   port: 9091
+security:
+  basic:
+    enabled: false
