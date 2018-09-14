@@ -7,6 +7,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.zap.framework.common.json.CustomObjectMapper;
 import org.zap.framework.lang.LDouble;
+import org.zap.framework.module.auth.entity.User;
+import org.zap.framework.security.utils.SecurityUtils;
 import org.zap.framework.util.DataTypeUtils;
 import org.zap.framework.util.DateUtils;
 
@@ -146,5 +148,14 @@ public abstract class BaseController {
 				return getValue().toString();
 			}
 		});
+	}
+
+	/**
+	 * 获取登录用户
+	 *
+	 * @return User
+	 */
+	protected User getUser() {
+		return SecurityUtils.getCurrentUser();
 	}
 }

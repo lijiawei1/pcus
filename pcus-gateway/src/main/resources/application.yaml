@@ -28,6 +28,7 @@ security:
   basic:
     enabled: false
 zuul:
+  sensitive-headers:
   debug:
     request: true
   strip-prefix: false

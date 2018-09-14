@@ -97,9 +97,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 //Session同步控制，需要限制声明
                 .sessionManagement()
-                .sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
-                //.maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/login?expired")
-                //.sessionRegistry(sessionRegistry()).and()
+                //.sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
+                .maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/login?expired")
+                .sessionRegistry(sessionRegistry()).and()
                 //.and()
                 //.formLogin()
                 //.loginPage("/login")
@@ -205,14 +205,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    JedisConnectionFactory jedisConnectionFactory;
-
-    //@Bean
-    @Autowired
     RedisOperationsSessionRepository redisOperationsSessionRepository;
-    //public FindByIndexNameSessionRepository getSessionRepository() {
-    //    return new RedisOperationsSessionRepository(jedisConnectionFactory);
-    //}
 
     @Bean
     RememberMeServices rememberMeServices() {

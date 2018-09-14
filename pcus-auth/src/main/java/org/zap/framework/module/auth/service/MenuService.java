@@ -6,11 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.zap.framework.common.service.BusiService;
+import org.zap.framework.dao.service.BusiService;
 import org.zap.framework.module.auth.entity.Menu;
 import org.zap.framework.module.auth.entity.SubMenu;
 import org.zap.framework.module.auth.entity.User;
-import org.zap.framework.orm.base.BaseEntity;
 import org.zap.framework.orm.extractor.BeanListExtractor;
 import org.zap.framework.util.MathUtils;
 
@@ -34,7 +33,7 @@ public class MenuService extends BusiService {
     public void add(Menu entity) {
 
         //最大编号
-        Menu maxNo = busiDao.queryOneByClause(Menu.class, " AM.DR = 0 AND AM.PID = ? ORDER BY AM.NO DESC", entity.getPid());
+        Menu maxNo = baseDao.queryOneByClause(Menu.class, " AM.DR = 0 AND AM.PID = ? ORDER BY AM.NO DESC", entity.getPid());
 
         if (maxNo == null) {
             entity.setNo(entity.getNo() + "001");
@@ -50,7 +49,7 @@ public class MenuService extends BusiService {
         entity.setCreate_time(now);
         entity.setModify_time(now);
 
-        busiDao.add(new BaseEntity[]{entity});
+        baseDao.insert(entity);
 
     }
 
@@ -63,7 +62,7 @@ public class MenuService extends BusiService {
 
         Assert.notNull(entity.getPid(), "父菜单主键不能为空");
 
-        List<Menu> query = busiDao.query("SELECT AM.NO FROM ZAP_AUTH_MENU AM WHERE AM.DR = 0 AND AM.PID = ? AND AM.NO >= ? ORDER BY AM.NO DESC",
+        List<Menu> query = baseDao.query("SELECT AM.NO FROM ZAP_AUTH_MENU AM WHERE AM.DR = 0 AND AM.PID = ? AND AM.NO >= ? ORDER BY AM.NO DESC",
                 new Object[]{ entity.getPid(), StringUtils.defaultIfEmpty(startno, "000") },
                 new BeanListExtractor<>(Menu.class));
 
@@ -83,7 +82,7 @@ public class MenuService extends BusiService {
         entity.setCreate_time(now);
         entity.setModify_time(now);
 
-        busiDao.add(new BaseEntity[]{entity});
+        baseDao.insert(entity);
     }
 
     /**
@@ -98,7 +97,7 @@ public class MenuService extends BusiService {
         }
 
         //所有受控按钮
-        List<Menu> list = busiDao.queryByClause(Menu.class, " AM.DR = 0 AND AM.MLEVEL = 3 AND AM.VISIBLE = 'Y' AND AM.NO LIKE '"
+        List<Menu> list = baseDao.queryByClause(Menu.class, " AM.DR = 0 AND AM.MLEVEL = 3 AND AM.VISIBLE = 'Y' AND AM.NO LIKE '"
                 + no + "' || '%' AND AM.ID NOT IN (SELECT OBJECT_ID FROM ZAP_AUTH_PRIVILEGE WHERE DR = 0 AND `ACCESSIBLE` = 'Y' AND ( SUBJECT_ID = '" + user.getId()
                 + "' OR SUBJECT_ID IN (SELECT UR.ROLE_ID FROM ZAP_AUTH_RE_USER_ROLE UR WHERE UR.USER_ID = '" + user.getId() + "')))");
 

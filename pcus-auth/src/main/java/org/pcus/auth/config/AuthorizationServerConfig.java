@@ -33,8 +33,8 @@ import java.security.KeyPair;
 /**
  * 开启授权服务器
  */
-@Configuration
-@EnableAuthorizationServer
+//@Configuration
+//@EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;

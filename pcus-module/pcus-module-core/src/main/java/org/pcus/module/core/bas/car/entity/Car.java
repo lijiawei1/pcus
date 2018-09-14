@@ -1,4 +1,4 @@
-package org.pcus.module.bas.car.entity;
+package org.pcus.module.core.bas.car.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,11 +8,11 @@ spring:
       discovery:
         health-check-path: /health
         health-check-interval: 15s
-        instance-id: pcus-module-core
+        instance-id: pcus-auth
   session:
       store-type: redis
 server:
-  port: 9091
+  port: 9092
 security:
   basic:
     enabled: false

@@ -1,6 +1,6 @@
 package org.zap.framework.module.auth.controller;
 
-import org.apache.commons.lang.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +10,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.zap.framework.common.annotation.Log4ControllerAnnotation;
 import org.zap.framework.common.controller.BaseController;
 import org.zap.framework.common.entity.LigerGridPager;
-import org.zap.framework.common.entity.PageParam;
 import org.zap.framework.common.entity.PageResult;
-import org.zap.framework.module.auth.annotation.NodeFunction;
 import org.zap.framework.module.auth.entity.Menu;
-import org.zap.framework.module.auth.service.MenuInitiate;
 import org.zap.framework.module.auth.service.MenuService;
 import org.zap.framework.module.auth.service.PrivilegeService;
-import org.zap.framework.module.ui.lg.entity.LigerGridPager;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -30,9 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.zap.framework.module.auth.constants.AuthConstants.MODULE_AUTH;
-import static org.zap.framework.module.auth.constants.AuthConstants.MODULE_AUTH_MENU;
-
+@Slf4j
 @Controller
 @RequestMapping("/auth/menu")
 public class MenuController extends BaseController {
@@ -143,24 +135,5 @@ public class MenuController extends BaseController {
         //return privilegeService.loadGrantedSubMenus(ids);
     }
 
-    @Autowired
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
-
-    /**
-     * 初始化基础的模块菜单和按钮
-     */
-    @RequestMapping("/initModule")
-    @ResponseBody
-    public Object initModule(boolean reset, String module, String startno) {
-
-        module = StringUtils.defaultIfEmpty(module, "auth");
-        //new MenuInitiate(menuService, privilegeService, requestMappingHandlerMapping).init(reset, "blp");
-        //new MenuInitiate(menuService, privilegeService, requestMappingHandlerMapping).init(reset, "ctms");
-        //new MenuInitiate(menuService, privilegeService, requestMappingHandlerMapping).init(reset, "ctmsConfig");
-        new MenuInitiate(menuService, privilegeService, requestMappingHandlerMapping).init(reset, module, startno);
-        return "";
-    }
-
-    public static Logger logger = LoggerFactory.getLogger(MenuController.class);
 
 }
