@@ -8,11 +8,25 @@ spring:
       max-active: 8
       max-idle: 0
       max-wait: -1
+  datasource:
+    hikari:
+      username: pcusdev
+      password: pcusdev
+      minimum-idle: 5
+      maximum-pool-size: 10
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: PcusDS
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1 FROM DUEL
+      jdbc-url: jdbc:oracle:thin:@192.168.0.221:1521:orcl
+      driver-class-name: oracle.jdbc.OracleDriver
 logging:
   level:
 #    com.netflix: debug
 #    org.springframework.security: debug
-    org.springframework.session: debug
+#    org.springframework.session: debug
 security:
 #  oauth2:
 #    client:

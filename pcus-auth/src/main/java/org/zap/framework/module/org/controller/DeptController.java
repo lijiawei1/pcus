@@ -94,7 +94,10 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> removeMx(Dept entity) {
 		//业务删除
-		deptService.remove(entity);
+		//deptService.remove(entity);
+		entity.setDr(1);
+		deptService.update(entity, new String[]{ "dr" }, true);
+
 		return new HashMap<>();
 	}
 }

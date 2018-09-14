@@ -30,6 +30,7 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisOperationsSessionRepository;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 import org.zap.framework.security.entry.EnhanceAuthenticationEntryPoint;
@@ -42,7 +43,7 @@ import org.zap.framework.security.manager.DefaultAccessDecisionManager;
 
 import java.util.Arrays;
 
-@Configuration
+@EnableRedisHttpSession
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -131,14 +132,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         EnhanceConcurrentSessionFilter filter = new EnhanceConcurrentSessionFilter(sessionRegistry(), "/login");
         return filter;
 
-    }
-
-    @Bean
-    public DefaultLogoutFilter defaultLogoutFilter() {
-        DefaultLogoutFilter filter = new DefaultLogoutFilter(new DefaultLogoutHandler(), new LogoutHandler[]{
-                new EnhanceSecurityContextLogoutHandler()
-        });
-        return filter;
     }
 
     @Bean

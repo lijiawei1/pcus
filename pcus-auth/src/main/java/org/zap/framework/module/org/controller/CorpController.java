@@ -3,14 +3,8 @@ package org.zap.framework.module.org.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.zap.framework.common.annotation.Log4ControllerAnnotation;
 import org.zap.framework.common.controller.BaseController;
-import org.zap.framework.common.entity.PageParam;
-import org.zap.framework.module.auth.annotation.NodeFunction;
-import org.zap.framework.module.auth.annotation.NodeModule;
 import org.zap.framework.module.org.entity.Corp;
 import org.zap.framework.module.org.service.CorpService;
 
@@ -18,8 +12,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.zap.framework.module.auth.constants.AuthConstants.*;
 
 /**
  * 

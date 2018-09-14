@@ -14,7 +14,7 @@ import org.springframework.cache.interceptor.SimpleKey;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.zap.framework.common.service.BusiService;
+import org.zap.framework.dao.service.BusiService;
 import org.zap.framework.module.auth.constants.AuthConstants;
 import org.zap.framework.module.auth.entity.*;
 import org.zap.framework.module.org.entity.Corp;
@@ -169,7 +169,7 @@ public class PrivilegeService extends BusiService {
 
             //重新插入
             if (privilegeList.size() > 0) {
-                logger.debug("SUCCESS SAVE RELATIONS [{}]", insert(privilegeList.stream().toArray(Privilege[]::new), false));
+                logger.debug("SUCCESS SAVE RELATIONS [{}]", insertList(privilegeList, false));
             }
 
         }
@@ -214,7 +214,7 @@ public class PrivilegeService extends BusiService {
                     p.setCorp_id(user.getCorp_id());
                     p.setDept_id(user.getDept_id());
                 }
-                insert(insertList.toArray(new Privilege[insertList.size()]), false);
+                insertList(insertList, false);
             }
         }
 
@@ -254,7 +254,7 @@ public class PrivilegeService extends BusiService {
             }
         });
 
-        logger.debug("角色[{}]从角色[{}]复制了权限条数[{}]", to.getRolecode(), from.getRolecode(), insertList.size() > 0 ? insert(insertList, false) : 0);
+        logger.debug("角色[{}]从角色[{}]复制了权限条数[{}]", to.getRolecode(), from.getRolecode(), insertList.size() > 0 ? insertList(insertList, false) : 0);
     }
 
 
@@ -286,7 +286,7 @@ public class PrivilegeService extends BusiService {
                 " LEFT JOIN ZAP_AUTH_USER AU ON AP.SUBJECT_ID = AU.ID" +
                 " WHERE (AP.DR = 0 AND AM.INTERCEPT_URL IS NOT NULL) OR AM.UNINTERCEPT = 'Y'";
 
-        List<Map<String, Object>> maplist = busiDao.queryForMapList(sql);
+        List<Map<String, Object>> maplist = baseDao.queryForMapList(sql);
 
         Map<String, Set<String>> filter = new HashMap<>();
         for (Map<String, Object> m : maplist) {
@@ -338,7 +338,7 @@ public class PrivilegeService extends BusiService {
             clause.append(" AND OC.SN LIKE '").append(StringEscapeUtils.escapeSql(user.getCorpsn())).append("%'");
         }
 
-        return busiDao.queryByClause(Corp.class, clause.toString());
+        return baseDao.queryByClause(Corp.class, clause.toString());
     }
 
     /**
@@ -361,7 +361,7 @@ public class PrivilegeService extends BusiService {
             objectListBuilder.add("%" + role.getRolename() + "%");
         }
 
-        return busiDao.queryByClause(Role.class, clause.toString(), objectListBuilder.toObjectArray());
+        return baseDao.queryByClause(Role.class, clause.toString(), objectListBuilder.toObjectArray());
     }
 
 }

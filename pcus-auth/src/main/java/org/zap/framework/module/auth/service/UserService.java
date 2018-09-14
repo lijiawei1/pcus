@@ -15,19 +15,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.zap.framework.common.service.BusiService;
+import org.zap.framework.common.entity.LigerGridPager;
+import org.zap.framework.common.entity.pagination.PaginationSupport;
+import org.zap.framework.dao.service.BusiService;
 import org.zap.framework.exception.BusinessException;
 import org.zap.framework.module.auth.constants.AuthConstants;
 import org.zap.framework.module.auth.entity.*;
 import org.zap.framework.module.init.constants.SysConstants;
 import org.zap.framework.module.mail.entity.MailCheckCode;
 import org.zap.framework.module.org.entity.Corp;
-import org.zap.framework.module.ui.lg.entity.LigerGridPager;
+import org.zap.framework.module.sms.entity.SmsCode;
 import org.zap.framework.orm.criteria.Query;
 import org.zap.framework.orm.extractor.BeanListExtractor;
-import org.zap.framework.orm.page.PaginationSupport;
-import org.zap.framework.security.authority.EnhanceGrantedAuthority;
-import org.zap.framework.sms.entity.SmsCode;
+import org.zap.framework.security.entity.EnhanceGrantedAuthority;
 import org.zap.framework.util.SqlUtils;
 import org.zap.framework.util.Utils;
 import org.zap.framework.util.ValidateUtils;
@@ -219,7 +219,7 @@ public class UserService extends BusiService {
             }
 
             //插入用户
-            getBaseDao().insert(userList, false);
+            getBaseDao().insertList(userList, false);
         }
     }
 
@@ -261,7 +261,7 @@ public class UserService extends BusiService {
                 dbUser.setEnabled(false);
             }
 
-            busiDao.update(dbUser);
+            baseDao.update(dbUser);
 
             checkDisableUser(user);
 
@@ -340,7 +340,9 @@ public class UserService extends BusiService {
      * @param user
      */
     public void remove(User user) {
-        super.remove(user);
+        user.setDr(1);
+        update(user, new String[] {"dr"}, true);
+        //super.remove(user);
 
         //移除用户session
         removeUserSession(new String[]{user.getId()});
@@ -414,12 +416,12 @@ public class UserService extends BusiService {
     @Deprecated
     public User changePassword(String id, String loginPwd) {
 
-        User user = busiDao.queryByPrimaryKey(User.class, id);
+        User user = baseDao.queryByPrimaryKey(User.class, id);
         if (user == null) {
             throw new BusinessException("非法用户");
         }
         user.setPassword(passwordEncoder.encode(loginPwd));
-        busiDao.update(user, new String[]{"password"}, true);
+        baseDao.update(user, new String[]{"password"}, true);
 
         //从缓存中移除
         //removeUserFromCache(user);
@@ -452,7 +454,7 @@ public class UserService extends BusiService {
         }
 
         //
-        User user = busiDao.queryByPrimaryKey(User.class, userId);
+        User user = baseDao.queryByPrimaryKey(User.class, userId);
         if (user != null) {
             if (StringUtils.isNotBlank(oldPwd) && !passwordEncoder.matches(oldPwd, user.getPassword())) {
                 //密码校验
@@ -493,7 +495,7 @@ public class UserService extends BusiService {
             throw new BusinessException("修改密码[新密码]不能为空");
         }
 
-        User user = busiDao.queryByPrimaryKey(User.class, userId);
+        User user = baseDao.queryByPrimaryKey(User.class, userId);
         if (user != null) {
             //加密新密码
             user.setPassword(passwordEncoder.encode(newPassword));
@@ -519,7 +521,7 @@ public class UserService extends BusiService {
      */
     public List<User> loadUsers(UserFilter filter) {
 
-        Query<User> query = busiDao.getQuery(User.class).eq("dr", 0)
+        Query<User> query = baseDao.getQuery(User.class).eq("dr", 0)
                 .eq("corp_id", filter.getFiltercorp())
                 .like(filter.getFilterfield(), filter.getFiltername());
 
@@ -551,7 +553,7 @@ public class UserService extends BusiService {
     public LigerGridPager<Role> loadPageRoles(User user, int page, int pagesize, String sortname, String sortorder) {
 
         //拼装条件，可以使用builder
-        return new LigerGridPager<Role>(busiDao.queryPage(Role.class,
+        return new LigerGridPager<Role>(baseDao.queryPage(Role.class,
                 " AR.DR = 0 AND AR.ID IN ( SELECT ROLE_ID FROM ZAP_AUTH_RE_USER_ROLE WHERE USER_ID = '" + user.getId() + "' )",
                 page - 1, pagesize));
 
@@ -590,11 +592,11 @@ public class UserService extends BusiService {
     public List<Role> loadSelectRoles(User user, boolean admin) {
 
         //用户已经选中的角色
-        List<ReUserRole> relist = busiDao.queryByClause(ReUserRole.class, " ARUR.DR = 0 AND ARUR.USER_ID = ? ", user.getId());
+        List<ReUserRole> relist = baseDao.queryByClause(ReUserRole.class, " ARUR.DR = 0 AND ARUR.USER_ID = ? ", user.getId());
         Set<String> roleids = Utils.collection2FieldSet(relist, "role_id", String.class);
 
         //该用户所有角色
-        List<Role> rolelist = busiDao.queryByClause(Role.class, " AR.DR = 0 AND AR.CORP_ID IN (?, ?) ",
+        List<Role> rolelist = baseDao.queryByClause(Role.class, " AR.DR = 0 AND AR.CORP_ID IN (?, ?) ",
                 user.getCorp_id(),
                 (admin ? SysConstants.CORPORATION_ROOT_ID : ""));
         //设置选中
@@ -628,7 +630,7 @@ public class UserService extends BusiService {
         sqlBuilder.append(" WHERE R.DR = 0 AND R.CORP_ID = ?");
         listBuilder.add(corp_id);
 
-        return busiDao.query(sqlBuilder.toString(), listBuilder.toObjectArray(), new BeanListExtractor(RoleCheck.class));
+        return baseDao.query(sqlBuilder.toString(), listBuilder.toObjectArray(), new BeanListExtractor(RoleCheck.class));
     }
 
     /**
@@ -800,7 +802,7 @@ public class UserService extends BusiService {
             });
 
             if (insertList.size() > 0) {
-                insert(insertList, false);
+                insertList(insertList, false);
             }
 
             //更新session中的登录用户
@@ -853,7 +855,7 @@ public class UserService extends BusiService {
                     res[i].setRole_id(insertList.get(i));
                     res[i].setCreate_time(now);
                 }
-                insert(res, false);
+                insertArray(res, false);
             }
 
             //使用户session失效
@@ -894,7 +896,7 @@ public class UserService extends BusiService {
             res[i].setRole_id(roles[i].getId());
             res[i].setCreate_time(now);
         }
-        insert(res, false);
+        insertArray(res, false);
 
         removeUserSession(new String[]{user.getId()});
 
@@ -1364,7 +1366,7 @@ public class UserService extends BusiService {
             corp.setExt_type("reg");
             corp.setPid(SysConstants.CORPORATION_ROOT_ID);
             corp.setCreator_id(SysConstants.USER_ADMIN_ID);
-            save(corp);
+            insert(corp);
 
             user.setCorp_id(corp.getId());
         }

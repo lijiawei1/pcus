@@ -1,30 +1,20 @@
 package org.zap.framework.module.auth.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.zap.framework.common.annotation.Log4ControllerAnnotation;
 import org.zap.framework.common.controller.BaseController;
-import org.zap.framework.common.entity.PageParam;
+import org.zap.framework.common.entity.LigerGridPager;
 import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.common.json.CustomObjectMapper;
-import org.zap.framework.module.auth.annotation.NodeFunction;
 import org.zap.framework.module.auth.entity.Role;
 import org.zap.framework.module.auth.service.RoleService;
 import org.zap.framework.module.org.entity.Corp;
 import org.zap.framework.module.org.service.CorpService;
-import org.zap.framework.module.ui.lg.entity.LigerGridPager;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.zap.framework.module.auth.constants.AuthConstants.MODULE_AUTH;
-import static org.zap.framework.module.auth.constants.AuthConstants.MODULE_AUTH_ROLE;
 
 /**
  * 角色管理
@@ -39,10 +29,10 @@ public class RoleController extends BaseController {
 	private RoleService roleService;
 	
 	@Autowired
-	CorpService corpService;
+    CorpService corpService;
 
 	@Autowired
-	CustomObjectMapper customObjectMapper;
+    CustomObjectMapper customObjectMapper;
 
 	///**
 	// * 加载入口页面
@@ -75,11 +65,11 @@ public class RoleController extends BaseController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/loadPageList")
-	public ModelAndView loadPageList(PageParam pageParam) throws JsonProcessingException {
-		pageParam.getParams().put("modules", customObjectMapper.writeValueAsString(roleService.queryForEnhanceMapList("SELECT NAME AS TEXT,NO AS ID FROM ZAP_AUTH_MENU WHERE DR = 0 AND MLEVEL = 1")));
-		return render("auth/role/rolelist", pageParam);
-	}
+	//@RequestMapping("/loadPageList")
+	//public ModelAndView loadPageList(PageParam pageParam) throws JsonProcessingException {
+	//	pageParam.getParams().put("modules", customObjectMapper.writeValueAsString(roleService.queryForEnhanceMapList("SELECT NAME AS TEXT,NO AS ID FROM ZAP_AUTH_MENU WHERE DR = 0 AND MLEVEL = 1")));
+	//	return render("auth/role/rolelist", pageParam);
+	//}
 
 	/**
 	 * 加载角色列表
@@ -147,86 +137,6 @@ public class RoleController extends BaseController {
 	public PageResult remove(Role role) {
 		//业务删除
 		return PageResult.success("", roleService.delete(role));
-	}
-
-	/***********************************************************后台改版接口******************************************************************/
-
-	/**
-	 * 加载入口页面
-	 *
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/loadRolePage")
-	public ModelAndView loadRolePage(PageParam pageParam) {
-		return render("auth/role/role", pageParam);
-	}
-
-	/**
-	 * 加载角色列表
-	 * @param request
-	 * @param where
-	 * @return
-	 */
-	@RequestMapping("/loadRoleGrid")
-	@ResponseBody
-	public LigerGridPager<Role> loadRoleGrid(LigerGridPager<?> request, String where) {
-		return new LigerGridPager<>(roleService.page(Role.class, request, where, true));
-	}
-
-	/**
-	 * 新增角色
-	 * @param role
-	 * @return
-	 */
-	@RequestMapping("/addRole")
-	@ResponseBody
-	public PageResult addRole(@RequestBody Role role, HttpServletRequest request) {
-		return roleService.addRole(role, getUser(), request);
-	}
-
-	/**
-	 * 更新角色
-	 * @param role
-	 * @return
-	 */
-	@RequestMapping("/updateRole")
-	@ResponseBody
-	public PageResult updateRole(@RequestBody Role role, HttpServletRequest request) {
-		return roleService.updateRole(role, getUser(), request);
-	}
-
-	/**
-	 * 批量删除角色
-	 * @param roles
-	 * @return
-	 */
-	@RequestMapping("/removeRole")
-	@ResponseBody
-	public PageResult removeRoles(@RequestBody Role[] roles, HttpServletRequest request) {
-		return roleService.removeRoles(roles, getUser(), request);
-	}
-
-	/**
-	 * 批量生效用户
-	 * @param roles
-	 * @return
-	 */
-	@RequestMapping("/enableRoles")
-	@ResponseBody
-	public PageResult enableRoles(@RequestBody Role[] roles, HttpServletRequest request) {
-		return roleService.enableRoles(roles, getUser(), request);
-	}
-
-	/**
-	 * 批量失效用户
-	 * @param roles
-	 * @return
-	 */
-	@RequestMapping("/disableRoles")
-	@ResponseBody
-	public PageResult disableRoles(@RequestBody Role[] roles, HttpServletRequest request) {
-		return roleService.disableRoles(roles, getUser(), request);
 	}
 
 }

@@ -5,12 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.zap.framework.common.controller.BaseController;
-import org.zap.framework.common.entity.PageParam;
 import org.zap.framework.common.entity.PageResult;
-import org.zap.framework.module.auth.annotation.NodeFunction;
-import org.zap.framework.module.auth.annotation.NodeModule;
 import org.zap.framework.module.auth.constants.AuthConstants;
 import org.zap.framework.module.auth.entity.GrantRequestEntity;
 import org.zap.framework.module.auth.entity.Menu;
@@ -23,15 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.zap.framework.module.auth.constants.AuthConstants.MODULE_AUTH;
-import static org.zap.framework.module.auth.constants.AuthConstants.MODULE_AUTH_PRIVILEGE;
-
 @Controller
 @RequestMapping("/auth/privilege")
-@NodeModule(name = "权限管理", code = MODULE_AUTH, order = 2, function = {
-		@NodeFunction(name = "授权", code = MODULE_AUTH_PRIVILEGE, parent = MODULE_AUTH, order = 20,
-				intercept_url = "*", url = "/loadPage")
-})
 public class PrivilegeController extends BaseController {
 
 	@Autowired
@@ -40,15 +29,15 @@ public class PrivilegeController extends BaseController {
 	@Autowired
 	private MenuService menuService;
 
-	/**
-	 * 加载入口页面
-	 *
-	 * @return
-	 */
-	@RequestMapping("/loadPage")
-	public ModelAndView loadPage(PageParam pageParam) {
-		return render("auth/privilege/privilege", pageParam);
-	}
+	///**
+	// * 加载入口页面
+	// *
+	// * @return
+	// */
+	//@RequestMapping("/loadPage")
+	//public ModelAndView loadPage(PageParam pageParam) {
+	//	return render("auth/privilege/privilege", pageParam);
+	//}
 
 	/**
 	 * 读取选中角色选中的权限客体

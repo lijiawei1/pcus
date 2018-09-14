@@ -1,14 +1,25 @@
 package org.pcus.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.zap.framework.common.json.CustomObjectMapper;
+import org.zap.framework.orm.dao.IBaseDao;
+import org.zap.framework.orm.dao.impl.BaseDao;
+
+import javax.sql.DataSource;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ("org.zap.framework.module"))
 @EnableDiscoveryClient
 //@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 //@EnableJpaRepositories(repositoryBaseClass = WiselyRepositoryImpl.class)
+@Configuration
 public class PcusAuthApplication {
 
 	//@Bean(name = "auditorAware")
@@ -20,4 +31,22 @@ public class PcusAuthApplication {
 		SpringApplication.run(PcusAuthApplication.class, args);
 	}
 
+
+	@Autowired
+    DataSource dataSource;
+
+	@Bean
+    IBaseDao baseDao() {
+	    return new BaseDao(dataSource);
+    }
+
+	@Bean
+    public CustomObjectMapper customObjectMapper() {
+		return new CustomObjectMapper();
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

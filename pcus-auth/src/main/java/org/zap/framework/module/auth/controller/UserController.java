@@ -8,31 +8,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.zap.framework.common.annotation.Log4ControllerAnnotation;
 import org.zap.framework.common.controller.BaseController;
-import org.zap.framework.common.entity.PageParam;
+import org.zap.framework.common.entity.LigerGridPager;
+import org.zap.framework.common.entity.LigerTreeNode;
 import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.common.json.CustomObjectMapper;
 import org.zap.framework.exception.BusinessException;
-import org.zap.framework.module.auth.annotation.NodeFunction;
+import org.zap.framework.module.auth.entity.*;
 import org.zap.framework.module.auth.service.UserService;
-import org.zap.framework.module.log.service.BasLogService;
 import org.zap.framework.module.org.entity.Corp;
 import org.zap.framework.module.org.service.CorpService;
-import org.zap.framework.module.ui.lg.entity.LigerGridPager;
-import org.zap.framework.module.ui.lg.entity.LigerTreeNode;
-import org.zap.framework.security.constants.SecurityConstants;
 import org.zap.framework.util.SqlUtils;
 import org.zap.framework.util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.zap.framework.module.auth.constants.AuthConstants.*;
 
 /**
  * 用户管理器
@@ -52,19 +47,19 @@ public class UserController extends BaseController {
 	@Autowired
 	private CustomObjectMapper mapper;
 
-	@Autowired
-	private BasLogService logService;
+	//@Autowired
+	//private BasLogService logService;
 
-	/**
-	 * 加载入口页面
-	 *
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/loadPage")
-	public ModelAndView loadPage(PageParam pageParam) {
-		return render("auth/user/user", pageParam);
-	}
+	///**
+	// * 加载入口页面
+	// *
+	// * @return
+	// */
+	//@ResponseBody
+	//@RequestMapping("/loadPage")
+	//public ModelAndView loadPage(PageParam pageParam) {
+	//	return render("auth/user/user", pageParam);
+	//}
 
 	@RequestMapping("/add")
 	@ResponseBody
@@ -73,7 +68,7 @@ public class UserController extends BaseController {
 		if (StringUtils.isBlank(entity.getPassword())) {
 			entity.setPassword("1");
 		}
-		userService.add(entity, request, getUser());
+		userService.add(entity);
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("data", entity);
@@ -82,12 +77,11 @@ public class UserController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/update")
-	@Log4ControllerAnnotation(remark="修改用户")
 	public PageResult update(@RequestBody User entity, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 		
 		//TODO
-		userService.update(entity, getUser(), request);
+		userService.update(entity);
 		
 		return PageResult.success("保存成功", entity);
 	}
@@ -97,7 +91,6 @@ public class UserController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/remove")
-	@Log4ControllerAnnotation(remark="删除用户")
 	public Map<String, Object> remove(User user) {
 		userService.remove(user);
 		return new HashMap<>();
@@ -166,7 +159,6 @@ public class UserController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/grantRoles")
-	@Log4ControllerAnnotation(remark="用户分配角色")
 	public Map<String, Object> grantRoles(User user) {
 		userService.grantRoles(user);
 		return new HashMap<>();
@@ -177,7 +169,6 @@ public class UserController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/grantAnyRoles")
-	@Log4ControllerAnnotation(remark="用户分配角色")
 	public Map<String, Object> grantAnyRoles(User user) {
 		userService.grantAnyRoles(user);
 		return new HashMap<>();
@@ -199,7 +190,6 @@ public class UserController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/resetPwd")
-	@Log4ControllerAnnotation(remark="重设用户密码")
 	public PageResult resetPwd(User user) {
 		//重置密码
 		user.setPassword(passwordEncoder.encode("1"));
@@ -219,112 +209,111 @@ public class UserController extends BaseController {
 		HttpSession session = request.getSession();
 
 		//检查图片校验码
-		String imageVerifyCode = (String)session.getAttribute(SecurityConstants.IMAGE_VERIFY_CODE_KEY);
+		String imageVerifyCode = (String)session.getAttribute("image_verify_code");
 		if (!StringUtils.equalsIgnoreCase(userRegister.getImage_verify_code(), imageVerifyCode)) {
 			return new PageResult(true, 0, "图片校验码不正确", null);
 		}
 
 		//消费验证码
-		session.removeAttribute(SecurityConstants.IMAGE_VERIFY_CODE_KEY);
+		session.removeAttribute("image_verify_code");
 
-		userService.registerMail(userRegister, request);
+		userService.registerMail(userRegister);
 		return new PageResult(false, "", "");
 	}
 
 	/**************************************用户列表界面********************************************/
 
-	/**
-	 * 加载列表界面
-	 * @return
-     */
-	@RequestMapping("/loadPageList")
-	@NodeFunction(name = "用户列表", code = MODULE_AUTH_USER_LIST, parent = MODULE_AUTH, order = 6, intercept_url = "*", url = "/loadPageList")
-	public ModelAndView loadPageList(PageParam pageParam) {
-		return render("auth/user/userlist", pageParam);
-	}
+	///**
+	// * 加载列表界面
+	// * @return
+     //*/
+	//@RequestMapping("/loadPageList")
+	//@NodeFunction(name = "用户列表", code = MODULE_AUTH_USER_LIST, parent = MODULE_AUTH, order = 6, intercept_url = "*", url = "/loadPageList")
+	//public ModelAndView loadPageList(PageParam pageParam) {
+	//	return render("auth/user/userlist", pageParam);
+	//}
 
-	/**
-	 * 获取用户列表
-	 * @param request 请求条件
-	 * @param where 序列化的查询条件
-     * @return
-     */
-	@ResponseBody
-	@RequestMapping("/loadPageUsers")
-	public LigerGridPager<User> loadPageUsers(LigerGridPager<?> request, String where) {
-		return new LigerGridPager<>(userService.loadPageUsersWithRols(request, where));
-	}
+	///**
+	// * 获取用户列表
+	// * @param request 请求条件
+	// * @param where 序列化的查询条件
+     //* @return
+     //*/
+	//@ResponseBody
+	//@RequestMapping("/loadPageUsers")
+	//public LigerGridPager<User> loadPageUsers(LigerGridPager<?> request, String where) {
+	//	return new LigerGridPager<>(userService.loadPageUsersWithRols(request, where));
+	//}
 
-	/**
-	 * 新增用户
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping("/addUser")
-	@ResponseBody
-	public PageResult addUser(@RequestBody User user, HttpServletRequest request) {
-		//检查账号是否重复
-		if(userService.checkUserUnique(user)) {
-			return PageResult.success("新增成功", userService.add(user, request, getUser()));
-		}else {
-			return PageResult.error("登录账号重复");
-		}
-	}
+	///**
+	// * 新增用户
+	// * @param user
+	// * @return
+	// */
+	//@RequestMapping("/addUser")
+	//@ResponseBody
+	//public PageResult addUser(@RequestBody User user, HttpServletRequest request) {
+	//	//检查账号是否重复
+	//	if(userService.checkUserUnique(user)) {
+	//		return PageResult.success("新增成功", userService.add(user));
+	//	}else {
+	//		return PageResult.error("登录账号重复");
+	//	}
+	//}
 
-	/**
-	 * 修改用户
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping("/updateUser")
-	@ResponseBody
-	public PageResult updateUser(@RequestBody User user, HttpServletRequest request) {
-		return PageResult.success("修改成功", userService.update(user, getUser(), request));
-	}
+	///**
+	// * 修改用户
+	// * @param user
+	// * @return
+	// */
+	//@RequestMapping("/updateUser")
+	//@ResponseBody
+	//public PageResult updateUser(@RequestBody User user, HttpServletRequest request) {
+	//	return PageResult.success("修改成功", userService.update(user, getUser(), request));
+	//}
 
 	/**
 	 * 批量启用用户
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping("/enable")
-	@ResponseBody
-	public PageResult enable(@RequestBody User[] users, HttpServletRequest request) {
-		if(users.length > 0) {
-			for(User user : users) {
-				user.setEnabled(true);
-				user.setEnabled_time(LocalDateTime.now());
-				user.setModifier_id(getUser().getId());
-				user.setModify_psn(getUser().getName());
-				user.setModify_time(LocalDateTime.now());
-			}
-		}
-		userService.update(users, new String[]{"enabled", "enabled_time", "modifier_id", "modify_psn", "modify_time"}, true);
-
-		List<String> user_ids = Arrays.stream(users).map(m -> m.getId()).distinct().collect(Collectors.toList());
-		logService.log(MODULE_AUTH, MODULE_AUTH_USER, "启用用户", user_ids.toArray(new String[user_ids.size()]), getUser(), request);
-
-		return PageResult.success("用户已启用", users);
-	}
+	//@RequestMapping("/enable")
+	//@ResponseBody
+	//public PageResult enable(@RequestBody User[] users, HttpServletRequest request) {
+	//	if(users.length > 0) {
+	//		for(User user : users) {
+	//			user.setEnabled(true);
+	//			user.setEnabled_time(LocalDateTime.now());
+	//			user.setModifier_id(getUser().getId());
+	//			user.setModify_psn(getUser().getName());
+	//			user.setModify_time(LocalDateTime.now());
+	//		}
+	//	}
+	//	userService.update(users, new String[]{"enabled", "enabled_time", "modifier_id", "modify_psn", "modify_time"}, true);
+    //
+	//	List<String> user_ids = Arrays.stream(users).map(m -> m.getId()).distinct().collect(Collectors.toList());
+	//	//logService.log(MODULE_AUTH, MODULE_AUTH_USER, "启用用户", user_ids.toArray(new String[user_ids.size()]), getUser(), request);
+    //
+	//	return PageResult.success("用户已启用", users);
+	//}
 
 	/**
 	 * 失批量失效用户
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping("/disable")
-	@ResponseBody
-	public PageResult disable(@RequestBody User[] users, HttpServletRequest request) {
-		List<String> pk_ids = Arrays.stream(users).map(m -> m.getId()).distinct().collect(Collectors.toList());
-		List<User> userList = userService.queryByClause(User.class, "NVL(AU.DR, 0) = 0 AND AU.ENABLED = 'Y' AND " + SqlUtils.inClause("AU.ID", pk_ids));
-		if(userList.size() == users.length) {
-			userService.disableUser(users, getUser(), request);
-
-			return PageResult.success("用户已失效", null);
-		}else {
-			return PageResult.error("选中记录含有不存在或已失效的用户，请刷新重试");
-		}
-	}
+	//@RequestMapping("/disable")
+	//@ResponseBody
+	//public PageResult disable(@RequestBody User[] users, HttpServletRequest request) {
+	//	List<String> pk_ids = Arrays.stream(users).map(m -> m.getId()).distinct().collect(Collectors.toList());
+	//	List<User> userList = userService.queryByClause(User.class, "NVL(AU.DR, 0) = 0 AND AU.ENABLED = 'Y' AND " + SqlUtils.inClause("AU.ID", pk_ids));
+	//	if(userList.size() == users.length) {
+	//		userService.disableUser(users);
+	//		return PageResult.success("用户已失效", null);
+	//	}else {
+	//		return PageResult.error("选中记录含有不存在或已失效的用户，请刷新重试");
+	//	}
+	//}
 
 	/**
 	 * 重置密码
@@ -333,15 +322,11 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/resetPassword")
 	@ResponseBody
-	public PageResult resetPassword(@RequestBody User user, HttpServletRequest request) {
-		List<User> users = userService.queryByClause(User.class, "NVL(AU.DR, 0) = 0 AND AU.ENABLED = 'Y' AND AU.ID = ?", user.getId());
-		if(users.size() > 0) {
-			userService.resetPwd(user, getUser(), request);
-
-			return PageResult.success("密码已重置为1", null);
-		}else {
-			return PageResult.error("该用户不存在或已失效，请刷新重试");
-		}
+	public PageResult resetPassword(@RequestBody User user) {
+		//重置密码
+		user.setPassword(passwordEncoder.encode("1"));
+		int rows = userService.updatePartField(user, new String[]{"password"});
+		return new PageResult(rows != 1, "", user);
 	}
 
 	/**
@@ -364,18 +349,18 @@ public class UserController extends BaseController {
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping("/removeUser")
-	@ResponseBody
-	public PageResult removeUser(@RequestBody User[] users, HttpServletRequest request) {
-		List<User> list = Arrays.stream(users).filter(u -> !u.isEnabled()).distinct().collect(Collectors.toList());
-		if(list.size() == 0) {
-			String[] ids = Arrays.stream(users).map(m -> m.getId()).distinct().toArray(String[]::new);
-			userService.remove(ids, getUser(), request);
-			return PageResult.success("删除成功", null);
-		}else {
-			return PageResult.error("所选记录存在有效的用户，无法删除");
-		}
-	}
+	//@RequestMapping("/removeUser")
+	//@ResponseBody
+	//public PageResult removeUser(@RequestBody User[] users, HttpServletRequest request) {
+	//	List<User> list = Arrays.stream(users).filter(u -> !u.isEnabled()).distinct().collect(Collectors.toList());
+	//	if(list.size() == 0) {
+	//		String[] ids = Arrays.stream(users).map(m -> m.getId()).distinct().toArray(String[]::new);
+	//		userService.remove(ids, getUser(), request);
+	//		return PageResult.success("删除成功", null);
+	//	}else {
+	//		return PageResult.error("所选记录存在有效的用户，无法删除");
+	//	}
+	//}
 
 	/**
 	 * 批量分配角色给用户
@@ -401,20 +386,20 @@ public class UserController extends BaseController {
 
 	}
 
-	/**
-	 * 批量分配角色给单个用户
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping("/grantRolesToUser")
-	@ResponseBody
-	public PageResult grantRolesToUser(@RequestBody User user, HttpServletRequest request) {
-		if(user != null) {
-			return userService.grantAnyRoles(user, getUser(), request);
-		}else {
-			return PageResult.error("请选择用户");
-		}
-	}
+	///**
+	// * 批量分配角色给单个用户
+	// * @param user
+	// * @return
+	// */
+	//@RequestMapping("/grantRolesToUser")
+	//@ResponseBody
+	//public PageResult grantRolesToUser(@RequestBody User user, HttpServletRequest request) {
+	//	if(user != null) {
+	//		return userService.grantAnyRoles(user);
+	//	}else {
+	//		return PageResult.error("请选择用户");
+	//	}
+	//}
 
 	public String json(Object value) {
 		try {
