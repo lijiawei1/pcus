@@ -32,7 +32,7 @@ public class RoleController extends BaseController {
     CorpService corpService;
 
 	@Autowired
-    CustomObjectMapper customObjectMapper;
+	CustomObjectMapper customObjectMapper;
 
 	///**
 	// * 加载入口页面

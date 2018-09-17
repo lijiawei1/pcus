@@ -1,5 +1,6 @@
 package org.zap.framework.security.filter;
 
+import org.pcus.gateway.auth.itf.IAuthService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -18,14 +19,14 @@ import java.util.*;
 public class DefaultInvocationSecurityMetadataSource implements	FilterInvocationSecurityMetadataSource {
 
 	//@Autowired
-	//private PrivilegeService privilegeService;
+	private IAuthService privilegeService;
 
-	//public DefaultInvocationSecurityMetadataSource(PrivilegeService privilegeService) {
-	//	this.privilegeService = privilegeService;
-	//}
+	public DefaultInvocationSecurityMetadataSource(IAuthService privilegeService) {
+		this.privilegeService = privilegeService;
+	}
 
 	public DefaultInvocationSecurityMetadataSource() {
-		// loadResource();
+		 //loadResource();
 	}
 
 	/**
@@ -37,7 +38,8 @@ public class DefaultInvocationSecurityMetadataSource implements	FilterInvocation
 		Map<String, Collection<ConfigAttribute>> resourceMap = new HashMap<>();
 
 		//TODO 加载系统配置的所有资源对应的角色权限
-		Map<String, Set<String>> res = new HashMap();//privilegeService.loadPrivilege();
+		//Map<String, Set<String>> res = new HashMap();//privilegeService.loadPrivilege();
+		Map<String, Set<String>> res = privilegeService.loadResource();
 
 		for (String interceptUrl : res.keySet()) {
 			Set<String> set = res.get(interceptUrl);

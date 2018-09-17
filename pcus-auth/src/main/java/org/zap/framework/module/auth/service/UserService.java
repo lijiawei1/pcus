@@ -12,6 +12,7 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -54,7 +55,7 @@ public class UserService extends BusiService {
      *
      */
     @Autowired
-    SessionRegistry sessionRegistry;
+    SpringSessionBackedSessionRegistry sessionRegistry;
 
     @Autowired
     CacheManager cacheManager;
@@ -643,16 +644,6 @@ public class UserService extends BusiService {
         StringBuilder builder = new StringBuilder("SELECT U.ID,U.NAME,U.ACCOUNT,U.EMAIL,U.MOBILE FROM ZAP_AUTH_USER U WHERE U.CORP_ID = ?");
         return getBaseDao().query(builder.toString(), new Object[]{corp_id},
                 new BeanListExtractor<>(UserCheck.class));
-    }
-
-    /**
-     * 通过扩展表主键查找用户
-     *
-     * @param ext_id 扩展表主键
-     * @return
-     */
-    public User loadUserByExtId(String ext_id) {
-        return queryOneByClause(User.class, " AU.DR = 0 AND AU.EXT_ID = ? ", ext_id);
     }
 
     /**

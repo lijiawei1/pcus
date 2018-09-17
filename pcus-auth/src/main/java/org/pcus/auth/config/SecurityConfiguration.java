@@ -1,6 +1,7 @@
 package org.pcus.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-                //此过滤连的入口URL匹配，拦截所有
+                //此过滤链的入口URL匹配，拦截所有
                 .requestMatchers().anyRequest()
                 //.and()
                 //.authorizeRequests()
@@ -40,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    @Autowired
+    @Bean
     SpringSessionBackedSessionRegistry sessionRegistry() {
         return new SpringSessionBackedSessionRegistry((FindByIndexNameSessionRepository) redisOperationsSessionRepository);
     }

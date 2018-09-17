@@ -178,7 +178,7 @@ public class MenuService extends BusiService {
                 + (user.isAdmin() ? "" : new StringBuffer("AND AM.ID IN  (SELECT OBJECT_ID FROM ZAP_AUTH_PRIVILEGE WHERE DR = 0 AND" +
                 " ( SUBJECT_ID = '" + user.getId() + "' OR SUBJECT_ID IN (SELECT UR.ROLE_ID FROM ZAP_AUTH_RE_USER_ROLE UR WHERE UR.USER_ID = '" + user.getId() + "')) AND ")
                 //是否可访问
-                .append(authorizable ? "`AUTHORIZABLE` = 'Y')" : "`ACCESSIBLE` = 'Y')").toString())
+                .append(authorizable ? "AUTHORIZABLE = 'Y')" : "ACCESSIBLE = 'Y')").toString())
                 + " ORDER BY AM.MORDER";
     }
 

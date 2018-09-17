@@ -1,44 +1,37 @@
 package org.pcus.gateway.config;
 
+import org.pcus.gateway.auth.itf.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.session.FindByIndexNameSessionRepository;
-import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisOperationsSessionRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
+import org.zap.framework.security.entity.PageResult;
 import org.zap.framework.security.entry.EnhanceAuthenticationEntryPoint;
-import org.zap.framework.security.filter.*;
-import org.zap.framework.security.handler.DefaultLogoutHandler;
+import org.zap.framework.security.filter.DefaultInvocationSecurityMetadataSource;
+import org.zap.framework.security.filter.DefaultLoginFilter;
+import org.zap.framework.security.filter.EnhanceConcurrentSessionFilter;
 import org.zap.framework.security.handler.EnhanceLoginFailureHandler;
 import org.zap.framework.security.handler.EnhanceLoginHandler;
-import org.zap.framework.security.handler.EnhanceSecurityContextLogoutHandler;
 import org.zap.framework.security.manager.DefaultAccessDecisionManager;
 
 import java.util.Arrays;
@@ -50,16 +43,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    IAuthService authService;
 
     @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        //TODO 需要切换为真是数据源
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user_1").password("123456").authorities("ROLE_USER").build());
-        manager.createUser(User.withUsername("user_2").password("123456").authorities("ROLE_USER").build());
-        return manager;
+    UserDetailsService getUserDetailsService() {
+        return username -> {
+            PageResult pageResult = authService.loadUserByUsername(username);
+            if (pageResult.isError()) {
+                throw new UsernameNotFoundException(pageResult.getMessage());
+            } else {
+                return (UserDetails) pageResult.getData();
+            }
+        };
     }
+
+    //@Bean
+    //@Override
+    //protected UserDetailsService userDetailsService() {
+    //    //TODO 需要切换为真是数据源
+    //    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+    //    manager.createUser(User.withUsername("user_1").password("123456").authorities("ROLE_USER").build());
+    //    manager.createUser(User.withUsername("user_2").password("123456").authorities("ROLE_USER").build());
+    //    return manager;
+    //}
 
     @Override
     public void configure(WebSecurity web) {
@@ -192,7 +199,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         ));
     }
 
-    @Autowired
+    @Bean
     SpringSessionBackedSessionRegistry sessionRegistry() {
         return new SpringSessionBackedSessionRegistry((FindByIndexNameSessionRepository)redisOperationsSessionRepository);
     }

@@ -18,6 +18,7 @@ import org.zap.framework.module.org.entity.Corp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/auth/privilege")
@@ -40,6 +41,21 @@ public class PrivilegeController extends BaseController {
 	//}
 
 	/**
+	 * 加载角色
+	 */
+	@ResponseBody
+	@RequestMapping("/loadRoles")
+	public List<Role> loadRoles(Role role) {
+		return privilegeService.loadRoles(role);
+	}
+
+	@ResponseBody
+	@RequestMapping("/loadResource")
+	public Map<String, Set<String>> loadResource() {
+		return privilegeService.loadPrivilege();
+	}
+
+	/**
 	 * 读取选中角色选中的权限客体
 	 */
 	@ResponseBody
@@ -49,16 +65,7 @@ public class PrivilegeController extends BaseController {
 		result.put("data", privilegeService.loadMenuPrivilegesByRoleId(roleid, AuthConstants.TYPE_MENU));
 		return result;
 	}
-	
-	/**
-	 * 加载角色
-	 */
-	@ResponseBody
-	@RequestMapping("/loadRoles")
-	public List<Role> loadRoles(Role role) {
-		return privilegeService.loadRoles(role);
-	}
-	
+
 	/**
 	 * 加载公司
 	 */

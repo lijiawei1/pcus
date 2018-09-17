@@ -1,6 +1,6 @@
 spring:
   application:
-    name: pcus-module-core
+    name: pcus-auth
   cloud:
     consul:
       host: localhost
@@ -10,7 +10,7 @@ spring:
         health-check-interval: 15s
         instance-id: pcus-auth
   session:
-      store-type: redis
+    store-type: redis
 server:
   port: 9092
 security:

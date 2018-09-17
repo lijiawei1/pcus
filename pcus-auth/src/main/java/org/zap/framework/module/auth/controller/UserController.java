@@ -3,6 +3,7 @@ package org.zap.framework.module.auth.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +61,12 @@ public class UserController extends BaseController {
 	//public ModelAndView loadPage(PageParam pageParam) {
 	//	return render("auth/user/user", pageParam);
 	//}
+	@RequestMapping("/loadUserByUsername")
+	@ResponseBody
+	public PageResult loadUserByUsername(String username) {
+		return PageResult.success("成功", userService.loadUserByUsername(username));
+	}
+
 
 	@RequestMapping("/add")
 	@ResponseBody
