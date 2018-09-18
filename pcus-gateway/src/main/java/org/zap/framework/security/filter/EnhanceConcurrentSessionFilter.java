@@ -13,8 +13,8 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.GenericFilterBean;
+import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.security.constants.SecurityConstants;
-import org.zap.framework.security.entity.PageResult;
 import org.zap.framework.security.utils.SecurityUtils;
 
 import javax.servlet.FilterChain;
@@ -123,22 +123,6 @@ public class EnhanceConcurrentSessionFilter extends GenericFilterBean {
         for (LogoutHandler handler : handlers) {
             handler.logout(request, response, auth);
         }
-    }
-
-    /**
-     * @deprecated use constructor injection instead
-     */
-    @Deprecated
-    public void setExpiredUrl(String expiredUrl) {
-        this.expiredUrl = expiredUrl;
-    }
-
-    /**
-     * @deprecated use constructor injection instead
-     */
-    @Deprecated
-    public void setSessionRegistry(SessionRegistry sessionRegistry) {
-        this.sessionRegistry = sessionRegistry;
     }
 
     public void setLogoutHandlers(LogoutHandler[] handlers) {

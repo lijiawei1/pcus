@@ -6,7 +6,6 @@
         <artifactId>pcus</artifactId>
         <groupId>org.pcus</groupId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,6 +16,40 @@
             <groupId>org.pcus</groupId>
             <artifactId>pcus-common</artifactId>
             <version>${project.parent.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.didispace</groupId>
+                    <artifactId>spring-boot-starter-swagger</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jxls</groupId>
+                    <artifactId>jxls</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jxls</groupId>
+                    <artifactId>jxls-poi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jxls</groupId>
+                    <artifactId>jxls-jexcel</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jxls</groupId>
+                    <artifactId>jxls-reader</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--服务发现-->
         <dependency>

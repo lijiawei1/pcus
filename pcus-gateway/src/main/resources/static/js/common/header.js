@@ -274,7 +274,7 @@ function menus_init(height) {
 
 	var shrink = $('.l-layout-collapse-left-inner',headerLayout.leftCollapse);
 
-    $.getJSON(rootPath + '/admin/loadMenus', { random: Math.random() }, function (menus) {
+    $.getJSON(rootPath + '/auth/admin/loadMenus', { random: Math.random() }, function (menus) {
 		for(var i = 0, len = menus.length; i < len; i++){
 			var item = menus[i];
 			if(!item.children || item.children.length == 0) continue;

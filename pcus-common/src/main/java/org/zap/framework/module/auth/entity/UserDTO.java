@@ -1,9 +1,9 @@
-package org.pcus.gateway.auth.entity;
+package org.zap.framework.module.auth.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.zap.framework.security.entity.EnhanceGrantedAuthority;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Collection;
  * @author Shin
  *
  */
-public class User implements UserDetails {
+public class UserDTO implements UserDetails {
 	
 	/**
 	 * 
@@ -163,7 +163,7 @@ public class User implements UserDetails {
 	/**
 	 * 权限
 	 */
-	private Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+	private Collection<EnhanceGrantedAuthority> authorities = new ArrayList<EnhanceGrantedAuthority>();
 	/**
 	 * 角色
 	 */
@@ -192,7 +192,7 @@ public class User implements UserDetails {
 	/**
 	 * USERDETAIL接口
 	 */
-	public Collection<GrantedAuthority> getAuthorities() {
+	public Collection<EnhanceGrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 
@@ -200,17 +200,6 @@ public class User implements UserDetails {
 	 * 获取角色字符串
 	 * @return
      */
-	//public String getRoleText() {
-	//	if (roles != null) {
-	//		return StringUtils.join(roles.stream().map(r -> r.getRolename()).toArray(), ",");
-	//	}
-	//	return "";
-	//}
-
-	/**
-	 * 密码不需要JSON到前台
-	 */
-	@JsonIgnore
 	public String getPassword() {
 		return this.password;
 	}
@@ -482,13 +471,13 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean equals(Object rhs) {
-		if (rhs instanceof User) {
-			return StringUtils.equals(getUsername(), ((User) rhs).getUsername());
+		if (rhs instanceof UserDTO) {
+			return StringUtils.equals(getUsername(), ((UserDTO) rhs).getUsername());
 		}
 		return false;
 	}
 
-	public void setAuthorities(Collection<GrantedAuthority> authorities) {
+	public void setAuthorities(Collection<EnhanceGrantedAuthority> authorities) {
 		this.authorities = authorities;
 	}
 

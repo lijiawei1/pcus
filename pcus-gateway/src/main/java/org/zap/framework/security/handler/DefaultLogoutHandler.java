@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.zap.framework.security.entity.PageResult;
+import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.security.utils.SecurityUtils;
 
 import javax.servlet.ServletException;

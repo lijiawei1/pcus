@@ -13,7 +13,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.util.StringUtils;
-import org.zap.framework.security.entity.PageResult;
+import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.security.utils.SecurityUtils;
 
 import javax.servlet.ServletException;

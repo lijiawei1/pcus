@@ -13,13 +13,17 @@ import org.zap.framework.module.auth.entity.Role;
  */
 public class EnhanceGrantedAuthority implements GrantedAuthority {
 
-    private final String id;
+    private String id;
 
-    private final String code;
+    private String code;
 
-    private final String name;
+    private String name;
 
-    private final String type;
+    private String type;
+
+    public EnhanceGrantedAuthority() {
+        this.type = AuthConstants.TYPE_ROLE;
+    }
 
     public EnhanceGrantedAuthority(Role role) {
         this.id = role.getId();

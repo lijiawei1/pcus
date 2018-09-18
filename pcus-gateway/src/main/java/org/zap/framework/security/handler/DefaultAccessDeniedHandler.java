@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.CharEncoding;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
-import org.zap.framework.security.entity.PageResult;
+import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.security.utils.SecurityUtils;
 
 import javax.servlet.ServletException;

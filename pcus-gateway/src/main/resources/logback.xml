@@ -7,6 +7,9 @@
         </encoder>
     </appender>
 
+    <logger name="org.springframework.session.web.http.SessionRepositoryFilter.SESSION_LOGGER" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
     <logger name="org.springframework.session" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>

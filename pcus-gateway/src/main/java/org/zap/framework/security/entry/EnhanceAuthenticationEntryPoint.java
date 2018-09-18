@@ -14,7 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.zap.framework.security.entity.PageResult;
+import org.zap.framework.common.entity.PageResult;
 import org.zap.framework.security.utils.SecurityUtils;
 
 import javax.servlet.RequestDispatcher;

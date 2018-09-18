@@ -1,6 +1,5 @@
 package org.pcus.gateway.config;
 
-import org.pcus.gateway.auth.entity.User;
 import org.pcus.gateway.auth.itf.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,7 +24,8 @@ import org.springframework.session.data.redis.RedisOperationsSessionRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
-import org.zap.framework.security.entity.PageResult;
+import org.zap.framework.common.entity.PageResult;
+import org.zap.framework.module.auth.entity.UserDTO;
 import org.zap.framework.security.entry.EnhanceAuthenticationEntryPoint;
 import org.zap.framework.security.filter.DefaultInvocationSecurityMetadataSource;
 import org.zap.framework.security.filter.DefaultLoginFilter;
@@ -51,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             if (pageResult.isError()) {
                 throw new UsernameNotFoundException(pageResult.getMessage());
             } else {
-                return  (User)pageResult.getData();
+                return  (UserDTO)pageResult.getData();
             }
         };
     }
@@ -130,6 +132,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //        .antMatchers("/login").permitAll()
         //        .anyRequest().authenticated()
         //        .and().csrf().disable();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

@@ -215,7 +215,7 @@ public class User extends BusiEntity implements UserDetails {
 	/**
 	 * 密码不需要JSON到前台
 	 */
-	@JsonIgnore
+	//@JsonIgnore
 	public String getPassword() {
 		return this.password;
 	}
