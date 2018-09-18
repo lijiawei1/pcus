@@ -98,7 +98,7 @@ public class MenuService extends BusiService {
 
         //所有受控按钮
         List<Menu> list = baseDao.queryByClause(Menu.class, " AM.DR = 0 AND AM.MLEVEL = 3 AND AM.VISIBLE = 'Y' AND AM.NO LIKE '"
-                + no + "' || '%' AND AM.ID NOT IN (SELECT OBJECT_ID FROM ZAP_AUTH_PRIVILEGE WHERE DR = 0 AND `ACCESSIBLE` = 'Y' AND ( SUBJECT_ID = '" + user.getId()
+                + no + "' || '%' AND AM.ID NOT IN (SELECT OBJECT_ID FROM ZAP_AUTH_PRIVILEGE WHERE DR = 0 AND ACCESSIBLE = 'Y' AND ( SUBJECT_ID = '" + user.getId()
                 + "' OR SUBJECT_ID IN (SELECT UR.ROLE_ID FROM ZAP_AUTH_RE_USER_ROLE UR WHERE UR.USER_ID = '" + user.getId() + "')))");
 
         return list.stream().map(Menu::getCode).collect(Collectors.toList());

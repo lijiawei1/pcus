@@ -95,7 +95,7 @@ public class DictService extends BusiService {
                         (" AND SD.ID IN  (SELECT OBJECT_ID FROM ZAP_AUTH_PRIVILEGE WHERE DR = 0 AND " +
                                 " ( SUBJECT_ID = '" + user.getId() + "' OR SUBJECT_ID IN (SELECT UR.ROLE_ID FROM ZAP_AUTH_RE_USER_ROLE UR WHERE UR.USER_ID = '" + user.getId() + "')) AND "
                                 //是否可访问
-                                + (authorizable ? "AUTHORIZABLE = 'Y')" : "`ACCESSIBLE` = 'Y')")
+                                + (authorizable ? "AUTHORIZABLE = 'Y')" : "ACCESSIBLE = 'Y')")
                                 + " ORDER BY SD.DICT_NAME"));
     }
 

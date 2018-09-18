@@ -53,8 +53,8 @@ public class BusiEntity extends BaseEntity {
 	@JdbcColumn
 	private LocalDateTime create_time;
 
-	@JdbcColumn
-	private String create_psn;
+	//@JdbcColumn
+	//private String create_psn;
 	
 	@JdbcColumn
 	private String modifier_id;
@@ -62,14 +62,14 @@ public class BusiEntity extends BaseEntity {
 	@JdbcColumn
 	private LocalDateTime modify_time;
 
-	@JdbcColumn
-	private String modify_psn;
+	//@JdbcColumn
+	//private String modify_psn;
 	
 	@JdbcColumn
 	private int dr;
 
-	@JdbcColumn
-	private String state;
+	//@JdbcColumn
+	//private String state;
 
 	/**
 	 * 行状态，
@@ -140,30 +140,6 @@ public class BusiEntity extends BaseEntity {
 		this.dr = dr;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCreate_psn() {
-		return create_psn;
-	}
-
-	public void setCreate_psn(String create_psn) {
-		this.create_psn = create_psn;
-	}
-
-	public String getModify_psn() {
-		return modify_psn;
-	}
-
-	public void setModify_psn(String modify_psn) {
-		this.modify_psn = modify_psn;
-	}
-
 	@JsonIgnore
 	public LocalDateTime getCreate_time_begin() {
 		return create_time_begin;
@@ -198,14 +174,14 @@ public class BusiEntity extends BaseEntity {
 	 *
 	 * @return
 	 */
-	public String getState_name() {
-		BasState tmsOrderState = BasState.STATE_MAP.get(state);
-
-		if (tmsOrderState != null) {
-			return tmsOrderState.getName();
-		}
-
-		return "";
-	}
+	//public String getState_name() {
+	//	BasState tmsOrderState = BasState.STATE_MAP.get(state);
+    //
+	//	if (tmsOrderState != null) {
+	//		return tmsOrderState.getName();
+	//	}
+    //
+	//	return "";
+	//}
 	
 }
