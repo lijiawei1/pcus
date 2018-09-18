@@ -21,11 +21,11 @@ public class UserDTO implements UserDetails {
 	 */
 	private static final long serialVersionUID = 4293160150150650244L;
 	
-	String id;
+	private String id;
 
-	String corp_id;
+	private String corp_id;
 
-	String dept_id;
+	private String dept_id;
 	/**
 	 * 用户账号
 	 */
@@ -467,6 +467,30 @@ public class UserDTO implements UserDetails {
 
 	public void setDeptname(String deptname) {
 		this.deptname = deptname;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCorp_id() {
+		return corp_id;
+	}
+
+	public void setCorp_id(String corp_id) {
+		this.corp_id = corp_id;
+	}
+
+	public String getDept_id() {
+		return dept_id;
+	}
+
+	public void setDept_id(String dept_id) {
+		this.dept_id = dept_id;
 	}
 
 	@Override

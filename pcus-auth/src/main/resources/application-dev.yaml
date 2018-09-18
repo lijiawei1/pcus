@@ -46,7 +46,7 @@ spring:
 #    connection-test-query: SELECT 1 FROM DUEL
 #    jdbc-url: jdbc:oracle:thin:@192.168.0.221:1521:orcl
     filters: stat,wall,log4j
-    url: jdbc:oracle:thin:@192.168.0.221:1521:orcl
+    url: jdbc:oracle:thin:@192.168.0.217:1521:orcl
 logging:
   level:
 #    com.netflix: debug

@@ -73,8 +73,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         try {
             for (StaticPagePathFinder.PagePaths pagePaths : staticPagePathFinder.findPath()) {
                 String urlPath = pagePaths.getUrlPath();
-                //System.out.println(pagePaths.getUrlPath());
-                //System.out.println(pagePaths.getFilePath());
+                System.out.println(pagePaths.getUrlPath());
+                System.out.println(pagePaths.getFilePath());
                 //registry.addViewController(urlPath).setViewName(pagePaths.getFilePath());
                 String filePath = pagePaths.getFilePath();
                 if (!filePath.isEmpty()) {
