@@ -51,4 +51,8 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>pcus-common</finalName>
+    </build>
+
 </project>

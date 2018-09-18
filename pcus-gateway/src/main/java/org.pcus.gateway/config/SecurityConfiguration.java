@@ -1,5 +1,6 @@
 package org.pcus.gateway.config;
 
+import org.pcus.gateway.auth.entity.User;
 import org.pcus.gateway.auth.itf.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,11 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -53,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             if (pageResult.isError()) {
                 throw new UsernameNotFoundException(pageResult.getMessage());
             } else {
-                return (UserDetails) pageResult.getData();
+                return  (User)pageResult.getData();
             }
         };
     }

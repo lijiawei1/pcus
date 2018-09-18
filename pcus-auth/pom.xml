@@ -6,6 +6,7 @@
         <artifactId>pcus</artifactId>
         <groupId>org.pcus</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +16,7 @@
         <dependency>
             <groupId>org.pcus</groupId>
             <artifactId>pcus-common</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <!--服务发现-->
         <dependency>
@@ -52,10 +53,10 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.zaxxer</groupId>-->
+            <!--<artifactId>HikariCP</artifactId>-->
+        <!--</dependency>-->
         <!--<dependency>-->
             <!--<groupId>com.oracle</groupId>-->
             <!--<artifactId>ojdbc6</artifactId>-->
@@ -66,11 +67,15 @@
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.2</version>
         </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--</dependency>-->
 
     </dependencies>
+
+    <build>
+        <finalName>pcus-auth</finalName>
+    </build>
 
 </project>

@@ -5,7 +5,7 @@ package org.zap.framework.security.entity;
  * @author Shin
  *
  */
-public class PageResult {
+public class PageResult<T> {
 
 	public PageResult(){}
 
@@ -30,14 +30,14 @@ public class PageResult {
 		return new PageResult(false, 200, "", null);
 	}
 
-	public PageResult(boolean err, String msg, Object data) {
+	public PageResult(boolean err, String msg, T data) {
 		this.error = err;
 		this.message = msg;
 		this.data = data;
 		this.code = 200;
 	}
 
-	public PageResult(boolean err, int code, String msg, Object data) {
+	public PageResult(boolean err, int code, String msg, T data) {
 		this.error = err;
 		this.message = msg;
 		this.data = data;
@@ -59,7 +59,7 @@ public class PageResult {
 	/**
 	 * 数据
 	 */
-	private Object data;
+	private T data;
 
 	public boolean isError() {
 		return error;
@@ -81,7 +81,7 @@ public class PageResult {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

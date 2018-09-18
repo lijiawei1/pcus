@@ -15,7 +15,6 @@ import org.zap.framework.module.auth.service.MenuService;
 import org.zap.framework.module.auth.service.UserService;
 import org.zap.framework.util.BuildUtils;
 import org.zap.framework.util.VerifyCodeUtils;
-import sun.security.util.SecurityConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

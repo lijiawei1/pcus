@@ -1,8 +1,14 @@
 package org.pcus.gateway.config;
 
+import org.apache.commons.lang.CharSet;
 import org.pcus.gateway.auth.service.StaticPagePathFinder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.zap.framework.common.json.CustomObjectMapper;
 import org.zap.framework.security.utils.SecurityUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +24,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    //public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    //    registry.addResourceHandler("/my/**").addResourceLocations("file:E:/my/");
-    //    super.addResourceHandlers(registry);
-    //}
+
+    @Bean
+    public HttpMessageConverters fastJsonHttpMessageConverters() {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(new CustomObjectMapper());
+        converter.setSupportedMediaTypes(Arrays.asList(
+                new MediaType(MediaType.TEXT_HTML, Charset.forName("UTF-8")),
+                MediaType.APPLICATION_JSON_UTF8));
+
+        StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
+        stringHttpMessageConverter.setSupportedMediaTypes(Arrays.asList(
+                new MediaType(MediaType.TEXT_PLAIN, Charset.forName("UTF-8"))));
+        return new HttpMessageConverters(Arrays.asList(converter, stringHttpMessageConverter));
+    }
 
     @Autowired
     private StaticPagePathFinder staticPagePathFinder;

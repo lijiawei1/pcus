@@ -1,5 +1,6 @@
 package org.pcus.gateway.auth.itf;
 
+import org.pcus.gateway.auth.entity.User;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,5 +16,5 @@ public interface IAuthService {
     Map<String, Set<String>> loadResource();
 
     @GetMapping(value = "/auth/user/loadUserByUsername")
-    PageResult loadUserByUsername(@RequestParam(value = "username") String username);
+    PageResult<User> loadUserByUsername(@RequestParam(value = "username") String username);
 }
