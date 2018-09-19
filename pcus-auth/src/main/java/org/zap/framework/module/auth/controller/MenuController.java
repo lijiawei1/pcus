@@ -1,6 +1,7 @@
 package org.zap.framework.module.auth.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.zap.framework.module.auth.entity.Menu;
 import org.zap.framework.module.auth.service.MenuService;
 import org.zap.framework.module.auth.service.PrivilegeService;
 
+import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -123,8 +125,10 @@ public class MenuController extends BaseController {
         //        return criteria.eq("dr", 0).eq("pid", entity.getPid()).sort(sortname, StringUtils.isBlank(sortorder) || "asc".equals(sortorder));
         //    }
         //}));
+        return new LigerGridPager<>(menuService.getQuery(Menu.class).eq("dr", 0).eq("pid", menu.getPid())
+                .sort(sortname, StringUtils.isBlank(sortorder) || "asc".equals(sortorder)).page(req.getPage() - 1, req.getPagesize()));
 
-        return new LigerGridPager<>(menuService.page(Menu.class, req, ""));
+        //return new LigerGridPager<>(menuService.page(Menu.class, req, ""));
     }
 
 

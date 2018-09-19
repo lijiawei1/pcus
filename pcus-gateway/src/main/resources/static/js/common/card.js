@@ -155,7 +155,7 @@ function loadToolItems(topitems) {
 	var result = {};
 	$.ajax({
 		async: false,
-		url: rootPath + '/admin/loadButtons',
+		url: rootPath + '/auth/admin/loadButtons',
 		dataType: 'json',
 		type: 'get',
 		data: { parentPageNo: param.no },

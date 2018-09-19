@@ -1,0 +1,4 @@
+var path = 'pcus';
+var user = {
+    "id": 2000
+};

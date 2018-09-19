@@ -1,7 +1,10 @@
 package org.pcus.gateway.config;
 
-import org.apache.commons.lang.CharSet;
+import org.beetl.ext.simulate.JsonUtil;
+import org.beetl.ext.simulate.WebSimulate;
+import org.beetl.ext.spring.BeetlSpringViewResolver;
 import org.pcus.gateway.auth.service.StaticPagePathFinder;
+import org.pcus.gateway.mock.EnhanceWebSimulate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
@@ -66,9 +69,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //登录页面
-        //registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/login").setViewName("login");
         //主页
-        //registry.addViewController("/admin/index").setViewName("admin/aindex");
+        registry.addViewController("/admin/index").setViewName("admin/aindex");
 
         try {
             for (StaticPagePathFinder.PagePaths pagePaths : staticPagePathFinder.findPath()) {
@@ -101,6 +104,44 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 }
             }
         });
+    }
+
+
+    /**
+     * simluateView来模拟视图渲染，simluateJson来模拟REST请求的数据
+     * @param resolver
+     * @return
+     */
+    @Bean
+    public WebSimulate getWebSmulate(BeetlSpringViewResolver resolver) {
+        CustomObjectMapper mapper = new CustomObjectMapper();
+        WebSimulate webSimulate = new EnhanceWebSimulate(resolver.getConfig().getGroupTemplate(), new JsonUtil() {
+
+            @Override
+            public String toJson(Object o) throws Exception {
+                return mapper.writeValueAsString(o);
+            }
+
+            @Override
+            public Object toObject(String str, Class c) throws Exception {
+                return mapper.readTree(str);
+            }
+        }) {
+
+            public String getValuePath(HttpServletRequest request) {
+                return this.removePreffix(request.getServletPath());
+            }
+
+
+            protected String getRenderPath(HttpServletRequest request) {
+                return this.removePreffix(request.getServletPath());
+            }
+
+            private String removePreffix(String path) {
+                return path.replaceFirst("/simulate", "");
+            }
+        };
+        return webSimulate;
     }
 
 

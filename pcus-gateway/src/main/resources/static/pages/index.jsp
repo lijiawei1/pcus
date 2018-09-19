@@ -289,7 +289,7 @@
 
         var pagecounter = 0;
         $.ajax({
-            url: rootPath + '/admin/loadButtons',
+            url: rootPath + '/auth/admin/loadButtons',
             dataType: 'json',
             type: 'get',
             data: { parentPageNo : "009001" },

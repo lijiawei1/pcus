@@ -81,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requestMatchers().anyRequest()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login**", "/error", "/captcha", "/oauth/**").permitAll()
+                .antMatchers("/login**", "/error", "/captcha", "/oauth/**", "/simulate/**").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
