@@ -1,14 +1,6 @@
 spring:
   application:
-    name: pcus-gateway
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        health-check-path: ${server.context-path}/health
-        health-check-interval: 100s
-        instance-id: pcus-gateway
+    name: pcus-gateway #应用名称，会显示在consul服务发现
   session:
     store-type: redis
 server:
@@ -27,20 +19,23 @@ security:
 #      prefer-token-info: false
   basic:
     enabled: false
-zuul:
-  sensitive-headers:
+zuul: #路由配置
+  sensitive-headers:  #不过滤header，完整发送header到子服务
   debug:
-    request: true
+    request: true       #请求日志
   strip-prefix: false
-  routes:
+  routes:               #路由规则，service-id就子服务的application name
     pcus-module-core:
       path: /core/**
       service-id: pcus-module-core
     pcus-auth:
       path: /auth/**
       service-id: pcus-auth
-feign:
-  hystrix:
+    pcus-report:       #报表服务
+      path: /report/**
+      service-id: pcus_report
+feign: #注解式http客户端
+  hystrix:  #断路器，当调用后端服务失败时的保护措施
     enabled: true
   compression:
     request:

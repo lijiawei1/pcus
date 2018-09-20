@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: /health
+        health-check-interval: 15s
+        instance-id: pcus-report
+  application:
+    name: pcus-report
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:oracle:thin:@//192.168.0.217:1521/ORCL
+    username: PCUSDEV
+    password: PCUSDEV
+    driver-class-name: oracle.jdbc.OracleDriver
+
+logging:
+  level:
+    org.apache.ibatis: DEBUG
+
+# ureport Oracle 存储
+ureport.oracle.provider:
+  prefix: oracle-
+  disabled: false
+  fileStoreDir: E:/UReportFile
+
+server:
+  port: 9095

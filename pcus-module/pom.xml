@@ -15,6 +15,7 @@
         <module>pcus-module-core</module>
         <module>pcus-module-app</module>
         <module>pcus-module-oauth2</module>
+        <module>pcus-module-demo</module>
     </modules>
 
 

@@ -87,8 +87,36 @@ public class MenuService extends BusiService {
 
     /**
      * 返回被禁用的按钮
+     * @param menuCode 页面编码 英文编码
+     * @param userid
+     * @param admin
+     * @return
+     */
+    public List<String> loadButtonCodes(String menuCode, String userid, boolean admin, String type) {
+        if (admin) {
+            return new ArrayList<>();
+        }
+
+        //通过资源的数字编码
+        String clause = " AND AM.NO LIKE ? || '%' ";
+        if ("menuCode".equals(type)) {
+            //通过资源的字母编码
+            clause = " AND EXISTS (SELECT 1 FROM ZAP_AUTH_MENU IM WHERE IM.CODE = ? AND M.NO LIKE IM.NO || '%') ";
+        }
+
+        //所有受控按钮
+        List<Menu> list = baseDao.queryByClause(Menu.class, " AM.DR = 0 AND AM.MLEVEL = 3 AND AM.VISIBLE = 'Y' "
+                + clause
+                + " AND AM.ID NOT IN (SELECT OBJECT_ID FROM ZAP_AUTH_PRIVILEGE WHERE DR = 0 AND ACCESSIBLE = 'Y' AND ( SUBJECT_ID = ? "
+                + " OR SUBJECT_ID IN (SELECT UR.ROLE_ID FROM ZAP_AUTH_RE_USER_ROLE UR WHERE UR.USER_ID =  ?)))", menuCode, userid, userid);
+
+        return list.stream().map(Menu::getCode).collect(Collectors.toList());
+    }
+
+    /**
+     * 返回被禁用的按钮
      *
-     * @param no   页面编码
+     * @param no   页面编码 数字编码，带层次结构的
      * @param user 登录用户
      */
     public List<String> loadButtonCodes(String no, User user) {

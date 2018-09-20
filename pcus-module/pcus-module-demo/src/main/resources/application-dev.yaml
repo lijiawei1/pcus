@@ -44,6 +44,16 @@ spring:
           result-set-log-enabled: false
           statement-executable-sql-log-enable: false
           enabled: true
+#    minimum-idle: 5
+#    maximum-pool-size: 10
+#    auto-commit: true
+#    idle-timeout: 30000
+#    pool-name: PcusDS
+#    max-lifetime: 1800000
+#    connection-timeout: 30000
+#    connection-test-query: SELECT 1 FROM DUEL
+#    jdbc-url: jdbc:oracle:thin:@192.168.0.221:1521:orcl
+#    filters: stat,wall,log4j
 logging:
   level:
 #    com.netflix: debug

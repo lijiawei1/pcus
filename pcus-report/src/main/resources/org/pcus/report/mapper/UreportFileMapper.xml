@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.pcus.report.mapper.UreportFileMapper">
+
+    <resultMap type="org.pcus.report.entity.UReportFileTbl" id="tbl">
+        <id column="pk_id" jdbcType="CHAR" property="pk_id"/>
+        <result column="tbl_name" jdbcType="VARCHAR" property="tbl_name"/>
+        <result column="content" jdbcType="BLOB" property="content"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modify_time"/>
+    </resultMap>
+
+    <select id="checkExistByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from ureport_file_tbl where tbl_name = #{tbl_name}
+    </select>
+
+    <select id="queryReportFileList" resultMap="tbl">
+        select * from ureport_file_tbl
+    </select>
+
+    <select id="queryUreportFileEntityByName" resultMap="tbl">
+        select * from ureport_file_tbl where tbl_name = #{tbl_name}
+    </select>
+
+    <delete id="deleteReportFileByName" parameterType="java.lang.String">
+        delete from ureport_file_tbl where tbl_name = #{tbl_name}
+    </delete>
+
+    <insert id="insertReportFile" parameterType="org.pcus.report.entity.UReportFileTbl">
+        insert into ureport_file_tbl (pk_id, tbl_name, content, create_time, modify_time) values
+        (#{pk_id}, #{tbl_name}, #{content}, #{create_time}, #{modify_time})
+    </insert>
+
+
+    <update id="updateReportFile" parameterType="org.pcus.report.entity.UReportFileTbl">
+        update ureport_file_tbl set
+        tbl_name = #{tbl_name} ,
+        content = #{content},
+        create_time = #{create_time},
+        modify_time = #{modify_time}
+        where  pk_id = #{pk_id}
+    </update>
+
+</mapper>

@@ -11,6 +11,7 @@
         <module>pcus-module</module>
         <module>pcus-auth</module>
         <module>pcus-common</module>
+        <module>pcus-report</module>
     </modules>
     <packaging>pom</packaging>
 

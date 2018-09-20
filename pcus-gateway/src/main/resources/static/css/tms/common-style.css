@@ -145,7 +145,7 @@ body.in-iframe{
 /*原common.css
 ==========================*/
 /*授权页面用到*/
-.chk-icon { background: url(/js/lib/ligerUI/skins/Aqua/images/controls/checkbox.gif) 0px 0px; height: 13px; line-height: 13px; width: 13px; margin: 4px 20px; display: block; cursor: pointer; }
+.chk-icon { background: url(../../js/lib/ligerUI/skins/Aqua/images/controls/checkbox.gif) 0px 0px; height: 13px; line-height: 13px; width: 13px; margin: 4px 20px; display: block; cursor: pointer; }
 .chk-icon-selected { background-position: 0px -13px; }
 #pageloading {
     width: 100%;
@@ -330,7 +330,7 @@ body.in-iframe{
     width: 9px;
     height: 10px;
     padding: 5px 8px;
-    background: url("/js/lib/ligerUI/skins/CadetBlue/images/common/toggle.gif") no-repeat 8px 5px;
+    background: url("../../js/lib/ligerUI/skins/CadetBlue/images/common/toggle.gif") no-repeat 8px 5px;
     background-clip: content-box;
     position: absolute;
     top: 2px;

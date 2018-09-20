@@ -19,6 +19,7 @@ import org.zap.framework.util.VerifyCodeUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,16 +147,13 @@ public class SystemController extends BaseController {
         return menuService.loadButtonCodes(parentPageNo, getUser());
     }
 
+    /**
+     * 根据用户角色过滤系统菜单
+     */
     @ResponseBody
-    @RequestMapping(value = "/admin/relad", method = RequestMethod.GET)
-    public List<?> reload(String para) {
-        return BuildUtils.LIST_BUILDER("123", "343", "454", "789").toList();
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/admin/relad2", method = RequestMethod.GET)
-    public List<?> reload2(String para) {
-        return BuildUtils.LIST_BUILDER("123", "343", "454").toList();
+    @RequestMapping("/admin/loadButtonsByType")
+    public List<?> loadButtonsByType(String menuCode, String userid, boolean admin, String type) {
+        return menuService.loadButtonCodes(menuCode, userid, admin, type);
     }
 
     /**

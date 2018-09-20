@@ -3,36 +3,21 @@ spring:
     livereload:
       enabled: true
     restart:
-      additional-exclude: values/**
+      additional-exclude: values/** #设置values目录不重启，因为这个工具只是默认了static和templates等是不重启的
   cloud:
-    consul:
+    consul: #服务发现配置
       host: localhost
       port: 8500
       discovery:
-        health-check-path: ${server.context-path}/health
+        health-check-path: ${server.context-path}/health #健康检测url
         health-check-interval: 100s
         instance-id: pcus-gateway
-  redis:
+  redis: #redis连接配置
     host: 192.168.0.221
     pool:
       max-active: 8
       max-idle: 0
       max-wait: -1
-logging:
-  level:
-#    com.netflix: debug
-#    org.springframework.security: debug
-#    org.springframework.session: debug
-security:
-#  oauth2:
-#    client:
-#      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
-#      user-authorization-uri: http://localhost:9090/pcus/auth/oauth/authorize
-#      client-id: webapp
-#    resource:
-#      user-info-uri: http://localhost:9090/pcus/auth/user
-#      prefer-token-info: false
-  basic:
-    enabled: false
-
-
+ribbon:
+  ReadTimeout: 360000  #读取超时时间6分钟
+  ConnectTimeout: 10000
