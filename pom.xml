@@ -9,7 +9,6 @@
     <modules>
         <module>pcus-gateway</module>
         <module>pcus-module</module>
-        <module>pcus-movie</module>
         <module>pcus-auth</module>
         <module>pcus-common</module>
     </modules>

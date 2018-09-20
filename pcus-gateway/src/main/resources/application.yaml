@@ -14,8 +14,8 @@ spring:
 server:
   port: 9090
   context-path: /pcus
-  tomcat:
-    basedir: pcusdata
+#  tomcat:
+#    basedir: pcusdata
 security:
 #  oauth2:
 #    client:
