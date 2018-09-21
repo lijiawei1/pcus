@@ -21,8 +21,6 @@ security:
     enabled: false
 zuul: #路由配置
   sensitive-headers:  #不过滤header，完整发送header到子服务
-  debug:
-    request: true       #请求日志
   strip-prefix: false
   routes:               #路由规则，service-id就子服务的application name
     pcus-module-core:
@@ -34,6 +32,9 @@ zuul: #路由配置
     pcus-report:       #报表服务
       path: /report/**
       service-id: pcus_report
+  host:
+    socket-timeout-millis: 60000 #默认10秒
+    connect-timeout-millis: 60000 #默认2秒
 feign: #注解式http客户端
   hystrix:  #断路器，当调用后端服务失败时的保护措施
     enabled: true
@@ -42,4 +43,9 @@ feign: #注解式http客户端
       enabled: true
     response:
       enabled: true
-
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic

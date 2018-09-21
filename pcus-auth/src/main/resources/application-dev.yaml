@@ -50,7 +50,7 @@ logging:
 #    org.springframework.security: debug
 #    org.springframework.session: debug
     druid.sql.Statement: debug
-security:
+#security:
 #  oauth2:
 #    client:
 #      access-token-uri: http://localhost:9090/pcus/auth/oauth/token
@@ -59,7 +59,9 @@ security:
 #    resource:
 #      user-info-uri: http://localhost:9090/pcus/auth/user
 #      prefer-token-info: false
-  basic:
-    enabled: false
-
+#  basic:
+#    enabled: false
+server:
+  tomcat:
+    max-threads: 10
 

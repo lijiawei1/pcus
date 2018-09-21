@@ -132,7 +132,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                     String menuCode = request.getParameter("menuCode");
                     User currentUser = SecurityUtils.getCurrentUser();
                     List<String> permissions = new ArrayList<>();
-                    if (iAuthService != null) {
+                    if (iAuthService != null && currentUser != null) {
                         if (StringUtils.isBlank(menuCode)) {
                             //通过前端传回来的菜单编码
                             permissions = iAuthService.loadButtonsByType(pageParam.getNo(), currentUser.getId(), currentUser.isAdmin(), "");

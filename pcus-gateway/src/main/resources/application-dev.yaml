@@ -21,3 +21,13 @@ spring:
 ribbon:
   ReadTimeout: 360000  #读取超时时间6分钟
   ConnectTimeout: 10000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2500
+server:
+  tomcat:
+    max-threads: 10
