@@ -22,6 +22,7 @@ security:
 zuul: #路由配置
   sensitive-headers:  #不过滤header，完整发送header到子服务
   strip-prefix: false
+  ignored-services: '*'
   routes:               #路由规则，service-id就子服务的application name
     pcus-module-core:
       path: /core/**
@@ -31,7 +32,7 @@ zuul: #路由配置
       service-id: pcus-auth
     pcus-report:       #报表服务
       path: /report/**
-      service-id: pcus_report
+      service-id: pcus-report
   host:
     socket-timeout-millis: 60000 #默认10秒
     connect-timeout-millis: 60000 #默认2秒
@@ -49,3 +50,8 @@ feign: #注解式http客户端
         connectTimeout: 5000
         readTimeout: 5000
         loggerLevel: basic
+proxy:
+  solr:
+    servlet_url: /ureport/*
+    target_url: http://localhost:9095/pcus/ureport
+    logging_enabled: true
