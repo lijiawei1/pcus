@@ -1,6 +1,7 @@
-package org.pcus.gateway.config;
+package org.pcus.module.app.config;
 
-import org.pcus.gateway.proxy.ProxyPlusServlet;
+import org.mitre.dsmiley.httpproxy.ProxyServlet;
+import org.pcus.module.app.proxy.ProxyPlusServlet;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.EnvironmentAware;
@@ -15,7 +16,7 @@ public class SolrProxyServletConfiguration implements EnvironmentAware {
   public ServletRegistrationBean servletRegistrationBean(){
     ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new ProxyPlusServlet(), propertyResolver.getProperty("servlet_url"));
     servletRegistrationBean.addInitParameter("targetUri", propertyResolver.getProperty("target_url"));
-    servletRegistrationBean.addInitParameter(ProxyPlusServlet.P_LOG, propertyResolver.getProperty("logging_enabled", "false"));
+    servletRegistrationBean.addInitParameter(ProxyServlet.P_LOG, propertyResolver.getProperty("logging_enabled", "false"));
     return servletRegistrationBean;
   }
 

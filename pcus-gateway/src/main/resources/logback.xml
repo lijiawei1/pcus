@@ -13,7 +13,11 @@
     <logger name="org.springframework.session" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
-    <logger name="org.zap.framework" level="DEBUG" additivity="false">
+    
+    <logger name="org.apache.http.client" level="DEBUG" additivity="true">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.zap.framework" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 

@@ -13,4 +13,11 @@ public class ApiTest {
         Assert.assertEquals(expected, "/pcus/bas/client/list/html".replaceFirst(regx, ""));
         Assert.assertEquals(expected, "/bas/client/list/html".replaceFirst(regx, ""));
     }
+    
+    @Test
+    public void test1() {
+    	
+    	
+    	
+    }
 }

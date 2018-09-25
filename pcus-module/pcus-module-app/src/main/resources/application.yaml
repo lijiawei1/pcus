@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: pcus-app #应用名称，会显示在consul服务发现
+  session:
+    store-type: redis
+server:
+  port: 9080
+  context-path: /pcus
+proxy:
+  solr:
+    servlet_url: /ureport/*
+#    target_url: http://localhost:9095/pcus/ureport
+    target_url: http://localhost:9080/pcus/a
+    logging_enabled: true
+    preserveCookies: true
+logging:
+  level:
+    org.apache.http: debug
+#    com.netflix: debug
+#    org.springframework.security: debug
+#    org.springframework.session: debug
