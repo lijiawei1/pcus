@@ -55,7 +55,3 @@ proxy:
     servlet_url: /ureport/*
     target_url: http://localhost:9095/pcus/ureport
     logging_enabled: true
-  baidu:
-    servlet_url: /bd/*
-    target_url: http://www.baidu.com/
-    logging_enabled: true
